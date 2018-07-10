@@ -11500,7 +11500,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\-10k\\.nuget\\packages\\": {},
+    "C:\\Users\\Combustible_Lemon\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -11509,14 +11509,14 @@
       "projectUniqueName": "D:\\Mega\\dotnet\\core 2.0\\Candidates_Project\\Candidates_Project\\Candidates_Project.csproj",
       "projectName": "Candidates_Project",
       "projectPath": "D:\\Mega\\dotnet\\core 2.0\\Candidates_Project\\Candidates_Project\\Candidates_Project.csproj",
-      "packagesPath": "C:\\Users\\-10k\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\Combustible_Lemon\\.nuget\\packages\\",
       "outputPath": "D:\\Mega\\dotnet\\core 2.0\\Candidates_Project\\Candidates_Project\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\-10k\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Combustible_Lemon\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

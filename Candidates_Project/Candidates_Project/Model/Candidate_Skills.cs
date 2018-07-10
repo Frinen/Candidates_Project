@@ -11,5 +11,7 @@ namespace Candidates_Project.Model
         public int CandidateID { get; set; }
         public int Month { get; set; }
         public string Level { get; set; }
+        public Candidate Candidate { get; set; }
+        public Skills Skills { get; set; }
     }
 }

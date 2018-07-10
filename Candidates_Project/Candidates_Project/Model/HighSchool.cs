@@ -9,5 +9,6 @@ namespace Candidates_Project.Model
     {
         public int ID { get; set; }
         public string Name { get; set; }
+        public List<Candidate_School> Candidate_School { get; set; }
     }
 }

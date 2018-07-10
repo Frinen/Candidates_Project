@@ -10,10 +10,10 @@ namespace Candidates_Project.Model
     public class Options
     {
         [Key]
-        [ForeignKey("Candidates")]
-        public int ID { get; set; }
+        public int CandidateID { get; set; }
         public bool CanWorkRemotly { get; set; }
         public bool CanRelocate{ get; set; }
         public bool CanWorkInTheOffice { get; set; }
+        public Candidate Candidate { get; set; }
     }
 }
