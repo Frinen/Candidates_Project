@@ -27,13 +27,19 @@ namespace Candidates_Project.Migrations
 
                     b.Property<DateTime>("BirthDate");
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .IsRequired();
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(30);
 
-                    b.Property<string>("LastName");
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(30);
 
-                    b.Property<string>("PhoneNumber");
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired();
 
                     b.Property<string>("Sex");
 
@@ -50,7 +56,8 @@ namespace Candidates_Project.Migrations
 
                     b.Property<int>("LanguageID");
 
-                    b.Property<string>("Level");
+                    b.Property<string>("Level")
+                        .IsRequired();
 
                     b.HasKey("CandidateID", "LanguageID");
 
@@ -65,7 +72,8 @@ namespace Candidates_Project.Migrations
 
                     b.Property<int>("HighSchoolID");
 
-                    b.Property<string>("Degree");
+                    b.Property<string>("Degree")
+                        .IsRequired();
 
                     b.Property<DateTime>("From");
 
@@ -78,19 +86,20 @@ namespace Candidates_Project.Migrations
                     b.ToTable("Candidate_Schools");
                 });
 
-            modelBuilder.Entity("Candidates_Project.Model.Candidate_Skills", b =>
+            modelBuilder.Entity("Candidates_Project.Model.Candidate_Skill", b =>
                 {
                     b.Property<int>("CandidateID");
 
-                    b.Property<int>("SkillsID");
+                    b.Property<int>("SkillID");
 
-                    b.Property<string>("Level");
+                    b.Property<string>("Level")
+                        .IsRequired();
 
                     b.Property<int>("Month");
 
-                    b.HasKey("CandidateID", "SkillsID");
+                    b.HasKey("CandidateID", "SkillID");
 
-                    b.HasIndex("SkillsID");
+                    b.HasIndex("SkillID");
 
                     b.ToTable("Candidate_Skills");
                 });
@@ -101,7 +110,8 @@ namespace Candidates_Project.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("ID");
 
@@ -114,7 +124,8 @@ namespace Candidates_Project.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("ID");
 
@@ -136,7 +147,7 @@ namespace Candidates_Project.Migrations
                     b.ToTable("Options");
                 });
 
-            modelBuilder.Entity("Candidates_Project.Model.Skills", b =>
+            modelBuilder.Entity("Candidates_Project.Model.Skill", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -175,16 +186,16 @@ namespace Candidates_Project.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Candidates_Project.Model.Candidate_Skills", b =>
+            modelBuilder.Entity("Candidates_Project.Model.Candidate_Skill", b =>
                 {
                     b.HasOne("Candidates_Project.Model.Candidate", "Candidate")
                         .WithMany("Candidate_Skills")
                         .HasForeignKey("CandidateID")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Candidates_Project.Model.Skills", "Skills")
+                    b.HasOne("Candidates_Project.Model.Skill", "Skills")
                         .WithMany("Candidate_Skills")
-                        .HasForeignKey("SkillsID")
+                        .HasForeignKey("SkillID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

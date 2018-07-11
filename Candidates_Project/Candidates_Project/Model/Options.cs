@@ -11,8 +11,11 @@ namespace Candidates_Project.Model
     {
         [Key]
         public int CandidateID { get; set; }
+        [Required]
         public bool CanWorkRemotly { get; set; }
+        [Required]
         public bool CanRelocate{ get; set; }
+        [Required]
         public bool CanWorkInTheOffice { get; set; }
         public Candidate Candidate { get; set; }
     }

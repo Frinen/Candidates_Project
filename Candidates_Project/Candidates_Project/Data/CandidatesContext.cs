@@ -18,8 +18,8 @@ namespace Candidates_Project.Data
         
         public DbSet<HighSchool> HighSchools { get; set; }
         public DbSet<Candidate_School> Candidate_Schools { get; set; }
-        public DbSet<Candidate_Skills> Candidate_Skills { get; set; }
-        public DbSet<Skills> Skills { get; set; }
+        public DbSet<Candidate_Skill> Candidate_Skills { get; set; }
+        public DbSet<Skill> Skills { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             
@@ -28,15 +28,15 @@ namespace Candidates_Project.Data
             .WithOne(i => i.Candidate)
             .HasForeignKey<Options>(b => b.CandidateID);
 
-            modelBuilder.Entity<Candidate_Skills>()
+            modelBuilder.Entity<Candidate_Skill>()
             .HasOne(pt => pt.Candidate)
             .WithMany(t => t.Candidate_Skills)
             .HasForeignKey(pt => pt.CandidateID);
 
-            modelBuilder.Entity<Candidate_Skills>()
+            modelBuilder.Entity<Candidate_Skill>()
             .HasOne(pt => pt.Skills)
             .WithMany(t => t.Candidate_Skills)
-            .HasForeignKey(pt => pt.SkillsID);
+            .HasForeignKey(pt => pt.SkillID);
 
             modelBuilder.Entity<Candidate_School>()
             .HasOne(pt => pt.Candidate)
@@ -60,7 +60,7 @@ namespace Candidates_Project.Data
 
             modelBuilder.Entity<Candidate_Language>().HasKey(t => new { t.CandidateID, t.LanguageID });
             modelBuilder.Entity<Candidate_School>().HasKey(t => new { t.CandidateID, t.HighSchoolID });
-            modelBuilder.Entity<Candidate_Skills>().HasKey(t => new { t.CandidateID, t.SkillsID });
+            modelBuilder.Entity<Candidate_Skill>().HasKey(t => new { t.CandidateID, t.SkillID });
         }
     }
     

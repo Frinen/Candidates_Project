@@ -13,6 +13,7 @@ namespace Candidates_Project.Model
         public int LanguageID { get; set; }
        
         public int CandidateID { get; set; }
+        [Required]
         public string Level { get; set; }
         public Candidate Candidate { get; set; }
         public Language Language { get; set; }

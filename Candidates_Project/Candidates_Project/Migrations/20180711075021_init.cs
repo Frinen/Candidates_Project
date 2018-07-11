@@ -14,12 +14,12 @@ namespace Candidates_Project.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(maxLength: 30, nullable: false),
+                    LastName = table.Column<string>(maxLength: 30, nullable: false),
                     BirthDate = table.Column<DateTime>(nullable: false),
                     Sex = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: false),
+                    Email = table.Column<string>(nullable: false),
                     Skype = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -33,7 +33,7 @@ namespace Candidates_Project.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -46,7 +46,7 @@ namespace Candidates_Project.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -94,7 +94,7 @@ namespace Candidates_Project.Migrations
                     CandidateID = table.Column<int>(nullable: false),
                     From = table.Column<DateTime>(nullable: false),
                     To = table.Column<DateTime>(nullable: false),
-                    Degree = table.Column<string>(nullable: true)
+                    Degree = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -119,7 +119,7 @@ namespace Candidates_Project.Migrations
                 {
                     LanguageID = table.Column<int>(nullable: false),
                     CandidateID = table.Column<int>(nullable: false),
-                    Level = table.Column<string>(nullable: true)
+                    Level = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -142,14 +142,14 @@ namespace Candidates_Project.Migrations
                 name: "Candidate_Skills",
                 columns: table => new
                 {
-                    SkillsID = table.Column<int>(nullable: false),
+                    SkillID = table.Column<int>(nullable: false),
                     CandidateID = table.Column<int>(nullable: false),
                     Month = table.Column<int>(nullable: false),
-                    Level = table.Column<string>(nullable: true)
+                    Level = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Candidate_Skills", x => new { x.CandidateID, x.SkillsID });
+                    table.PrimaryKey("PK_Candidate_Skills", x => new { x.CandidateID, x.SkillID });
                     table.ForeignKey(
                         name: "FK_Candidate_Skills_Candidates_CandidateID",
                         column: x => x.CandidateID,
@@ -157,8 +157,8 @@ namespace Candidates_Project.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Candidate_Skills_Skills_SkillsID",
-                        column: x => x.SkillsID,
+                        name: "FK_Candidate_Skills_Skills_SkillID",
+                        column: x => x.SkillID,
                         principalTable: "Skills",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -175,9 +175,9 @@ namespace Candidates_Project.Migrations
                 column: "HighSchoolID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Candidate_Skills_SkillsID",
+                name: "IX_Candidate_Skills_SkillID",
                 table: "Candidate_Skills",
-                column: "SkillsID");
+                column: "SkillID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

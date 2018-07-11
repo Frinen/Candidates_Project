@@ -11506,11 +11506,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Mega\\dotnet\\core 2.0\\Candidates_Project\\Candidates_Project\\Candidates_Project.csproj",
+      "projectUniqueName": "C:\\Users\\Combustible_Lemon\\Documents\\GitHub\\Candidates_Project\\Candidates_Project\\Candidates_Project\\Candidates_Project.csproj",
       "projectName": "Candidates_Project",
-      "projectPath": "D:\\Mega\\dotnet\\core 2.0\\Candidates_Project\\Candidates_Project\\Candidates_Project.csproj",
+      "projectPath": "C:\\Users\\Combustible_Lemon\\Documents\\GitHub\\Candidates_Project\\Candidates_Project\\Candidates_Project\\Candidates_Project.csproj",
       "packagesPath": "C:\\Users\\Combustible_Lemon\\.nuget\\packages\\",
-      "outputPath": "D:\\Mega\\dotnet\\core 2.0\\Candidates_Project\\Candidates_Project\\obj\\",
+      "outputPath": "C:\\Users\\Combustible_Lemon\\Documents\\GitHub\\Candidates_Project\\Candidates_Project\\Candidates_Project\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
