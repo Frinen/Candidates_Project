@@ -3,29 +3,28 @@ using System;
 using Candidates_Project.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Candidates_Project.Migrations
 {
     [DbContext(typeof(CandidatesContext))]
-    [Migration("20180711075021_init")]
+    [Migration("20180711121925_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("Candidates_Project.Model.Candidate", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("BirthDate");
 
@@ -52,7 +51,7 @@ namespace Candidates_Project.Migrations
                     b.ToTable("Candidates");
                 });
 
-            modelBuilder.Entity("Candidates_Project.Model.Candidate_Language", b =>
+            modelBuilder.Entity("Candidates_Project.Model.CandidateLanguage", b =>
                 {
                     b.Property<int>("CandidateID");
 
@@ -65,10 +64,10 @@ namespace Candidates_Project.Migrations
 
                     b.HasIndex("LanguageID");
 
-                    b.ToTable("Candidate_Language");
+                    b.ToTable("CandidateLanguages");
                 });
 
-            modelBuilder.Entity("Candidates_Project.Model.Candidate_School", b =>
+            modelBuilder.Entity("Candidates_Project.Model.CandidateSchool", b =>
                 {
                     b.Property<int>("CandidateID");
 
@@ -85,10 +84,10 @@ namespace Candidates_Project.Migrations
 
                     b.HasIndex("HighSchoolID");
 
-                    b.ToTable("Candidate_Schools");
+                    b.ToTable("CandidateSchools");
                 });
 
-            modelBuilder.Entity("Candidates_Project.Model.Candidate_Skill", b =>
+            modelBuilder.Entity("Candidates_Project.Model.CandidateSkill", b =>
                 {
                     b.Property<int>("CandidateID");
 
@@ -103,14 +102,13 @@ namespace Candidates_Project.Migrations
 
                     b.HasIndex("SkillID");
 
-                    b.ToTable("Candidate_Skills");
+                    b.ToTable("CandidateSkills");
                 });
 
             modelBuilder.Entity("Candidates_Project.Model.HighSchool", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -123,8 +121,7 @@ namespace Candidates_Project.Migrations
             modelBuilder.Entity("Candidates_Project.Model.Language", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -152,8 +149,7 @@ namespace Candidates_Project.Migrations
             modelBuilder.Entity("Candidates_Project.Model.Skill", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");
 
@@ -162,23 +158,23 @@ namespace Candidates_Project.Migrations
                     b.ToTable("Skills");
                 });
 
-            modelBuilder.Entity("Candidates_Project.Model.Candidate_Language", b =>
+            modelBuilder.Entity("Candidates_Project.Model.CandidateLanguage", b =>
                 {
                     b.HasOne("Candidates_Project.Model.Candidate", "Candidate")
-                        .WithMany("Candidate_Language")
+                        .WithMany("CandidateLanguages")
                         .HasForeignKey("CandidateID")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Candidates_Project.Model.Language", "Language")
-                        .WithMany("Candidate_Language")
+                        .WithMany("CandidateLanguages")
                         .HasForeignKey("LanguageID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Candidates_Project.Model.Candidate_School", b =>
+            modelBuilder.Entity("Candidates_Project.Model.CandidateSchool", b =>
                 {
                     b.HasOne("Candidates_Project.Model.Candidate", "Candidate")
-                        .WithMany("Candidate_School")
+                        .WithMany("CandidateSchools")
                         .HasForeignKey("CandidateID")
                         .OnDelete(DeleteBehavior.Cascade);
 
@@ -188,15 +184,15 @@ namespace Candidates_Project.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Candidates_Project.Model.Candidate_Skill", b =>
+            modelBuilder.Entity("Candidates_Project.Model.CandidateSkill", b =>
                 {
                     b.HasOne("Candidates_Project.Model.Candidate", "Candidate")
-                        .WithMany("Candidate_Skills")
+                        .WithMany("CandidateSkills")
                         .HasForeignKey("CandidateID")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Candidates_Project.Model.Skill", "Skills")
-                        .WithMany("Candidate_Skills")
+                    b.HasOne("Candidates_Project.Model.Skill", "Skill")
+                        .WithMany("CandidateSkills")
                         .HasForeignKey("SkillID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

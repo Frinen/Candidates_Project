@@ -1,6 +1,6 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Candidates_Project.Migrations
 {
@@ -13,7 +13,7 @@ namespace Candidates_Project.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     FirstName = table.Column<string>(maxLength: 30, nullable: false),
                     LastName = table.Column<string>(maxLength: 30, nullable: false),
                     BirthDate = table.Column<DateTime>(nullable: false),
@@ -32,7 +32,7 @@ namespace Candidates_Project.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
@@ -45,7 +45,7 @@ namespace Candidates_Project.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
@@ -58,7 +58,7 @@ namespace Candidates_Project.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -87,7 +87,7 @@ namespace Candidates_Project.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Candidate_Schools",
+                name: "CandidateSchools",
                 columns: table => new
                 {
                     HighSchoolID = table.Column<int>(nullable: false),
@@ -98,15 +98,15 @@ namespace Candidates_Project.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Candidate_Schools", x => new { x.CandidateID, x.HighSchoolID });
+                    table.PrimaryKey("PK_CandidateSchools", x => new { x.CandidateID, x.HighSchoolID });
                     table.ForeignKey(
-                        name: "FK_Candidate_Schools_Candidates_CandidateID",
+                        name: "FK_CandidateSchools_Candidates_CandidateID",
                         column: x => x.CandidateID,
                         principalTable: "Candidates",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Candidate_Schools_HighSchools_HighSchoolID",
+                        name: "FK_CandidateSchools_HighSchools_HighSchoolID",
                         column: x => x.HighSchoolID,
                         principalTable: "HighSchools",
                         principalColumn: "ID",
@@ -114,7 +114,7 @@ namespace Candidates_Project.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Candidate_Language",
+                name: "CandidateLanguages",
                 columns: table => new
                 {
                     LanguageID = table.Column<int>(nullable: false),
@@ -123,15 +123,15 @@ namespace Candidates_Project.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Candidate_Language", x => new { x.CandidateID, x.LanguageID });
+                    table.PrimaryKey("PK_CandidateLanguages", x => new { x.CandidateID, x.LanguageID });
                     table.ForeignKey(
-                        name: "FK_Candidate_Language_Candidates_CandidateID",
+                        name: "FK_CandidateLanguages_Candidates_CandidateID",
                         column: x => x.CandidateID,
                         principalTable: "Candidates",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Candidate_Language_Languages_LanguageID",
+                        name: "FK_CandidateLanguages_Languages_LanguageID",
                         column: x => x.LanguageID,
                         principalTable: "Languages",
                         principalColumn: "ID",
@@ -139,7 +139,7 @@ namespace Candidates_Project.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Candidate_Skills",
+                name: "CandidateSkills",
                 columns: table => new
                 {
                     SkillID = table.Column<int>(nullable: false),
@@ -149,15 +149,15 @@ namespace Candidates_Project.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Candidate_Skills", x => new { x.CandidateID, x.SkillID });
+                    table.PrimaryKey("PK_CandidateSkills", x => new { x.CandidateID, x.SkillID });
                     table.ForeignKey(
-                        name: "FK_Candidate_Skills_Candidates_CandidateID",
+                        name: "FK_CandidateSkills_Candidates_CandidateID",
                         column: x => x.CandidateID,
                         principalTable: "Candidates",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Candidate_Skills_Skills_SkillID",
+                        name: "FK_CandidateSkills_Skills_SkillID",
                         column: x => x.SkillID,
                         principalTable: "Skills",
                         principalColumn: "ID",
@@ -165,31 +165,31 @@ namespace Candidates_Project.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Candidate_Language_LanguageID",
-                table: "Candidate_Language",
+                name: "IX_CandidateLanguages_LanguageID",
+                table: "CandidateLanguages",
                 column: "LanguageID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Candidate_Schools_HighSchoolID",
-                table: "Candidate_Schools",
+                name: "IX_CandidateSchools_HighSchoolID",
+                table: "CandidateSchools",
                 column: "HighSchoolID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Candidate_Skills_SkillID",
-                table: "Candidate_Skills",
+                name: "IX_CandidateSkills_SkillID",
+                table: "CandidateSkills",
                 column: "SkillID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Candidate_Language");
+                name: "CandidateLanguages");
 
             migrationBuilder.DropTable(
-                name: "Candidate_Schools");
+                name: "CandidateSchools");
 
             migrationBuilder.DropTable(
-                name: "Candidate_Skills");
+                name: "CandidateSkills");
 
             migrationBuilder.DropTable(
                 name: "Options");

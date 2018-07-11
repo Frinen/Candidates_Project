@@ -24,7 +24,7 @@ namespace Candidates_Project
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<CandidatesContext>(options =>
-       options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+       options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

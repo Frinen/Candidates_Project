@@ -69,6 +69,10 @@
     <Compile Remove="Migrations\20180710100115_init.Designer.cs" />
     <Compile Remove="Migrations\20180710100336_init.cs" />
     <Compile Remove="Migrations\20180710100336_init.Designer.cs" />
+    <Compile Remove="Migrations\20180711075021_init.cs" />
+    <Compile Remove="Migrations\20180711075021_init.Designer.cs" />
+    <Compile Remove="Migrations\20180711121150_init.cs" />
+    <Compile Remove="Migrations\20180711121150_init.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -77,6 +81,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.1" />
   </ItemGroup>
 
 </Project>
