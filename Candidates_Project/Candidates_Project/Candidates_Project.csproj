@@ -5,83 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20180709130146_InitialCreate.cs" />
-    <Compile Remove="Migrations\20180709130146_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20180709131228_ChangeKeyy.cs" />
-    <Compile Remove="Migrations\20180709131228_ChangeKeyy.Designer.cs" />
-    <Compile Remove="Migrations\20180709131428_ChangeKey.cs" />
-    <Compile Remove="Migrations\20180709131428_ChangeKey.Designer.cs" />
-    <Compile Remove="Migrations\20180709132548_ChangeKey.cs" />
-    <Compile Remove="Migrations\20180709132548_ChangeKey.Designer.cs" />
-    <Compile Remove="Migrations\20180709133810_ChangeKey2.cs" />
-    <Compile Remove="Migrations\20180709133810_ChangeKey2.Designer.cs" />
-    <Compile Remove="Migrations\20180709134029_ChangeKey3.cs" />
-    <Compile Remove="Migrations\20180709134029_ChangeKey3.Designer.cs" />
-    <Compile Remove="Migrations\20180709134231_ChangeKey4.cs" />
-    <Compile Remove="Migrations\20180709134231_ChangeKey4.Designer.cs" />
-    <Compile Remove="Migrations\20180709134310_Inicialize5.cs" />
-    <Compile Remove="Migrations\20180709134310_Inicialize5.Designer.cs" />
-    <Compile Remove="Migrations\20180709134515_Inicialize.cs" />
-    <Compile Remove="Migrations\20180709134515_Inicialize.Designer.cs" />
-    <Compile Remove="Migrations\20180709135110_ChangeeKey.cs" />
-    <Compile Remove="Migrations\20180709135110_ChangeeKey.Designer.cs" />
-    <Compile Remove="Migrations\20180709135309_Init.cs" />
-    <Compile Remove="Migrations\20180709135309_Init.Designer.cs" />
-    <Compile Remove="Migrations\20180709135508_Init2.cs" />
-    <Compile Remove="Migrations\20180709135508_Init2.Designer.cs" />
-    <Compile Remove="Migrations\20180709141638_Init1.cs" />
-    <Compile Remove="Migrations\20180709141638_Init1.Designer.cs" />
-    <Compile Remove="Migrations\20180709142906_Init1.cs" />
-    <Compile Remove="Migrations\20180709142906_Init1.Designer.cs" />
-    <Compile Remove="Migrations\20180709190908_init.cs" />
-    <Compile Remove="Migrations\20180709190908_init.Designer.cs" />
-    <Compile Remove="Migrations\20180709200031_init.cs" />
-    <Compile Remove="Migrations\20180709200031_init.Designer.cs" />
-    <Compile Remove="Migrations\20180710070444_init.cs" />
-    <Compile Remove="Migrations\20180710070444_init.Designer.cs" />
-    <Compile Remove="Migrations\20180710072525_init.cs" />
-    <Compile Remove="Migrations\20180710072525_init.Designer.cs" />
-    <Compile Remove="Migrations\20180710072805_init.cs" />
-    <Compile Remove="Migrations\20180710072805_init.Designer.cs" />
-    <Compile Remove="Migrations\20180710073507_init.cs" />
-    <Compile Remove="Migrations\20180710073507_init.Designer.cs" />
-    <Compile Remove="Migrations\20180710073912_init.cs" />
-    <Compile Remove="Migrations\20180710073912_init.Designer.cs" />
-    <Compile Remove="Migrations\20180710074653_init.cs" />
-    <Compile Remove="Migrations\20180710074653_init.Designer.cs" />
-    <Compile Remove="Migrations\20180710075331_init.cs" />
-    <Compile Remove="Migrations\20180710075331_init.Designer.cs" />
-    <Compile Remove="Migrations\20180710075558_init.cs" />
-    <Compile Remove="Migrations\20180710075558_init.Designer.cs" />
-    <Compile Remove="Migrations\20180710075948_init.cs" />
-    <Compile Remove="Migrations\20180710075948_init.Designer.cs" />
-    <Compile Remove="Migrations\20180710080203_init.cs" />
-    <Compile Remove="Migrations\20180710080203_init.Designer.cs" />
-    <Compile Remove="Migrations\20180710091924_init.cs" />
-    <Compile Remove="Migrations\20180710091924_init.Designer.cs" />
-    <Compile Remove="Migrations\20180710092744_init.cs" />
-    <Compile Remove="Migrations\20180710092744_init.Designer.cs" />
-    <Compile Remove="Migrations\20180710094706_init.cs" />
-    <Compile Remove="Migrations\20180710094706_init.Designer.cs" />
-    <Compile Remove="Migrations\20180710095535_init.cs" />
-    <Compile Remove="Migrations\20180710095535_init.Designer.cs" />
-    <Compile Remove="Migrations\20180710100115_init.cs" />
-    <Compile Remove="Migrations\20180710100115_init.Designer.cs" />
-    <Compile Remove="Migrations\20180710100336_init.cs" />
-    <Compile Remove="Migrations\20180710100336_init.Designer.cs" />
-    <Compile Remove="Migrations\20180711075021_init.cs" />
-    <Compile Remove="Migrations\20180711075021_init.Designer.cs" />
-    <Compile Remove="Migrations\20180711121150_init.cs" />
-    <Compile Remove="Migrations\20180711121150_init.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Candidates.Models\Candidates.Models.csproj" />
   </ItemGroup>
 
 </Project>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Candidates_Project.Data;
+
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -22,7 +22,7 @@ namespace Candidates_Project
             {
                 var services = scope.ServiceProvider;
 
-                try
+               /* try
                 {
                     var context = services.GetRequiredService<CandidatesContext>();
                     DBInitialize.Initialize(context);
@@ -31,7 +31,7 @@ namespace Candidates_Project
                 {
                     var logger = services.GetRequiredService<ILogger<Program>>();
                     logger.LogError(ex, "An error occurred seeding the DB.");
-                }
+                }*/
             }
 
             host.Run();
