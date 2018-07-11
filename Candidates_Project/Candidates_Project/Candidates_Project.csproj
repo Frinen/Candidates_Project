@@ -9,12 +9,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Candidates.Models\Candidates.Models.csproj" />
+    <ProjectReference Include="..\Candidates.Services\Candidates.Services.csproj" />
   </ItemGroup>
 
 </Project>

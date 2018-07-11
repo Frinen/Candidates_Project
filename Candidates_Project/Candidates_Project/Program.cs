@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Candidates.Services;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -18,21 +18,7 @@ namespace Candidates_Project
         {
             var host = CreateWebHostBuilder(args).Build();
 
-            using (var scope = host.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-
-               /* try
-                {
-                    var context = services.GetRequiredService<CandidatesContext>();
-                    DBInitialize.Initialize(context);
-                }
-                catch (Exception ex)
-                {
-                    var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "An error occurred seeding the DB.");
-                }*/
-            }
+            AddTest.AddCandidate(host, "Fort", "Carson", "1996-09-01",  "Male", "806855058623", "FCarson@gnmail.com",  "FCarson");
 
             host.Run();
         }
