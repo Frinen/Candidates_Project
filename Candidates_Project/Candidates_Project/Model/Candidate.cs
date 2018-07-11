@@ -27,8 +27,8 @@ namespace Candidates_Project.Model
         public string Email { get; set; }
         public string Skype { get; set; }
         public Options Options { get; set; }
-        public List<Candidate_Skill> Candidate_Skills { get; set; }
-        public List<Candidate_School> Candidate_School { get; set; }
-        public List<Candidate_Language> Candidate_Language { get; set; }
+        public List<CandidateSkill> CandidateSkills { get; set; }
+        public List<CandidateSchool> CandidateSchools { get; set; }
+        public List<CandidateLanguage> CandidateLanguages { get; set; }
     }
 }

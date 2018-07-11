@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Candidates_Project.Model
 {
-    public class Candidate_Language
+    public class CandidateLanguage
     {
        
         public int LanguageID { get; set; }

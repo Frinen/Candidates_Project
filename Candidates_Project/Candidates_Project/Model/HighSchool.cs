@@ -11,6 +11,6 @@ namespace Candidates_Project.Model
         public int ID { get; set; }
         [Required]
         public string Name { get; set; }
-        public List<Candidate_School> Candidate_School { get; set; }
+        public List<CandidateSchool> Candidate_School { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Candidates_Project.Model
 {
-    public class Candidate_Skill
+    public class CandidateSkill
     {
         public int SkillID { get; set; }
         public int CandidateID { get; set; }
@@ -15,6 +15,6 @@ namespace Candidates_Project.Model
         [Required]
         public string Level { get; set; }
         public Candidate Candidate { get; set; }
-        public Skill Skills { get; set; }
+        public Skill Skill { get; set; }
     }
 }

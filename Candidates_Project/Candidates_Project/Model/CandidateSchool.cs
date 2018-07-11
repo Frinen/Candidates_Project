@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Candidates_Project.Model
 {
-    public class Candidate_School
+    public class CandidateSchool
     {
         public int HighSchoolID { get; set; }
         public int CandidateID { get; set; }
