@@ -18,7 +18,7 @@ namespace Candidates_Project
         {
             var host = CreateWebHostBuilder(args).Build();
 
-            AddTest.AddCandidate(host, "Fort", "Carson", "1996-09-01",  "Male", "806855058623", "FCarson@gnmail.com",  "FCarson");
+           // AddTest.AddCandidate(host, "Fort", "Carson", "1996-09-01",  "Male", "806855058623", "FCarson@gnmail.com",  "FCarson");
 
             host.Run();
         }
