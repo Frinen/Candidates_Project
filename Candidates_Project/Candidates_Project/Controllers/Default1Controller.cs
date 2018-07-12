@@ -7,21 +7,25 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Candidates_Project.Controllers
 {
+    
     public class Default1Controller : Controller
     {
         // GET: Default1
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
         }
 
         // GET: Default1/Details/5
+        [HttpGet]
         public ActionResult Details(int id)
         {
             return View();
         }
 
         // GET: Default1/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
@@ -29,7 +33,6 @@ namespace Candidates_Project.Controllers
 
         // POST: Default1/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
         {
             try
@@ -45,6 +48,7 @@ namespace Candidates_Project.Controllers
         }
 
         // GET: Default1/Edit/5
+        [HttpGet]
         public ActionResult Edit(int id)
         {
             return View();
@@ -52,7 +56,6 @@ namespace Candidates_Project.Controllers
 
         // POST: Default1/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
         {
             try
@@ -67,7 +70,9 @@ namespace Candidates_Project.Controllers
             }
         }
 
+
         // GET: Default1/Delete/5
+        [HttpGet]
         public ActionResult Delete(int id)
         {
             return View();
@@ -75,7 +80,6 @@ namespace Candidates_Project.Controllers
 
         // POST: Default1/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
             try

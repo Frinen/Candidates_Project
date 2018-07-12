@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Candidates_Project.Controllers
 {
-    
+    [Route("api/TestController")]
     public class TestController : Controller
     {
 
@@ -18,15 +18,12 @@ namespace Candidates_Project.Controllers
         }
 
         // GET: Default/Details/5
+        [HttpPost]
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Default/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        
     }
 }
