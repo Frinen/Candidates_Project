@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace Candidates_Project.Controllers
 {
+    
     public class TestController : Controller
     {
 
         // GET: Default
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
