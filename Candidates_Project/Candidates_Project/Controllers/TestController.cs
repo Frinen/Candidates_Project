@@ -6,24 +6,39 @@ using System.Threading.Tasks;
 
 namespace Candidates_Project.Controllers
 {
-    [Route("api/TestController")]
+    
     public class TestController : Controller
     {
 
         // GET: Default
-        [HttpGet]
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         // GET: Default/Details/5
+        [Route("api/TestController/Details")]
+        [HttpGet]
+        public ActionResult Details()
+        {
+            return View();
+        }
+        [Route("api/TestController/Delete")]
+        [HttpDelete]
+        public ActionResult Delete()
+        {
+            return View();
+        }
+        [Route("api/TestController/Change")]
+        [HttpPut]
+        public ActionResult Change()
+        {
+            return View();
+        }
+        [Route("api/TestController/Add")]
         [HttpPost]
-        public ActionResult Details(int id)
+        public ActionResult Add()
         {
             return View();
         }
 
-        
+
+
     }
 }

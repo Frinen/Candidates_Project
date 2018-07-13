@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Candidates.Models.Context
 {
-    public class ContextManage
+    public class ContextManager
     {
         static public void CreateContext(IServiceCollection services, IConfiguration Configuration)
         {

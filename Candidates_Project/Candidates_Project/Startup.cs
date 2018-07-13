@@ -27,7 +27,7 @@ namespace Candidates_Project
         public void ConfigureServices(IServiceCollection services)
         {
 
-            ContextManage.CreateContext(services, Configuration);
+            ContextManager.CreateContext(services, Configuration);
             services.AddMvc();
             services.AddSwaggerGen(c =>
             {
