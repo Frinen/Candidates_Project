@@ -25,9 +25,9 @@ namespace Candidates_Project.Controllers
             return View();
         }
         [HttpDelete]
-        public ActionResult Delete()
+        public void Delete(int id)
         {
-            return View();
+            RemoveEntity.DeleteCandidate(context,id);
         }
         
         [HttpPut]
@@ -37,11 +37,11 @@ namespace Candidates_Project.Controllers
         }
         
         [HttpPost]
-        public ActionResult Add(string firstName, string lastName, string birthDate, string sex, string phoneNumber, string email, string skype)
+        public void Add(string firstName, string lastName, string birthDate, string sex, string phoneNumber, string email, string skype)
         {
             AddEntity.AddCandidate(context, firstName, lastName, birthDate, sex, phoneNumber, email, skype);
 
-            return View();
+            
         }
 
 

@@ -6,7 +6,7 @@ using System;
 
 namespace Candidates.Services
 {
-    public class AddTest
+   /* public class AddTest
     {
         public static void AddCandidate(IWebHost host, string firstName, string lastName, string birthDate, string sex, string phoneNumber, string email, string skype)
         {
@@ -23,9 +23,9 @@ namespace Candidates.Services
               /*  {
                     var logger = services.GetRequiredService<ILogger<Program>>();
                     logger.LogError(ex, "An error occurred seeding the DB.");
-                }*/
+                }
             }
         }
         
-    }
+    }*/
 }
