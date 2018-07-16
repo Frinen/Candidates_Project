@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Candidates.Models.Context;
 using Candidates.Services;
+using Candidates.Models.Models;
 
 namespace Candidates_Project.Controllers
 {
@@ -20,9 +21,9 @@ namespace Candidates_Project.Controllers
 
         // GET: Default/Details/5
         [HttpGet]
-        public ActionResult Details()
+        public Candidate Details(int id)
         {
-            return View();
+            return VievEntity.VievCandidate(context, id);
         }
         [HttpDelete]
         public void Delete(int id)
