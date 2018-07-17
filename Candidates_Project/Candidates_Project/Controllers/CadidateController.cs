@@ -9,12 +9,12 @@ using Candidates.Models.Models;
 
 namespace Candidates_Project.Controllers
 {
-    [Route("api/TestController")]
-    public class TestController : Controller
+    [Route("api/CandidateController")]
+    public class CandidateController : Controller
     {
         private readonly CandidatesContext context;
 
-        public TestController (CandidatesContext _context)
+        public CandidateController(CandidatesContext _context)
         {
             context = _context;
         }
@@ -23,24 +23,24 @@ namespace Candidates_Project.Controllers
         [HttpGet]
         public Candidate Details(int id)
         {
-            return VievEntity.VievCandidate(context, id);
+            return CandidateService.VievCandidate(context, id);
         }
         [HttpDelete]
         public void Delete(int id)
         {
-            RemoveEntity.DeleteCandidate(context,id);
+            CandidateService.DeleteCandidate(context,id);
         }
         
         [HttpPut]
-        public ActionResult Change()
+        public void Change( int id, Candidate candidate)
         {
-            return View();
+            
         }
         
         [HttpPost]
         public void Add(string firstName, string lastName, string birthDate, string sex, string phoneNumber, string email, string skype)
         {
-            AddEntity.AddCandidate(context, firstName, lastName, birthDate, sex, phoneNumber, email, skype);
+            CandidateService.AddCandidate(context, firstName, lastName, birthDate, sex, phoneNumber, email, skype);
 
             
         }
