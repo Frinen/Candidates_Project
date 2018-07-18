@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Candidates_Project.Controllers
 {
-    [Route("api/HighSchoolController")]
+    
     public class HighSchoolController : Controller
     {
         private readonly CandidatesContext context;
@@ -20,23 +20,31 @@ namespace Candidates_Project.Controllers
         }
 
         // GET: Default/Details/5
+        [Route("api/HighSchoolController/id")]
         [HttpGet]
         public HighSchool Display(int id)
         {
             return HighSchoolService.Display(context, id);
         }
+        [Route("api/HighSchoolController")]
+        [HttpGet]
+        public List<HighSchool> Display()
+        {
+            return HighSchoolService.Display(context);
+        }
+        [Route("api/HighSchoolController")]
         [HttpDelete]
         public void Delete(int id)
         {
             HighSchoolService.Remove(context, id);
         }
-
+        [Route("api/HighSchoolController")]
         [HttpPut]
-        public void Update(int id, HighSchool highschool)
+        public void Update(int id, string name)
         {
-
+            HighSchoolService.Update(context, id, name);
         }
-
+        [Route("api/HighSchoolController")]
         [HttpPost]
         public void Create(string name)
         {

@@ -20,7 +20,7 @@ namespace Candidates_Project.Controllers
         }
 
         // GET: Default/Details/5
-        [Route("api/CandidateLanguageController/id")]
+        [Route("api/CandidateLanguageController/languageID&candidateID")]
         [HttpGet]
         public CandidateLanguage Details(int languageID, int candidateID)
         {

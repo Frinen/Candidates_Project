@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Candidates_Project.Controllers
 {
-    [Route("api/OptionController")]
+   
     public class OptionsController : Controller
     {
         private readonly CandidatesContext context;
@@ -20,23 +20,31 @@ namespace Candidates_Project.Controllers
         }
 
         // GET: Default/Details/5
+        [Route("api/OptionController/id")]
         [HttpGet]
         public Options Display(int id)
         {
             return OptionsService.Display(context, id);
         }
+        [Route("api/OptionController")]
+        [HttpGet]
+        public List<Options> Display()
+        {
+            return OptionsService.Display(context);
+        }
+        [Route("api/OptionController")]
         [HttpDelete]
         public void Delete(int id)
         {
             OptionsService.Remove(context, id);
         }
-
+        [Route("api/OptionController")]
         [HttpPut]
-        public void Update(int id, Options options)
+        public void Update(int candidateID, bool canWorkRemotly, bool canRelocate, bool canWorkInTheOffice)
         {
-
+            OptionsService.Update(context, candidateID, canWorkRemotly, canRelocate, canWorkInTheOffice);
         }
-
+        [Route("api/OptionController")]
         [HttpPost]
         public void Create(int candidateID, bool canWorkRemotly, bool canRelocate, bool canWorkInTheOffice)
         {

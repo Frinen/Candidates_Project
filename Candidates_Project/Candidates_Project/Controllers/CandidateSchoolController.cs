@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Candidates_Project.Controllers
 {
-    [Route("api/CandidateSchoolController")]
+    
     public class CandidateSchoolController:Controller
     {
         private readonly CandidatesContext context;
@@ -20,23 +20,31 @@ namespace Candidates_Project.Controllers
         }
 
         // GET: Default/Details/5
+        [Route("api/CandidateSchoolController/highSchoolID&candidateID")]
         [HttpGet]
         public CandidateSchool Details(int highSchoolID, int candidateID)
         {
             return CandidateSchoolService.Display(context, highSchoolID, candidateID);
         }
+        [Route("api/CandidateSchoolController")]
+        [HttpGet]
+        public List<CandidateSchool> Details()
+        {
+            return CandidateSchoolService.Display(context);
+        }
+        [Route("api/CandidateSchoolController")]
         [HttpDelete]
         public void Delete(int highSchoolID, int candidateID)
         {
             CandidateSchoolService.Remove(context, highSchoolID, candidateID);
         }
-
+        [Route("api/CandidateSchoolController")]
         [HttpPut]
-        public void Update(int highSchoolID, int candidateID, CandidateSchool candidate)
+        public void Update(int highSchoolID, int candidateID, string from, string to, string degree)
         {
-
+            CandidateSchoolService.Update(context, highSchoolID, candidateID, from, to, degree);
         }
-
+        [Route("api/CandidateSchoolController")]
         [HttpPost]
         public void Create(int highSchoolID, int candidateID, string from, string to, string degree)
         {
