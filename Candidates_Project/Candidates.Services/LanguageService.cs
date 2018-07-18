@@ -8,20 +8,20 @@ namespace Candidates.Services
 {
     public class LanguageService
     {
-        static public void AddLanguage(CandidatesContext context, string name)
+        static public void Create(CandidatesContext context, string name)
         {
             context.Database.EnsureCreated();
             var language = new Language { Name = name};
             context.Languages.Add(language);
             context.SaveChanges();
         }
-        public static void ChangeLanguage(CandidatesContext context, int id, Language candidate)
+        public static void Update(CandidatesContext context, int id, Language candidate)
         {
 
 
 
         }
-        public static void DeleteLanguage(CandidatesContext context, int id)
+        public static void Remove(CandidatesContext context, int id)
         {
             var language = context.Languages.Find(id);
             if (language != null)
@@ -30,7 +30,7 @@ namespace Candidates.Services
                 context.SaveChanges();
             }
         }
-        public static Language VievLanguage(CandidatesContext context, int id)
+        public static Language Display(CandidatesContext context, int id)
         {
             var language = context.Languages.Find(id);
             if (language != null)

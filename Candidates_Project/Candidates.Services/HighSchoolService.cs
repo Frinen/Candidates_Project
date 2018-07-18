@@ -8,20 +8,20 @@ namespace Candidates.Services
 {
     public class HighSchoolService
     {
-        static public void AddHighSchool(CandidatesContext context, string name)
+        static public void Create(CandidatesContext context, string name)
         {
             context.Database.EnsureCreated();
             var school = new HighSchool { Name = name };
             context.HighSchools.Add(school);
             context.SaveChanges();
         }
-        public static void ChangeSkill(CandidatesContext context, int id, Skill skill)
+        public static void Update(CandidatesContext context, int id, Skill skill)
         {
 
 
 
         }
-        public static void DeleteHighSchool(CandidatesContext context, int id)
+        public static void Remove(CandidatesContext context, int id)
         {
             var highschool = context.HighSchools.Find(id);
             if (highschool != null)
@@ -30,7 +30,7 @@ namespace Candidates.Services
                 context.SaveChanges();
             }
         }
-        public static HighSchool VievHighSchool(CandidatesContext context, int id)
+        public static HighSchool Display(CandidatesContext context, int id)
         {
             var highschool = context.HighSchools.Find(id);
             if (highschool != null)

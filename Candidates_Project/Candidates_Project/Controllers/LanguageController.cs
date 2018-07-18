@@ -21,26 +21,26 @@ namespace Candidates_Project.Controllers
 
         // GET: Default/Details/5
         [HttpGet]
-        public Language Details(int id)
+        public Language Display(int id)
         {
-            return LanguageService.VievLanguage(context, id);
+            return LanguageService.Display(context, id);
         }
         [HttpDelete]
         public void Delete(int id)
         {
-            LanguageService.DeleteLanguage(context, id);
+            LanguageService.Remove(context, id);
         }
 
         [HttpPut]
-        public void Change(int id, Language language)
+        public void Update(int id, Language language)
         {
 
         }
 
         [HttpPost]
-        public void Add(string name)
+        public void Create(string name)
         {
-            LanguageService.AddLanguage(context, name);
+            LanguageService.Create(context, name);
 
 
         }

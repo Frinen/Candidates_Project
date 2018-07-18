@@ -21,14 +21,14 @@ namespace Candidates_Project.Controllers
 
         // GET: Default/Details/5
         [HttpGet]
-        public Skill Details(int id)
+        public Skill Dispaly(int id)
         {
-            return SkillService.VievSkill(context, id);
+            return SkillService.Display(context, id);
         }
         [HttpDelete]
         public void Delete(int id)
         {
-            SkillService.DeleteSkill(context, id);
+            SkillService.Remove(context, id);
         }
 
         [HttpPut]
@@ -38,9 +38,9 @@ namespace Candidates_Project.Controllers
         }
 
         [HttpPost]
-        public void Add(string name)
+        public void Create(string name)
         {
-            SkillService.AddSkill(context, name);
+            SkillService.Create(context, name);
 
 
         }

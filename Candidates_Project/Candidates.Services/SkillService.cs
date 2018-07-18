@@ -9,20 +9,20 @@ namespace Candidates.Services
     
     public class SkillService
     {
-        static public void AddSkill(CandidatesContext context, string name)
+        static public void Create(CandidatesContext context, string name)
         {
             context.Database.EnsureCreated();
             var skill = new Skill { Name = name };
             context.Skills.Add(skill);
             context.SaveChanges();
         }
-        public static void ChangeSkill(CandidatesContext context, int id, Skill skill)
+        public static void Update(CandidatesContext context, int id, Skill skill)
         {
 
 
 
         }
-        public static void DeleteSkill(CandidatesContext context, int id)
+        public static void Remove(CandidatesContext context, int id)
         {
             var skill = context.Skills.Find(id);
             if (skill != null)
@@ -31,7 +31,7 @@ namespace Candidates.Services
                 context.SaveChanges();
             }
         }
-        public static Skill VievSkill(CandidatesContext context, int id)
+        public static Skill Display(CandidatesContext context, int id)
         {
             var skill = context.Skills.Find(id);
             if (skill != null)

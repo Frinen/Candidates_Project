@@ -21,26 +21,26 @@ namespace Candidates_Project.Controllers
 
         // GET: Default/Details/5
         [HttpGet]
-        public Options Details(int id)
+        public Options Display(int id)
         {
-            return OptionsService.VievOptions(context, id);
+            return OptionsService.Display(context, id);
         }
         [HttpDelete]
         public void Delete(int id)
         {
-            OptionsService.DeleteOptions(context, id);
+            OptionsService.Remove(context, id);
         }
 
         [HttpPut]
-        public void Change(int id, Options options)
+        public void Update(int id, Options options)
         {
 
         }
 
         [HttpPost]
-        public void Add(int candidateID, bool canWorkRemotly, bool canRelocate, bool canWorkInTheOffice)
+        public void Create(int candidateID, bool canWorkRemotly, bool canRelocate, bool canWorkInTheOffice)
         {
-            OptionsService.AddOptions(context, candidateID, canWorkRemotly, canRelocate, canWorkInTheOffice);
+            OptionsService.Create(context, candidateID, canWorkRemotly, canRelocate, canWorkInTheOffice);
 
 
         }

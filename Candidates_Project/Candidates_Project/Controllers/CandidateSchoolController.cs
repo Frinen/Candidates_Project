@@ -23,24 +23,24 @@ namespace Candidates_Project.Controllers
         [HttpGet]
         public CandidateSchool Details(int highSchoolID, int candidateID)
         {
-            return CandidateSchoolService.Viev(context, highSchoolID, candidateID);
+            return CandidateSchoolService.Display(context, highSchoolID, candidateID);
         }
         [HttpDelete]
         public void Delete(int highSchoolID, int candidateID)
         {
-            CandidateSchoolService.Delete(context, highSchoolID, candidateID);
+            CandidateSchoolService.Remove(context, highSchoolID, candidateID);
         }
 
         [HttpPut]
-        public void Change(int highSchoolID, int candidateID, CandidateSchool candidate)
+        public void Update(int highSchoolID, int candidateID, CandidateSchool candidate)
         {
 
         }
 
         [HttpPost]
-        public void Add(int highSchoolID, int candidateID, string from, string to, string degree)
+        public void Create(int highSchoolID, int candidateID, string from, string to, string degree)
         {
-            CandidateSchoolService.Add(context, highSchoolID, candidateID, from, to, degree);
+            CandidateSchoolService.Create(context, highSchoolID, candidateID, from, to, degree);
 
 
         }

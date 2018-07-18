@@ -9,7 +9,7 @@ using Candidates.Models.Models;
 
 namespace Candidates_Project.Controllers
 {
-    [Route("api/CandidateController")]
+    
     public class CandidateController : Controller
     {
         private readonly CandidatesContext context;
@@ -20,27 +20,35 @@ namespace Candidates_Project.Controllers
         }
 
         // GET: Default/Details/5
+        [Route("api/CandidateController/id")]
         [HttpGet]
         public Candidate Details(int id)
         {
-            return CandidateService.VievCandidate(context, id);
+            return CandidateService.Display(context, id);
         }
+        [Route("api/CandidateController/")]
+        [HttpGet]
+        public List<Candidate> Details()
+        {
+            return CandidateService.Display(context);
+        }
+        [Route("api/CandidateController/")]
         [HttpDelete]
         public void Delete(int id)
         {
-            CandidateService.DeleteCandidate(context,id);
+            CandidateService.Remove(context,id);
         }
-        
+        [Route("api/CandidateController/")]
         [HttpPut]
-        public void Change( int id, Candidate candidate)
+        public void Update( int id, string firstName, string lastName, string birthDate, string sex, string phoneNumber, string email, string skype)
         {
-            
+            CandidateService.Update(context, id, firstName,  lastName, birthDate, sex, phoneNumber, email, skype);
         }
-        
+        [Route("api/CandidateController/")]
         [HttpPost]
-        public void Add(string firstName, string lastName, string birthDate, string sex, string phoneNumber, string email, string skype)
+        public void Create(string firstName, string lastName, string birthDate, string sex, string phoneNumber, string email, string skype)
         {
-            CandidateService.AddCandidate(context, firstName, lastName, birthDate, sex, phoneNumber, email, skype);
+            CandidateService.Create(context, firstName, lastName, birthDate, sex, phoneNumber, email, skype);
 
             
         }
