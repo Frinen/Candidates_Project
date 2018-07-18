@@ -15,11 +15,11 @@ namespace Candidates.Services
             context.Languages.Add(language);
             context.SaveChanges();
         }
-        public static void Update(CandidatesContext context, int id, Language candidate)
+        public static void Update(CandidatesContext context, int id, string name)
         {
-
-
-
+            var language = new Language { ID = id, Name = name };
+            context.Languages.Update(language);
+            context.SaveChanges();
         }
         public static void Remove(CandidatesContext context, int id)
         {
@@ -33,10 +33,17 @@ namespace Candidates.Services
         public static Language Display(CandidatesContext context, int id)
         {
             var language = context.Languages.Find(id);
-            if (language != null)
-                return language;
-            else
-                return null;
+            return language;
+            
+        }
+        public static List<Language> Display(CandidatesContext context)
+        {
+            List<Language> languages = new List<Language>();
+            foreach (var language in context.Languages)
+            {
+                languages.Add(language);
+            }
+            return languages;
         }
     }
 }

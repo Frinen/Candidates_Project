@@ -15,11 +15,12 @@ namespace Candidates.Services
             context.CandidateSkills.Add(candidateskill);
             context.SaveChanges();
         }
-        public static void Update(CandidatesContext context, int id, CandidateSkill candidateSchool)
+        public static void Update(CandidatesContext context, int skillID, int candidateID, int month, string level)
         {
-
-
-
+            var candidateskill = new CandidateSkill { SkillID = skillID, CandidateID = candidateID, Month = month, Level = level };
+            context.CandidateSkills.Update(candidateskill);
+            context.SaveChanges();
+            
         }
         public static void Remove(CandidatesContext context, int skillID, int candidateID)
         {
@@ -33,10 +34,17 @@ namespace Candidates.Services
         public static CandidateSkill Display(CandidatesContext context, int skillID, int candidateID)
         {
             var candidateSkill = context.CandidateSkills.Find(skillID, candidateID);
-            if (candidateSkill != null)
-                return candidateSkill;
-            else
-                return null;
+            return candidateSkill;
+            
+        }
+        public static List<CandidateSkill> Display(CandidatesContext context)
+        {
+            List<CandidateSkill> candidateSkills = new List<CandidateSkill>();
+            foreach (var candidateSkill in context.CandidateSkills)
+            {
+                candidateSkills.Add(candidateSkill);
+            }
+            return candidateSkills;
         }
     }
 }

@@ -34,10 +34,8 @@ namespace Candidates.Services
         public static Candidate Display(CandidatesContext context, int id)
         {
             var candidate = context.Candidates.Find(id);
-            if (candidate != null)
-                return candidate;
-            else
-                return null;
+            return candidate;
+           
         }
         public static List<Candidate> Display(CandidatesContext context)
         {
@@ -46,11 +44,8 @@ namespace Candidates.Services
             {
                 candidates.Add(candidate);
             }
-            
-            if (candidates != null)
-                return candidates;
-            else
-                return null;
+            return candidates;
+           
         }
     }
 }

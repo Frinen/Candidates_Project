@@ -16,9 +16,11 @@ namespace Candidates.Services
             context.CandidateLanguages.Add(candidateLanguage);
             context.SaveChanges();
         }
-        public static void Update(CandidatesContext context, int id, CandidateLanguage candidatelanguage)
+        public static void Update(CandidatesContext context, int languageID, int candidateID, string level)
         {
-
+            var сandidateLanguage = new CandidateLanguage { LanguageID = languageID, CandidateID = candidateID, Level = level };
+            context.CandidateLanguages.Update(сandidateLanguage);
+            context.SaveChanges();
 
 
         }
@@ -34,10 +36,18 @@ namespace Candidates.Services
         public static CandidateLanguage Display(CandidatesContext context, int languageID, int candidateID)
         {
             var candidateLanguage = context.CandidateLanguages.Find(languageID, candidateID);
-            if (candidateLanguage != null)
-                return candidateLanguage;
-            else
-                return null;
+            return candidateLanguage;
+           
+        }
+        public static List<CandidateLanguage> Display(CandidatesContext context)
+        {
+            List<CandidateLanguage> candidateLanguages = new List<CandidateLanguage>();
+            foreach (var candidateLanguage in context.CandidateLanguages)
+            {
+                candidateLanguages.Add(candidateLanguage);
+            }
+            return candidateLanguages;
+            
         }
     }
 }

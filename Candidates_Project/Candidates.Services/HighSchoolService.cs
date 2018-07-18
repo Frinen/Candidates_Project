@@ -15,11 +15,11 @@ namespace Candidates.Services
             context.HighSchools.Add(school);
             context.SaveChanges();
         }
-        public static void Update(CandidatesContext context, int id, Skill skill)
+        public static void Update(CandidatesContext context, int id, string name)
         {
-
-
-
+            var school = new HighSchool {ID = id, Name = name };
+            context.HighSchools.Update(school);
+            context.SaveChanges();
         }
         public static void Remove(CandidatesContext context, int id)
         {
@@ -33,10 +33,17 @@ namespace Candidates.Services
         public static HighSchool Display(CandidatesContext context, int id)
         {
             var highschool = context.HighSchools.Find(id);
-            if (highschool != null)
-                return highschool;
-            else
-                return null;
+            return highschool;
+            
+        }
+        public static List<HighSchool> Display(CandidatesContext context)
+        {
+            List<HighSchool> highSchools = new List<HighSchool>();
+            foreach (var highSchool in context.HighSchools)
+            {
+                highSchools.Add(highSchool);
+            }
+            return highSchools;
         }
     }
 }

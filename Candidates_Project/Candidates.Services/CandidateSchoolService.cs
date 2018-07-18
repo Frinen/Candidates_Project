@@ -15,8 +15,11 @@ namespace Candidates.Services
             context.CandidateSchools.Add(candidateschool);
             context.SaveChanges();
         }
-        public static void Update(CandidatesContext context, int id, CandidateSchool candidateSchool)
+        public static void Update(CandidatesContext context, int highSchoolID, int candidateID, string from, string to, string degree)
         {
+            var candidateSchool = new CandidateSchool { HighSchoolID = highSchoolID, CandidateID = candidateID, From = DateTime.Parse(from), To = DateTime.Parse(to), Degree = degree };
+            context.CandidateSchools.Update(candidateSchool);
+            context.SaveChanges();
 
 
 
@@ -33,10 +36,17 @@ namespace Candidates.Services
         public static CandidateSchool Display(CandidatesContext context, int highSchoolID, int candidateID)
         {
             var candidateSchool = context.CandidateSchools.Find(highSchoolID, candidateID);
-            if (candidateSchool != null)
-                return candidateSchool;
-            else
-                return null;
+            return candidateSchool;
+            
+        }
+        public static List<CandidateSchool> Display(CandidatesContext context)
+        {
+            List<CandidateSchool> candidateSchools = new List<CandidateSchool>();
+            foreach (var candidateSchool in context.CandidateSchools)
+            {
+                candidateSchools.Add(candidateSchool);
+            }
+            return candidateSchools;
         }
     }
 }

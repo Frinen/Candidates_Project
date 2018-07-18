@@ -15,11 +15,11 @@ namespace Candidates.Services
             context.Options.Add(options);
             context.SaveChanges();
         }
-        public static void Update(CandidatesContext context, int id, Options options)
+        public static void Update(CandidatesContext context, int candidateID, bool canWorkRemotly, bool canRelocate, bool canWorkInTheOffice) 
         {
-
-
-
+            var options = new Options { CandidateID = candidateID, CanWorkRemotly = canWorkRemotly, CanRelocate = canRelocate, CanWorkInTheOffice = canWorkInTheOffice };
+            context.Options.Update(options);
+            context.SaveChanges();
         }
         public static void Remove(CandidatesContext context, int id)
         {
@@ -33,10 +33,17 @@ namespace Candidates.Services
         public static Options Display(CandidatesContext context, int id)
         {
             var options = context.Options.Find(id);
-            if (options != null)
-                return options;
-            else
-                return null;
+            return options;
+           
+        }
+        public static List<Options> Display(CandidatesContext context)
+        {
+            List<Options> options = new List<Options>();
+            foreach (var option in context.Options)
+            {
+                options.Add(option);
+            }
+            return options;
         }
     }
 }

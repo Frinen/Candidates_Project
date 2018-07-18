@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Candidates_Project.Controllers
 {
-    [Route("api/CandidateLanguageController")]
+    
     public class CandidateLanguageController : Controller
     {
         private readonly CandidatesContext context;
@@ -20,25 +20,33 @@ namespace Candidates_Project.Controllers
         }
 
         // GET: Default/Details/5
+        [Route("api/CandidateLanguageController/id")]
         [HttpGet]
         public CandidateLanguage Details(int languageID, int candidateID)
         {
             return CandidateLanguageService.Display(context, languageID, candidateID);
         }
+        [Route("api/CandidateLanguageController/")]
+        [HttpGet]
+        public List<CandidateLanguage> Details()
+        {
+            return CandidateLanguageService.Display(context);
+        }
+        [Route("api/CandidateLanguageController/")]
         [HttpDelete]
         public void Delete(int languageID, int candidateID)
         {
             CandidateLanguageService.Remove(context, languageID, candidateID);
         }
-
+        [Route("api/CandidateLanguageController/")]
         [HttpPut]
-        public void Update(int languageID, int candidateID, CandidateSkill candidate)
+        public void Update(int languageID, int candidateID, string level)
         {
-
+            CandidateLanguageService.Update(context, languageID, candidateID, level);
         }
-
+        [Route("api/CandidateLanguageController/")]
         [HttpPost]
-        public void Create(int languageID, int candidateID, int month, string level)
+        public void Create(int languageID, int candidateID, string level)
         {
             CandidateLanguageService.Create(context, languageID, candidateID, level);
             

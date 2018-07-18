@@ -16,11 +16,11 @@ namespace Candidates.Services
             context.Skills.Add(skill);
             context.SaveChanges();
         }
-        public static void Update(CandidatesContext context, int id, Skill skill)
+        public static void Update(CandidatesContext context, int id, string name)
         {
-
-
-
+            var skill = new Skill {ID = id, Name = name };
+            context.Skills.Update(skill);
+            context.SaveChanges();
         }
         public static void Remove(CandidatesContext context, int id)
         {
@@ -38,6 +38,15 @@ namespace Candidates.Services
                 return skill;
             else
                 return null;
+        }
+        public static List<Skill> Display(CandidatesContext context)
+        {
+            List<Skill> skills= new List<Skill>();
+            foreach (var skill in context.Skills)
+            {
+                skills.Add(skill);
+            }
+            return skills;
         }
     }
 }
