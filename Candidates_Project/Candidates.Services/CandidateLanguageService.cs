@@ -1,5 +1,6 @@
 ﻿using Candidates.Models.Context;
 using Candidates.Models.Models;
+using Candidates.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,16 +8,21 @@ using System.Text;
 namespace Candidates.Services
 {
     
-    public class CandidateLanguageService
+    public class CandidateLanguageService: ICandidateLanguageService
     {
-        static public void Create(CandidatesContext context, int languageID, int candidateID, string level)
+        CandidatesContext context;
+        public CandidateLanguageService(CandidatesContext _context)
+        {
+            context = _context;
+        }
+        public void Create( int languageID, int candidateID, string level)
         {
             context.Database.EnsureCreated();
             var candidateLanguage = new CandidateLanguage { LanguageID = languageID, CandidateID = candidateID, Level = level };
             context.CandidateLanguages.Add(candidateLanguage);
             context.SaveChanges();
         }
-        public static void Update(CandidatesContext context, int languageID, int candidateID, string level)
+        public void Update( int languageID, int candidateID, string level)
         {
             var сandidateLanguage = new CandidateLanguage { LanguageID = languageID, CandidateID = candidateID, Level = level };
             context.CandidateLanguages.Update(сandidateLanguage);
@@ -24,7 +30,7 @@ namespace Candidates.Services
 
 
         }
-        public static void Remove(CandidatesContext context, int languageID, int candidateID)
+        public void Remove( int languageID, int candidateID)
         {
             var candidateLanguage = context.CandidateLanguages.Find(languageID, candidateID);
             if (candidateLanguage != null)
@@ -33,13 +39,13 @@ namespace Candidates.Services
                 context.SaveChanges();
             }
         }
-        public static CandidateLanguage Display(CandidatesContext context, int languageID, int candidateID)
+        public CandidateLanguage Display( int languageID, int candidateID)
         {
             var candidateLanguage = context.CandidateLanguages.Find(languageID, candidateID);
             return candidateLanguage;
            
         }
-        public static List<CandidateLanguage> Display(CandidatesContext context)
+        public List<CandidateLanguage> Display()
         {
             List<CandidateLanguage> candidateLanguages = new List<CandidateLanguage>();
             foreach (var candidateLanguage in context.CandidateLanguages)

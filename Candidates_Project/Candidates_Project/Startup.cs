@@ -12,6 +12,8 @@ using Candidates.Models.Context;
 using Swashbuckle.AspNetCore.Swagger;
 using System.Reflection;
 using System.IO;
+using Candidates.Services.Interfaces;
+using Candidates.Services;
 
 namespace Candidates_Project
 {
@@ -40,7 +42,15 @@ namespace Candidates_Project
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
-
+            services.AddTransient<ICandidateService, CandidateService>();
+            services.AddTransient<ICandidateLanguageService, CandidateLanguageService>();
+            services.AddTransient<ICandidateSchoolService, CandidateSchoolService>();
+            services.AddTransient<ICandidateSkillService, CandidateSkillService>();
+            services.AddTransient<IHighSchoolService, HighSchoolService>();
+            services.AddTransient<ILanguageService, LanguageService>();
+            services.AddTransient<IOptionsService, OptionsService>();
+            services.AddTransient<ISkillService, SkillService>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

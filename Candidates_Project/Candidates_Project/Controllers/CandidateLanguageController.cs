@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Candidates.Models.Context;
 using Candidates.Models.Models;
 using Candidates.Services;
+using Candidates.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Candidates_Project.Controllers
@@ -12,11 +13,11 @@ namespace Candidates_Project.Controllers
     
     public class CandidateLanguageController : Controller
     {
-        private readonly CandidatesContext context;
+        private readonly ICandidateLanguageService service;
 
-        public CandidateLanguageController(CandidatesContext _context)
+        public CandidateLanguageController(ICandidateLanguageService _service)
         {
-            context = _context;
+            service = _service;
         }
 
         // GET: Default/Details/5
@@ -24,31 +25,31 @@ namespace Candidates_Project.Controllers
         [HttpGet]
         public CandidateLanguage Details(int languageID, int candidateID)
         {
-            return CandidateLanguageService.Display(context, languageID, candidateID);
+            return service.Display( languageID, candidateID);
         }
         [Route("api/CandidateLanguageController/")]
         [HttpGet]
         public List<CandidateLanguage> Details()
         {
-            return CandidateLanguageService.Display(context);
+            return service.Display();
         }
         [Route("api/CandidateLanguageController/")]
         [HttpDelete]
         public void Delete(int languageID, int candidateID)
         {
-            CandidateLanguageService.Remove(context, languageID, candidateID);
+            service.Remove( languageID, candidateID);
         }
         [Route("api/CandidateLanguageController/")]
         [HttpPut]
         public void Update(int languageID, int candidateID, string level)
         {
-            CandidateLanguageService.Update(context, languageID, candidateID, level);
+            service.Update( languageID, candidateID, level);
         }
         [Route("api/CandidateLanguageController/")]
         [HttpPost]
         public void Create(int languageID, int candidateID, string level)
         {
-            CandidateLanguageService.Create(context, languageID, candidateID, level);
+            service.Create( languageID, candidateID, level);
             
         }
     }

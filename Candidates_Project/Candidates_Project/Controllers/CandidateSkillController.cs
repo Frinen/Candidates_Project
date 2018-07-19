@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Candidates.Models.Context;
 using Candidates.Models.Models;
 using Candidates.Services;
+using Candidates.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Candidates_Project.Controllers
@@ -12,11 +13,11 @@ namespace Candidates_Project.Controllers
     
     public class CandidateSkillController : Controller
     {
-        private readonly CandidatesContext context;
+        private readonly ICandidateSkillService service;
 
-        public CandidateSkillController(CandidatesContext _context)
+        public CandidateSkillController(ICandidateSkillService _service)
         {
-            context = _context;
+            service = _service;
         }
 
         // GET: Default/Details/5
@@ -24,33 +25,31 @@ namespace Candidates_Project.Controllers
         [HttpGet]
         public CandidateSkill Details(int skillID, int candidateID)
         {
-            return CandidateSkillService.Display(context, skillID, candidateID);
+            return service.Display(skillID, candidateID);
         }
         [Route("api/CandidateSkillController")]
         [HttpGet]
         public List<CandidateSkill> Details()
         {
-            return CandidateSkillService.Display(context);
+            return service.Display();
         }
         [Route("api/CandidateSkillController")]
         [HttpDelete]
         public void Delete(int skillID, int candidateID)
         {
-            CandidateSkillService.Remove(context, skillID, candidateID);
+            service.Remove(skillID, candidateID);
         }
         [Route("api/CandidateSkillController")]
         [HttpPut]
         public void Update(int skillID, int candidateID, int month, string level)
         {
-            CandidateSkillService.Update(context, skillID, candidateID, month, level);
+            service.Update(skillID, candidateID, month, level);
         }
         [Route("api/CandidateSkillController")]
         [HttpPost]
         public void Create(int skillID, int candidateID, int month, string level)
         {
-            CandidateSkillService.Create(context, skillID, candidateID, month, level);
-
-
+            service.Create(skillID, candidateID, month, level);
         }
     }
 }

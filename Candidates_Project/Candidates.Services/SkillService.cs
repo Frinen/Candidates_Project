@@ -1,5 +1,6 @@
 ﻿using Candidates.Models.Context;
 using Candidates.Models.Models;
+using Candidates.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,22 +8,27 @@ using System.Text;
 namespace Candidates.Services
 {
     
-    public class SkillService
+    public class SkillService : ISkillService
     {
-        static public void Create(CandidatesContext context, string name)
+        CandidatesContext context;
+        public SkillService(CandidatesContext _context)
+        {
+            context = _context;
+        }
+        public void Create(string name)
         {
             context.Database.EnsureCreated();
             var skill = new Skill { Name = name };
             context.Skills.Add(skill);
             context.SaveChanges();
         }
-        public static void Update(CandidatesContext context, int id, string name)
+        public void Update(int id, string name)
         {
             var skill = new Skill {ID = id, Name = name };
             context.Skills.Update(skill);
             context.SaveChanges();
         }
-        public static void Remove(CandidatesContext context, int id)
+        public void Remove(int id)
         {
             var skill = context.Skills.Find(id);
             if (skill != null)
@@ -31,7 +37,7 @@ namespace Candidates.Services
                 context.SaveChanges();
             }
         }
-        public static Skill Display(CandidatesContext context, int id)
+        public Skill Display(int id)
         {
             var skill = context.Skills.Find(id);
             if (skill != null)
@@ -39,7 +45,7 @@ namespace Candidates.Services
             else
                 return null;
         }
-        public static List<Skill> Display(CandidatesContext context)
+        public List<Skill> Display()
         {
             List<Skill> skills= new List<Skill>();
             foreach (var skill in context.Skills)

@@ -1,42 +1,48 @@
 ﻿using Candidates.Models.Context;
 using Candidates.Models.Models;
+using Candidates.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Candidates.Services
 {
-    public class OptionsService
+    public class OptionsService : IOptionsService
     {
-        static public void Create(CandidatesContext context, int candidateID, bool canWorkRemotly, bool canRelocate, bool canWorkInTheOffice)
+        CandidatesContext context;
+        public OptionsService(CandidatesContext _context)
+        {
+            context = _context;
+        }
+        public void Create(int candidateID, bool canWorkRemotly, bool canRelocate, bool canWorkInTheOffice)
         {
             context.Database.EnsureCreated();
             var options = new Options {CandidateID = candidateID, CanWorkRemotly = canWorkRemotly, CanRelocate = canRelocate, CanWorkInTheOffice = canWorkInTheOffice };
             context.Options.Add(options);
             context.SaveChanges();
         }
-        public static void Update(CandidatesContext context, int candidateID, bool canWorkRemotly, bool canRelocate, bool canWorkInTheOffice) 
+        public void Update( int candidateID, bool canWorkRemotly, bool canRelocate, bool canWorkInTheOffice) 
         {
             var options = new Options { CandidateID = candidateID, CanWorkRemotly = canWorkRemotly, CanRelocate = canRelocate, CanWorkInTheOffice = canWorkInTheOffice };
             context.Options.Update(options);
             context.SaveChanges();
         }
-        public static void Remove(CandidatesContext context, int id)
+        public void Remove( int candidateID)
         {
-            var options = context.Options.Find(id);
+            var options = context.Options.Find(candidateID);
             if (options != null)
             {
                 context.Options.Remove(options);
                 context.SaveChanges();
             }
         }
-        public static Options Display(CandidatesContext context, int id)
+        public Options Display( int candidateID)
         {
-            var options = context.Options.Find(id);
+            var options = context.Options.Find(candidateID);
             return options;
            
         }
-        public static List<Options> Display(CandidatesContext context)
+        public List<Options> Display()
         {
             List<Options> options = new List<Options>();
             foreach (var option in context.Options)

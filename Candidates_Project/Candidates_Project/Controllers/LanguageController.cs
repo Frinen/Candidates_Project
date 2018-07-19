@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Candidates.Models.Context;
 using Candidates.Models.Models;
 using Candidates.Services;
+using Candidates.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Candidates_Project.Controllers
@@ -12,11 +13,11 @@ namespace Candidates_Project.Controllers
     
     public class LanguageController : Controller
     {
-        private readonly CandidatesContext context;
+        private readonly ILanguageService service;
 
-        public LanguageController(CandidatesContext _context)
+        public LanguageController(ILanguageService _service)
         {
-            context = _context;
+            service = _service;
         }
 
         // GET: Default/Details/5
@@ -24,33 +25,31 @@ namespace Candidates_Project.Controllers
         [HttpGet]
         public Language Display(int id)
         {
-            return LanguageService.Display(context, id);
+            return service.Display( id);
         }
         [Route("api/LanguageController")]
         [HttpGet]
         public List<Language> Display()
         {
-            return LanguageService.Display(context);
+            return service.Display();
         }
         [Route("api/LanguageController")]
         [HttpDelete]
         public void Delete(int id)
         {
-            LanguageService.Remove(context, id);
+            service.Remove(id);
         }
         [Route("api/LanguageController")]
         [HttpPut]
         public void Update(int id, string name)
         {
-            LanguageService.Update(context, id, name);
+            service.Update(id, name);
         }
         [Route("api/LanguageController")]
         [HttpPost]
         public void Create(string name)
         {
-            LanguageService.Create(context, name);
-
-
+            service.Create(name);
         }
     }
 }

@@ -6,17 +6,18 @@ using System.Threading.Tasks;
 using Candidates.Models.Context;
 using Candidates.Services;
 using Candidates.Models.Models;
+using Candidates.Services.Interfaces;
 
 namespace Candidates_Project.Controllers
 {
     
     public class CandidateController : Controller
     {
-        private readonly CandidatesContext context;
+        private readonly ICandidateService service;
 
-        public CandidateController(CandidatesContext _context)
+        public CandidateController(ICandidateService _service)
         {
-            context = _context;
+            service = _service;
         }
 
         // GET: Default/Details/5
@@ -24,31 +25,31 @@ namespace Candidates_Project.Controllers
         [HttpGet]
         public Candidate Details(int id)
         {
-            return CandidateService.Display(context, id);
+            return service.Display(id);
         }
         [Route("api/CandidateController/")]
         [HttpGet]
         public List<Candidate> Details()
         {
-            return CandidateService.Display(context);
+            return service.Display();
         }
         [Route("api/CandidateController/")]
         [HttpDelete]
         public void Delete(int id)
         {
-            CandidateService.Remove(context,id);
+            service.Remove(id);
         }
         [Route("api/CandidateController/")]
         [HttpPut]
         public void Update( int id, string firstName, string lastName, string birthDate, string sex, string phoneNumber, string email, string skype)
         {
-            CandidateService.Update(context, id, firstName,  lastName, birthDate, sex, phoneNumber, email, skype);
+            service.Update( id, firstName,  lastName, birthDate, sex, phoneNumber, email, skype);
         }
         [Route("api/CandidateController/")]
         [HttpPost]
         public void Create(string firstName, string lastName, string birthDate, string sex, string phoneNumber, string email, string skype)
         {
-            CandidateService.Create(context, firstName, lastName, birthDate, sex, phoneNumber, email, skype);
+            service.Create( firstName, lastName, birthDate, sex, phoneNumber, email, skype);
 
             
         }

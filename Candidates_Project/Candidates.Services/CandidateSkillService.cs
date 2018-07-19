@@ -1,28 +1,34 @@
 ﻿using Candidates.Models.Context;
 using Candidates.Models.Models;
+using Candidates.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Candidates.Services
 {
-    public class CandidateSkillService
+    public class CandidateSkillService : ICandidateSkillService
     {
-        static public void Create(CandidatesContext context, int skillID, int candidateID, int month, string level)
+        CandidatesContext context;
+        public CandidateSkillService(CandidatesContext _context)
+        {
+            context = _context;
+        }
+        public void Create( int skillID, int candidateID, int month, string level)
         {
             context.Database.EnsureCreated();
             var candidateskill = new CandidateSkill{ SkillID = skillID, CandidateID = candidateID, Month = month, Level = level};
             context.CandidateSkills.Add(candidateskill);
             context.SaveChanges();
         }
-        public static void Update(CandidatesContext context, int skillID, int candidateID, int month, string level)
+        public void Update(int skillID, int candidateID, int month, string level)
         {
             var candidateskill = new CandidateSkill { SkillID = skillID, CandidateID = candidateID, Month = month, Level = level };
             context.CandidateSkills.Update(candidateskill);
             context.SaveChanges();
             
         }
-        public static void Remove(CandidatesContext context, int skillID, int candidateID)
+        public void Remove(int skillID, int candidateID)
         {
             var candidateSkill = context.CandidateSkills.Find(skillID, candidateID);
             if (candidateSkill != null)
@@ -31,13 +37,13 @@ namespace Candidates.Services
                 context.SaveChanges();
             }
         }
-        public static CandidateSkill Display(CandidatesContext context, int skillID, int candidateID)
+        public CandidateSkill Display( int skillID, int candidateID)
         {
             var candidateSkill = context.CandidateSkills.Find(skillID, candidateID);
             return candidateSkill;
             
         }
-        public static List<CandidateSkill> Display(CandidatesContext context)
+        public List<CandidateSkill> Display()
         {
             List<CandidateSkill> candidateSkills = new List<CandidateSkill>();
             foreach (var candidateSkill in context.CandidateSkills)

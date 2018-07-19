@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Candidates.Models.Context;
 using Candidates.Models.Models;
 using Candidates.Services;
+using Candidates.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Candidates_Project.Controllers
@@ -12,11 +13,11 @@ namespace Candidates_Project.Controllers
     
     public class SkillController : Controller
     {
-        private readonly CandidatesContext context;
+        private readonly ISkillService service;
 
-        public SkillController(CandidatesContext _context)
+        public SkillController(ISkillService _service)
         {
-            context = _context;
+            service = _service;
         }
 
         // GET: Default/Details/5
@@ -24,31 +25,31 @@ namespace Candidates_Project.Controllers
         [HttpGet]
         public Skill Dispaly(int id)
         {
-            return SkillService.Display(context, id);
+            return service.Display(id);
         }
         [Route("api/SkillController")]
         [HttpGet]
         public List<Skill> Dispaly()
         {
-            return SkillService.Display(context);
+            return service.Display();
         }
         [Route("api/SkillController")]
         [HttpDelete]
         public void Delete(int id)
         {
-            SkillService.Remove(context, id);
+            service.Remove(id);
         }
         [Route("api/SkillController")]
         [HttpPut]
-        public void Change(int id, Skill skill)
+        public void Change(int id, string name)
         {
-
+            service.Update(id, name);
         }
         [Route("api/SkillController")]
         [HttpPost]
         public void Create(string name)
         {
-            SkillService.Create(context, name);
+            service.Create(name);
             
         }
     }

@@ -1,27 +1,33 @@
 ﻿using Candidates.Models.Context;
 using Candidates.Models.Models;
+using Candidates.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Candidates.Services
 {
-    public class LanguageService
+    public class LanguageService : ILanguageService
     {
-        static public void Create(CandidatesContext context, string name)
+        CandidatesContext context;
+        public LanguageService(CandidatesContext _context)
+        {
+            context = _context;
+        }
+        public void Create( string name)
         {
             context.Database.EnsureCreated();
             var language = new Language { Name = name};
             context.Languages.Add(language);
             context.SaveChanges();
         }
-        public static void Update(CandidatesContext context, int id, string name)
+        public void Update(int id, string name)
         {
             var language = new Language { ID = id, Name = name };
             context.Languages.Update(language);
             context.SaveChanges();
         }
-        public static void Remove(CandidatesContext context, int id)
+        public void Remove( int id)
         {
             var language = context.Languages.Find(id);
             if (language != null)
@@ -30,13 +36,13 @@ namespace Candidates.Services
                 context.SaveChanges();
             }
         }
-        public static Language Display(CandidatesContext context, int id)
+        public Language Display( int id)
         {
             var language = context.Languages.Find(id);
             return language;
             
         }
-        public static List<Language> Display(CandidatesContext context)
+        public List<Language> Display()
         {
             List<Language> languages = new List<Language>();
             foreach (var language in context.Languages)
