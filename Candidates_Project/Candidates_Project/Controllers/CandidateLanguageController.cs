@@ -23,13 +23,13 @@ namespace Candidates_Project.Controllers
         // GET: Default/Details/5
         [Route("api/CandidateLanguageController/languageID&candidateID")]
         [HttpGet]
-        public CandidateLanguage Details(int languageID, int candidateID)
+        public CandidateLanguageDTO Details(int languageID, int candidateID)
         {
             return service.Display( languageID, candidateID);
         }
         [Route("api/CandidateLanguageController/")]
         [HttpGet]
-        public List<CandidateLanguage> Details()
+        public IQueryable<CandidateLanguageDTO> Details()
         {
             return service.Display();
         }

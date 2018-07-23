@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Candidates.Models.Models;
 using Microsoft.EntityFrameworkCore;
-
+using System.Web;
 namespace Candidates.Models.Context
 {
     public class CandidatesContext : DbContext
@@ -14,6 +14,7 @@ namespace Candidates.Models.Context
         public CandidatesContext(DbContextOptions<CandidatesContext> options) : base(options)
         { }
         public DbSet<Candidate> Candidates { get; set; }
+        //public DbSet<Candidate> Candidates { get; set; }
         public DbSet<Options> Options { get; set; }
         public DbSet<CandidateLanguage> CandidateLanguages { get; set; }
         public DbSet<Language> Languages { get; set; }

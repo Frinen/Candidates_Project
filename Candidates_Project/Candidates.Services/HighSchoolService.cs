@@ -3,6 +3,8 @@ using Candidates.Models.Models;
 using Candidates.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using System.Text;
 
 namespace Candidates.Services
@@ -36,19 +38,23 @@ namespace Candidates.Services
                 context.SaveChanges();
             }
         }
-        public HighSchool Display(int id)
+        public HighSchoolDTO Display(int id)
         {
-            var highschool = context.HighSchools.Find(id);
-            return highschool;
-            
-        }
-        public List<HighSchool> Display()
-        {
-            List<HighSchool> highSchools = new List<HighSchool>();
-            foreach (var highSchool in context.HighSchools)
+            var highschool = context.HighSchools.Include(c => c.Name).Select(c => new HighSchoolDTO()
             {
-                highSchools.Add(highSchool);
-            }
+                ID = c.ID,
+                Name = c.Name
+            }).SingleOrDefault(c => c.ID == id);
+            return highschool;
+        }
+        public IQueryable<HighSchoolDTO> Display()
+        {
+            var highSchools = from c in context.HighSchools
+                                  select new HighSchoolDTO()
+                                  {
+                                      ID = c.ID,
+                                      Name = c.Name
+                                  };
             return highSchools;
         }
     }

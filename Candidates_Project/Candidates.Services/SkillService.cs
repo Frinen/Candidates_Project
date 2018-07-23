@@ -3,6 +3,8 @@ using Candidates.Models.Models;
 using Candidates.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using System.Text;
 
 namespace Candidates.Services
@@ -37,21 +39,23 @@ namespace Candidates.Services
                 context.SaveChanges();
             }
         }
-        public Skill Display(int id)
+        public SkillDTO Display(int id)
         {
-            var skill = context.Skills.Find(id);
-            if (skill != null)
-                return skill;
-            else
-                return null;
-        }
-        public List<Skill> Display()
-        {
-            List<Skill> skills= new List<Skill>();
-            foreach (var skill in context.Skills)
+            var skill = context.Skills.Include(c => c.Name).Select(c => new SkillDTO()
             {
-                skills.Add(skill);
-            }
+                ID = c.ID,
+                Name = c.Name
+            }).SingleOrDefault(c => c.ID == id);
+            return skill;
+        }
+        public IQueryable<SkillDTO> Display()
+        {
+            var skills = from c in context.Skills
+                              select new SkillDTO()
+                              {
+                                  ID = c.ID,
+                                  Name = c.Name
+                              };
             return skills;
         }
     }

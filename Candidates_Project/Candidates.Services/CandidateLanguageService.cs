@@ -4,7 +4,8 @@ using Candidates.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
-
+using System.Linq;
+using System.Data.Entity;
 namespace Candidates.Services
 {
     
@@ -39,21 +40,27 @@ namespace Candidates.Services
                 context.SaveChanges();
             }
         }
-        public CandidateLanguage Display( int languageID, int candidateID)
+        public CandidateLanguageDTO Display( int languageID, int candidateID)
         {
-            var candidateLanguage = context.CandidateLanguages.Find(languageID, candidateID);
-            return candidateLanguage;
-           
-        }
-        public List<CandidateLanguage> Display()
-        {
-            List<CandidateLanguage> candidateLanguages = new List<CandidateLanguage>();
-            foreach (var candidateLanguage in context.CandidateLanguages)
+            var candidateLanguages = context.CandidateLanguages.Include(c => c.CandidateID).Select(c => new CandidateLanguageDTO()
             {
-                candidateLanguages.Add(candidateLanguage);
-            }
+               CandidateID =c.CandidateID,
+               LanguageID = c.LanguageID,
+               Level = c.Level
+            }).Where(c => c.CandidateID == candidateID);
+            var candidateLanguage = candidateLanguages.SingleOrDefault(c => c.LanguageID == languageID);
+            return candidateLanguage;
+        }
+        public IQueryable<CandidateLanguageDTO> Display()
+        {
+            var candidateLanguages = from c in context.CandidateLanguages
+                             select new CandidateLanguageDTO()
+                             {
+                                 CandidateID = c.CandidateID,
+                                 LanguageID = c.LanguageID,
+                                 Level = c.Level
+                             };
             return candidateLanguages;
-            
         }
     }
 }

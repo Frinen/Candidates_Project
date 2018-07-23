@@ -23,13 +23,13 @@ namespace Candidates_Project.Controllers
         // GET: Default/Details/5
         [Route("api/CandidateSkillController/skillID&candidateID")]
         [HttpGet]
-        public CandidateSkill Details(int skillID, int candidateID)
+        public CandidateSkillDTO Details(int skillID, int candidateID)
         {
             return service.Display(skillID, candidateID);
         }
         [Route("api/CandidateSkillController")]
         [HttpGet]
-        public List<CandidateSkill> Details()
+        public IQueryable<CandidateSkillDTO> Details()
         {
             return service.Display();
         }
