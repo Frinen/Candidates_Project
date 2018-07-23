@@ -29,7 +29,7 @@ namespace Candidates_Project.Controllers
         }
         [Route("api/CandidateController/")]
         [HttpGet]
-        public List<Candidate> Details()
+        public IQueryable<CandidateDTO> Details()
         {
             return service.Display();
         }

@@ -4,7 +4,7 @@ using Candidates.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
-
+using System.Linq;
 namespace Candidates.Services
 {
     public class CandidateService : ICandidateService
@@ -40,18 +40,22 @@ namespace Candidates.Services
         public Candidate Display( int id)
         {
             var candidate = context.Candidates.Find(id);
-            return candidate;
-           
+             return candidate;
         }
-        public List<Candidate> Display()
+        public IQueryable<CandidateDTO> Display()
         {
-            List<Candidate> candidates = new List<Candidate>();
-            foreach(var candidate  in context.Candidates)
-            {
-                candidates.Add(candidate);
-            }
+            
+            var candidates = from c in context.Candidates
+                        select new CandidateDTO()
+                        {
+                            ID = c.ID,
+                            FirstName = c.FirstName,
+                            LastName = c.LastName,
+                            BirthDate = c.BirthDate
+                        };
+
             return candidates;
-           
+
         }
     }
 }

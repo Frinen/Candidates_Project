@@ -1,6 +1,7 @@
 ﻿using Candidates.Models.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Candidates.Services.Interfaces
@@ -11,6 +12,6 @@ namespace Candidates.Services.Interfaces
         void Update(int id, string firstName, string lastName, string birthDate, string sex, string phoneNumber, string email, string skype);
         void Remove(int id);
         Candidate Display(int id);
-        List<Candidate> Display();
+        IQueryable<CandidateDTO> Display();
     }
 }
