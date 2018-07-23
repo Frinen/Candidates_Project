@@ -3,6 +3,8 @@ using Candidates.Models.Models;
 using Candidates.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using System.Text;
 
 namespace Candidates.Services
@@ -36,19 +38,27 @@ namespace Candidates.Services
                 context.SaveChanges();
             }
         }
-        public Options Display( int candidateID)
+        public OptionsDTO Display( int candidateID)
         {
-            var options = context.Options.Find(candidateID);
-            return options;
-           
-        }
-        public List<Options> Display()
-        {
-            List<Options> options = new List<Options>();
-            foreach (var option in context.Options)
+            var options = context.Options.Include(c => c.CandidateID).Select(c => new OptionsDTO()
             {
-                options.Add(option);
-            }
+                CandidateID = c.CandidateID,
+                CanRelocate = c.CanRelocate,
+                CanWorkInTheOffice = c.CanWorkInTheOffice,
+                CanWorkRemotly = c.CanWorkRemotly
+            }).SingleOrDefault(c => c.CandidateID == candidateID);
+            return options;
+        }
+        public IQueryable<OptionsDTO> Display()
+        {
+            var options = from c in context.Options
+                              select new OptionsDTO()
+                              {
+                                  CandidateID = c.CandidateID,
+                                  CanRelocate = c.CanRelocate,
+                                  CanWorkInTheOffice = c.CanWorkInTheOffice,
+                                  CanWorkRemotly = c.CanWorkRemotly
+                              };
             return options;
         }
     }

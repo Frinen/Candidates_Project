@@ -4,7 +4,8 @@ using Candidates.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
-
+using System.Linq;
+using System.Data.Entity;
 namespace Candidates.Services
 {
     public class CandidateSchoolService: ICandidateSchoolService
@@ -39,19 +40,32 @@ namespace Candidates.Services
                 context.SaveChanges();
             }
         }
-        public CandidateSchool Display( int highSchoolID, int candidateID)
+        public CandidateSchoolDTO Display( int highSchoolID, int candidateID)
         {
-            var candidateSchool = context.CandidateSchools.Find(highSchoolID, candidateID);
-            return candidateSchool;
             
-        }
-        public List<CandidateSchool> Display()
-        {
-            List<CandidateSchool> candidateSchools = new List<CandidateSchool>();
-            foreach (var candidateSchool in context.CandidateSchools)
+            var candidateSchools = context.CandidateSchools.Include(c => c.CandidateID).Select(c => new CandidateSchoolDTO()
             {
-                candidateSchools.Add(candidateSchool);
-            }
+                CandidateID = c.CandidateID,
+                HighSchoolID = c.HighSchoolID,
+                Degree = c.Degree,
+                From = c.From,
+                To = c.To
+            }).Where(c => c.HighSchoolID == highSchoolID);
+            var candidateSchool = candidateSchools.SingleOrDefault(c => c.HighSchoolID == highSchoolID);
+            return candidateSchool;
+
+        }
+        public IQueryable<CandidateSchoolDTO> Display()
+        {
+            var candidateSchools = from c in context.CandidateSchools
+                                   select new CandidateSchoolDTO()
+                                     {
+                                       CandidateID = c.CandidateID,
+                                       HighSchoolID = c.HighSchoolID,
+                                       Degree = c.Degree,
+                                       From = c.From,
+                                       To = c.To
+                                   };
             return candidateSchools;
         }
     }

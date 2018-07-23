@@ -23,13 +23,13 @@ namespace Candidates_Project.Controllers
         // GET: Default/Details/5
         [Route("api/HighSchoolController/id")]
         [HttpGet]
-        public HighSchool Display(int id)
+        public HighSchoolDTO Display(int id)
         {
             return service.Display(id);
         }
         [Route("api/HighSchoolController")]
         [HttpGet]
-        public List<HighSchool> Display()
+        public IQueryable<HighSchoolDTO> Display()
         {
             return service.Display();
         }

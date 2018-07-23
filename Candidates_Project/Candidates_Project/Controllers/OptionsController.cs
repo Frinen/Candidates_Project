@@ -23,13 +23,13 @@ namespace Candidates_Project.Controllers
         // GET: Default/Details/5
         [Route("api/OptionController/id")]
         [HttpGet]
-        public Options Display(int id)
+        public OptionsDTO Display(int id)
         {
             return service.Display(id);
         }
         [Route("api/OptionController")]
         [HttpGet]
-        public List<Options> Display()
+        public IQueryable<OptionsDTO> Display()
         {
             return service.Display();
         }

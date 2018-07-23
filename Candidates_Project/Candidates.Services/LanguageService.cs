@@ -3,6 +3,8 @@ using Candidates.Models.Models;
 using Candidates.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using System.Text;
 
 namespace Candidates.Services
@@ -36,19 +38,25 @@ namespace Candidates.Services
                 context.SaveChanges();
             }
         }
-        public Language Display( int id)
+        public LanguageDTO Display( int id)
         {
-            var language = context.Languages.Find(id);
-            return language;
             
-        }
-        public List<Language> Display()
-        {
-            List<Language> languages = new List<Language>();
-            foreach (var language in context.Languages)
+            var language = context.Languages.Include(c => c.Name).Select(c => new LanguageDTO()
             {
-                languages.Add(language);
-            }
+                ID = c.ID,
+                Name = c.Name
+            }).SingleOrDefault(c => c.ID == id);
+            return language;
+
+        }
+        public IQueryable<LanguageDTO> Display()
+        {
+            var languages = from c in context.Languages
+                              select new LanguageDTO()
+                              {
+                                  ID = c.ID,
+                                  Name = c.Name
+                              };
             return languages;
         }
     }

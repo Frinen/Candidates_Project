@@ -23,7 +23,7 @@ namespace Candidates_Project.Controllers
         // GET: Default/Details/5
         [Route("api/CandidateController/id")]
         [HttpGet]
-        public Candidate Details(int id)
+        public CandidateDetailsDTO Details(int id)
         {
             return service.Display(id);
         }

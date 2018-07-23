@@ -11,7 +11,7 @@ namespace Candidates.Services.Interfaces
         void Create(string firstName, string lastName, string birthDate, string sex, string phoneNumber, string email, string skype);
         void Update(int id, string firstName, string lastName, string birthDate, string sex, string phoneNumber, string email, string skype);
         void Remove(int id);
-        Candidate Display(int id);
+        CandidateDetailsDTO Display(int id);
         IQueryable<CandidateDTO> Display();
     }
 }

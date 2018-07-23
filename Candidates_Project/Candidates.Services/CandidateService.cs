@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Data.Entity;
 namespace Candidates.Services
 {
     public class CandidateService : ICandidateService
@@ -37,14 +38,23 @@ namespace Candidates.Services
                 context.SaveChanges();
             }
         }
-        public Candidate Display( int id)
+        public CandidateDetailsDTO Display( int id)
         {
-            var candidate = context.Candidates.Find(id);
+            var candidate = context.Candidates.Include(c => c.LastName).Select(c => new CandidateDetailsDTO()
+            {
+                ID = c.ID,
+                FirstName = c.LastName,
+                LastName = c.LastName,
+                BirthDate = c.BirthDate,
+                Email = c.Email,
+                PhoneNumber = c.PhoneNumber,
+                Sex = c.Sex,
+                Skype = c.Skype
+            }).SingleOrDefault(c => c.ID == id);
              return candidate;
         }
         public IQueryable<CandidateDTO> Display()
         {
-            
             var candidates = from c in context.Candidates
                         select new CandidateDTO()
                         {
