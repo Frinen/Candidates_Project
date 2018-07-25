@@ -21,35 +21,35 @@ namespace Candidates_Project.Controllers
         }
 
         // GET: Default/Details/5
-        [Route("api/HighSchoolController/id")]
+        [Route("api/HighSchool/id")]
         [HttpGet]
-        public HighSchoolDTO Display(int id)
+        public HighSchoolDTO Get(int id)
         {
-            return service.Display(id);
+            return service.Get(id);
         }
-        [Route("api/HighSchoolController")]
+        [Route("api/HighSchool")]
         [HttpGet]
-        public IQueryable<HighSchoolDTO> Display()
+        public IQueryable<HighSchoolDTO> Get()
         {
-            return service.Display();
+            return service.Get();
         }
-        [Route("api/HighSchoolController")]
+        [Route("api/HighSchool")]
         [HttpDelete]
         public void Delete(int id)
         {
             service.Remove(id);
         }
-        [Route("api/HighSchoolController")]
+        [Route("api/HighSchool")]
         [HttpPut]
-        public void Update(int id, string name)
+        public void Update(int id, HighSchoolShortDTO highSchool)
         {
-            service.Update(id, name);
+            service.Update(id, highSchool);
         }
-        [Route("api/HighSchoolController")]
+        [Route("api/HighSchool")]
         [HttpPost]
-        public void Create(string name)
+        public void Create(HighSchoolShortDTO highSchool)
         {
-            service.Create( name);
+            service.Create(highSchool);
 
 
         }

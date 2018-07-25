@@ -8,10 +8,10 @@ namespace Candidates.Services.Interfaces
 {
     public interface ICandidateSchoolService
     {
-        void Create(int highSchoolID, int candidateID, string from, string to, string degree);
-        void Update(int highSchoolID, int candidateID, string from, string to, string degree);
+        void Create(CandidateSchoolDTO _candidateSchool);
+        void Update(int highSchoolID, int candidateID, CandidateSchoolShortDTO _candidateSchool);
         void Remove(int highSchoolID, int candidateID);
-        CandidateSchoolDTO Display(int highSchoolID, int candidateID);
-        IQueryable<CandidateSchoolDTO> Display();
+        CandidateSchoolDTO Get(int highSchoolID, int candidateID);
+        IQueryable<CandidateSchoolDTO> Get();
     }
 }

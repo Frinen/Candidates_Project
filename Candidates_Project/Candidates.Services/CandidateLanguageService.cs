@@ -16,16 +16,16 @@ namespace Candidates.Services
         {
             context = _context;
         }
-        public void Create( int languageID, int candidateID, string level)
+        public void Create( CandidateLanguageDTO _candidateLanguage)
         {
             context.Database.EnsureCreated();
-            var candidateLanguage = new CandidateLanguage { LanguageID = languageID, CandidateID = candidateID, Level = level };
+            var candidateLanguage = new CandidateLanguage { LanguageID = _candidateLanguage.LanguageID, CandidateID = _candidateLanguage.CandidateID, Level = _candidateLanguage.Level };
             context.CandidateLanguages.Add(candidateLanguage);
             context.SaveChanges();
         }
-        public void Update( int languageID, int candidateID, string level)
+        public void Update( int languageID, int candidateID, CandidateLanguageShortDTO _candidateLanguage)
         {
-            var сandidateLanguage = new CandidateLanguage { LanguageID = languageID, CandidateID = candidateID, Level = level };
+            var сandidateLanguage = new CandidateLanguage { LanguageID = languageID, CandidateID = candidateID, Level = _candidateLanguage.Level };
             context.CandidateLanguages.Update(сandidateLanguage);
             context.SaveChanges();
 
@@ -40,7 +40,7 @@ namespace Candidates.Services
                 context.SaveChanges();
             }
         }
-        public CandidateLanguageDTO Display( int languageID, int candidateID)
+        public CandidateLanguageDTO Get( int languageID, int candidateID)
         {
             var candidateLanguages = context.CandidateLanguages.Include(c => c.CandidateID).Select(c => new CandidateLanguageDTO()
             {
@@ -51,7 +51,7 @@ namespace Candidates.Services
             var candidateLanguage = candidateLanguages.SingleOrDefault(c => c.LanguageID == languageID);
             return candidateLanguage;
         }
-        public IQueryable<CandidateLanguageDTO> Display()
+        public IQueryable<CandidateLanguageDTO> Get()
         {
             var candidateLanguages = from c in context.CandidateLanguages
                              select new CandidateLanguageDTO()

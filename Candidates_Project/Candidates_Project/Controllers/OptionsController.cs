@@ -21,35 +21,35 @@ namespace Candidates_Project.Controllers
         }
 
         // GET: Default/Details/5
-        [Route("api/OptionController/id")]
+        [Route("api/Options/id")]
         [HttpGet]
-        public OptionsDTO Display(int id)
+        public OptionsDTO Get(int id)
         {
-            return service.Display(id);
+            return service.Get(id);
         }
-        [Route("api/OptionController")]
+        [Route("api/Options")]
         [HttpGet]
-        public IQueryable<OptionsDTO> Display()
+        public IQueryable<OptionsDTO> Get()
         {
-            return service.Display();
+            return service.Get();
         }
-        [Route("api/OptionController")]
+        [Route("api/Options")]
         [HttpDelete]
         public void Delete(int id)
         {
             service.Remove(id);
         }
-        [Route("api/OptionController")]
+        [Route("api/Options")]
         [HttpPut]
-        public void Update(int candidateID, bool canWorkRemotly, bool canRelocate, bool canWorkInTheOffice)
+        public void Update(int candidateID, OptionsShortDTO options)
         {
-            service.Update(candidateID, canWorkRemotly, canRelocate, canWorkInTheOffice);
+            service.Update(candidateID, options);
         }
-        [Route("api/OptionController")]
+        [Route("api/Options")]
         [HttpPost]
-        public void Create(int candidateID, bool canWorkRemotly, bool canRelocate, bool canWorkInTheOffice)
+        public void Create(OptionsDTO options)
         {
-            service.Create( candidateID, canWorkRemotly, canRelocate, canWorkInTheOffice);
+            service.Create(options);
         }
     }
 }

@@ -8,10 +8,10 @@ namespace Candidates.Services.Interfaces
 {
     public interface ISkillService
     {
-        void Create(string name);
-        void Update(int id, string name);
+        void Create(SkillShortDTO skill);
+        void Update(int id, SkillShortDTO skill);
         void Remove(int id);
-        SkillDTO Display(int id);
-        IQueryable<SkillDTO> Display();
+        SkillDTO Get(int id);
+        IQueryable<SkillDTO> Get();
     }
 }

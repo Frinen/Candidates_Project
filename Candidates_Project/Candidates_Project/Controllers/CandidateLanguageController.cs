@@ -21,35 +21,35 @@ namespace Candidates_Project.Controllers
         }
 
         // GET: Default/Details/5
-        [Route("api/CandidateLanguageController/languageID&candidateID")]
+        [Route("api/CandidateLanguage/languageID&candidateID")]
         [HttpGet]
-        public CandidateLanguageDTO Details(int languageID, int candidateID)
+        public CandidateLanguageDTO Get(int languageID, int candidateID)
         {
-            return service.Display( languageID, candidateID);
+            return service.Get( languageID, candidateID);
         }
-        [Route("api/CandidateLanguageController/")]
+        [Route("api/CandidateLanguage/")]
         [HttpGet]
-        public IQueryable<CandidateLanguageDTO> Details()
+        public IQueryable<CandidateLanguageDTO> Get()
         {
-            return service.Display();
+            return service.Get();
         }
-        [Route("api/CandidateLanguageController/")]
+        [Route("api/CandidateLanguage/")]
         [HttpDelete]
         public void Delete(int languageID, int candidateID)
         {
             service.Remove( languageID, candidateID);
         }
-        [Route("api/CandidateLanguageController/")]
+        [Route("api/CandidateLanguage/")]
         [HttpPut]
-        public void Update(int languageID, int candidateID, string level)
+        public void Update(int languageID, int candidateID, CandidateLanguageShortDTO candidateLanguage)
         {
-            service.Update( languageID, candidateID, level);
+            service.Update( languageID, candidateID, candidateLanguage);
         }
-        [Route("api/CandidateLanguageController/")]
+        [Route("api/CandidateLanguage/")]
         [HttpPost]
-        public void Create(int languageID, int candidateID, string level)
+        public void Create(CandidateLanguageDTO candidateLanguage)
         {
-            service.Create( languageID, candidateID, level);
+            service.Create(candidateLanguage);
             
         }
     }

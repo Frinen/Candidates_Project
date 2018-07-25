@@ -21,35 +21,35 @@ namespace Candidates_Project.Controllers
         }
 
         // GET: Default/Details/5
-        [Route("api/SkillController/id")]
+        [Route("api/Skill/id")]
         [HttpGet]
-        public SkillDTO Dispaly(int id)
+        public SkillDTO Get(int id)
         {
-            return service.Display(id);
+            return service.Get(id);
         }
-        [Route("api/SkillController")]
+        [Route("api/Skill")]
         [HttpGet]
-        public IQueryable<SkillDTO> Dispaly()
+        public IQueryable<SkillDTO> Get()
         {
-            return service.Display();
+            return service.Get();
         }
-        [Route("api/SkillController")]
+        [Route("api/Skill")]
         [HttpDelete]
         public void Delete(int id)
         {
             service.Remove(id);
         }
-        [Route("api/SkillController")]
+        [Route("api/Skill")]
         [HttpPut]
-        public void Change(int id, string name)
+        public void Change(int id, SkillShortDTO skill)
         {
-            service.Update(id, name);
+            service.Update(id, skill);
         }
-        [Route("api/SkillController")]
+        [Route("api/Skill")]
         [HttpPost]
-        public void Create(string name)
+        public void Create(SkillShortDTO skill)
         {
-            service.Create(name);
+            service.Create(skill);
             
         }
     }

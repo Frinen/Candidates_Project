@@ -16,16 +16,16 @@ namespace Candidates.Services
         {
             context = _context;
         }
-        public void Create( string name)
+        public void Create(LanguageShortDTO _language)
         {
             context.Database.EnsureCreated();
-            var language = new Language { Name = name};
+            var language = new Language { Name = _language.Name};
             context.Languages.Add(language);
             context.SaveChanges();
         }
-        public void Update(int id, string name)
+        public void Update(int id, LanguageShortDTO _language)
         {
-            var language = new Language { ID = id, Name = name };
+            var language = new Language { ID = id, Name = _language.Name };
             context.Languages.Update(language);
             context.SaveChanges();
         }
@@ -38,7 +38,7 @@ namespace Candidates.Services
                 context.SaveChanges();
             }
         }
-        public LanguageDTO Display( int id)
+        public LanguageDTO Get( int id)
         {
             
             var language = context.Languages.Include(c => c.Name).Select(c => new LanguageDTO()
@@ -49,7 +49,7 @@ namespace Candidates.Services
             return language;
 
         }
-        public IQueryable<LanguageDTO> Display()
+        public IQueryable<LanguageDTO> Get()
         {
             var languages = from c in context.Languages
                               select new LanguageDTO()

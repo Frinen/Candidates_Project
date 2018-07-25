@@ -21,9 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Candidates.Connections\Candidates.Connections.csproj" />
     <ProjectReference Include="..\Candidates.Models\Candidates.Models.csproj" />
     <ProjectReference Include="..\Candidates.Services.Interfaces\Candidates.Services.Interfaces.csproj" />
-    <ProjectReference Include="..\Candidates.Services\Candidates.Services.csproj" />
   </ItemGroup>
 
 </Project>

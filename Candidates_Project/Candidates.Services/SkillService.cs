@@ -17,16 +17,16 @@ namespace Candidates.Services
         {
             context = _context;
         }
-        public void Create(string name)
+        public void Create(SkillShortDTO _skill)
         {
             context.Database.EnsureCreated();
-            var skill = new Skill { Name = name };
+            var skill = new Skill { Name = _skill.Name };
             context.Skills.Add(skill);
             context.SaveChanges();
         }
-        public void Update(int id, string name)
+        public void Update(int id, SkillShortDTO _skill)
         {
-            var skill = new Skill {ID = id, Name = name };
+            var skill = new Skill {ID = id, Name = _skill.Name };
             context.Skills.Update(skill);
             context.SaveChanges();
         }
@@ -39,7 +39,7 @@ namespace Candidates.Services
                 context.SaveChanges();
             }
         }
-        public SkillDTO Display(int id)
+        public SkillDTO Get(int id)
         {
             var skill = context.Skills.Include(c => c.Name).Select(c => new SkillDTO()
             {
@@ -48,7 +48,7 @@ namespace Candidates.Services
             }).SingleOrDefault(c => c.ID == id);
             return skill;
         }
-        public IQueryable<SkillDTO> Display()
+        public IQueryable<SkillDTO> Get()
         {
             var skills = from c in context.Skills
                               select new SkillDTO()

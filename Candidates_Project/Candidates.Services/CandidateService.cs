@@ -15,16 +15,16 @@ namespace Candidates.Services
         {
             context = _context;
         }
-        public void Create( string firstName, string lastName, string birthDate, string sex, string phoneNumber, string email, string skype)
+        public void Create(CandidateDTO person)
         {
             context.Database.EnsureCreated();
-            var person = new Candidate { FirstName = firstName, LastName = lastName, BirthDate = DateTime.Parse(birthDate), Sex = sex, PhoneNumber = phoneNumber, Email = email, Skype = skype };
-            context.Candidates.Add(person);
+            var candidate = new Candidate { FirstName = person.FirstName, LastName = person.LastName, PhoneNumber = person.PhoneNumber, Sex = person.Sex, Skype = person.Skype, BirthDate = person.BirthDate, Email = person.Email };
+            context.Candidates.Add(candidate);
             context.SaveChanges();
         }
-        public void Update( int id, string firstName, string lastName, string birthDate, string sex, string phoneNumber, string email, string skype)
+        public void Update( int id, CandidateDTO person)
         {
-            var candidate = new Candidate {ID = id, BirthDate = DateTime.Parse(birthDate), Email = email, FirstName=firstName, LastName=lastName, PhoneNumber=phoneNumber, Sex=sex, Skype=skype  };
+            var candidate = new Candidate {ID = id, FirstName = person.FirstName, LastName = person.LastName, PhoneNumber = person.PhoneNumber, Sex = person.Sex, Skype = person.Skype, BirthDate = person.BirthDate, Email = person.Email };
             context.Candidates.Update(candidate);
             context.SaveChanges();
             
@@ -38,7 +38,7 @@ namespace Candidates.Services
                 context.SaveChanges();
             }
         }
-        public CandidateDetailsDTO Display( int id)
+        public CandidateDetailsDTO Get( int id)
         {
             var candidate = context.Candidates.Include(c => c.LastName).Select(c => new CandidateDetailsDTO()
             {
@@ -53,10 +53,10 @@ namespace Candidates.Services
             }).SingleOrDefault(c => c.ID == id);
              return candidate;
         }
-        public IQueryable<CandidateDTO> Display()
+        public IQueryable<CandidateShortDTO> Get()
         {
             var candidates = from c in context.Candidates
-                        select new CandidateDTO()
+                        select new CandidateShortDTO()
                         {
                             ID = c.ID,
                             FirstName = c.FirstName,

@@ -16,16 +16,16 @@ namespace Candidates.Services
         {
             context = _context;
         }
-        public void Create(int candidateID, bool canWorkRemotly, bool canRelocate, bool canWorkInTheOffice)
+        public void Create(OptionsDTO _options)
         {
             context.Database.EnsureCreated();
-            var options = new Options {CandidateID = candidateID, CanWorkRemotly = canWorkRemotly, CanRelocate = canRelocate, CanWorkInTheOffice = canWorkInTheOffice };
+            var options = new Options {CandidateID = _options.CandidateID, CanWorkRemotly = _options.CanWorkRemotly, CanRelocate = _options.CanRelocate, CanWorkInTheOffice = _options.CanWorkInTheOffice};
             context.Options.Add(options);
             context.SaveChanges();
         }
-        public void Update( int candidateID, bool canWorkRemotly, bool canRelocate, bool canWorkInTheOffice) 
+        public void Update( int candidateID, OptionsShortDTO _options) 
         {
-            var options = new Options { CandidateID = candidateID, CanWorkRemotly = canWorkRemotly, CanRelocate = canRelocate, CanWorkInTheOffice = canWorkInTheOffice };
+            var options = new Options { CandidateID = candidateID, CanWorkRemotly = _options.CanWorkRemotly, CanRelocate = _options.CanRelocate, CanWorkInTheOffice = _options.CanWorkInTheOffice};
             context.Options.Update(options);
             context.SaveChanges();
         }
@@ -38,7 +38,7 @@ namespace Candidates.Services
                 context.SaveChanges();
             }
         }
-        public OptionsDTO Display( int candidateID)
+        public OptionsDTO Get( int candidateID)
         {
             var options = context.Options.Include(c => c.CandidateID).Select(c => new OptionsDTO()
             {
@@ -49,7 +49,7 @@ namespace Candidates.Services
             }).SingleOrDefault(c => c.CandidateID == candidateID);
             return options;
         }
-        public IQueryable<OptionsDTO> Display()
+        public IQueryable<OptionsDTO> Get()
         {
             var options = from c in context.Options
                               select new OptionsDTO()

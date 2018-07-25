@@ -21,35 +21,35 @@ namespace Candidates_Project.Controllers
         }
 
         // GET: Default/Details/5
-        [Route("api/CandidateController/id")]
+        [Route("api/Candidate/id")]
         [HttpGet]
-        public CandidateDetailsDTO Details(int id)
+        public CandidateDetailsDTO Get(int id)
         {
-            return service.Display(id);
+            return service.Get(id);
         }
-        [Route("api/CandidateController/")]
+        [Route("api/Candidate/")]
         [HttpGet]
-        public IQueryable<CandidateDTO> Details()
+        public IQueryable<CandidateShortDTO> Get()
         {
-            return service.Display();
+            return service.Get();
         }
-        [Route("api/CandidateController/")]
+        [Route("api/Candidate/")]
         [HttpDelete]
         public void Delete(int id)
         {
             service.Remove(id);
         }
-        [Route("api/CandidateController/")]
+        [Route("api/Candidate/")]
         [HttpPut]
-        public void Update( int id, string firstName, string lastName, string birthDate, string sex, string phoneNumber, string email, string skype)
+        public void Update( int id, CandidateDTO candidate)
         {
-            service.Update( id, firstName,  lastName, birthDate, sex, phoneNumber, email, skype);
+            service.Update( id, candidate);
         }
-        [Route("api/CandidateController/")]
+        [Route("api/Candidate/")]
         [HttpPost]
-        public void Create(string firstName, string lastName, string birthDate, string sex, string phoneNumber, string email, string skype)
+        public void Create(CandidateDTO candidate)
         {
-            service.Create( firstName, lastName, birthDate, sex, phoneNumber, email, skype);
+            service.Create(candidate);
 
             
         }

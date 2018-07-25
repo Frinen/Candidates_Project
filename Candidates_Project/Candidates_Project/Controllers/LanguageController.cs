@@ -21,35 +21,35 @@ namespace Candidates_Project.Controllers
         }
 
         // GET: Default/Details/5
-        [Route("api/LanguageController/id")]
+        [Route("api/Language/id")]
         [HttpGet]
-        public LanguageDTO Display(int id)
+        public LanguageDTO Get(int id)
         {
-            return service.Display( id);
+            return service.Get( id);
         }
-        [Route("api/LanguageController")]
+        [Route("api/Language")]
         [HttpGet]
-        public IQueryable<LanguageDTO> Display()
+        public IQueryable<LanguageDTO> Get()
         {
-            return service.Display();
+            return service.Get();
         }
-        [Route("api/LanguageController")]
+        [Route("api/Language")]
         [HttpDelete]
         public void Delete(int id)
         {
             service.Remove(id);
         }
-        [Route("api/LanguageController")]
+        [Route("api/Language")]
         [HttpPut]
-        public void Update(int id, string name)
+        public void Update(int id, LanguageShortDTO language)
         {
-            service.Update(id, name);
+            service.Update(id, language);
         }
-        [Route("api/LanguageController")]
+        [Route("api/Language")]
         [HttpPost]
-        public void Create(string name)
+        public void Create(LanguageShortDTO language)
         {
-            service.Create(name);
+            service.Create(language);
         }
     }
 }

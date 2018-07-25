@@ -8,10 +8,10 @@ namespace Candidates.Services.Interfaces
 {
     public interface IOptionsService
     {
-        void Create(int candidateID, bool canWorkRemotly, bool canRelocate, bool canWorkInTheOffice);
-        void Update(int candidateID, bool canWorkRemotly, bool canRelocate, bool canWorkInTheOffice);
+        void Create(OptionsDTO options);
+        void Update(int candidateID, OptionsShortDTO options);
         void Remove(int candidateID);
-        OptionsDTO Display(int candidateID);
-        IQueryable<OptionsDTO> Display();
+        OptionsDTO Get(int candidateID);
+        IQueryable<OptionsDTO> Get();
     }
 }

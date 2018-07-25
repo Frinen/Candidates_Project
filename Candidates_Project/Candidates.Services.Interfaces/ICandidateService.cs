@@ -8,10 +8,10 @@ namespace Candidates.Services.Interfaces
 {
     public interface ICandidateService
     {
-        void Create(string firstName, string lastName, string birthDate, string sex, string phoneNumber, string email, string skype);
-        void Update(int id, string firstName, string lastName, string birthDate, string sex, string phoneNumber, string email, string skype);
+        void Create(CandidateDTO candidate);
+        void Update(int id, CandidateDTO candidate);
         void Remove(int id);
-        CandidateDetailsDTO Display(int id);
-        IQueryable<CandidateDTO> Display();
+        CandidateDetailsDTO Get(int id);
+        IQueryable<CandidateShortDTO> Get();
     }
 }

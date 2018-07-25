@@ -21,35 +21,35 @@ namespace Candidates_Project.Controllers
         }
 
         // GET: Default/Details/5
-        [Route("api/CandidateSkillController/skillID&candidateID")]
+        [Route("api/CandidateSkill/skillID&candidateID")]
         [HttpGet]
-        public CandidateSkillDTO Details(int skillID, int candidateID)
+        public CandidateSkillDTO Get(int skillID, int candidateID)
         {
-            return service.Display(skillID, candidateID);
+            return service.Get(skillID, candidateID);
         }
-        [Route("api/CandidateSkillController")]
+        [Route("api/CandidateSkill")]
         [HttpGet]
-        public IQueryable<CandidateSkillDTO> Details()
+        public IQueryable<CandidateSkillDTO> Get()
         {
-            return service.Display();
+            return service.Get();
         }
-        [Route("api/CandidateSkillController")]
+        [Route("api/CandidateSkill")]
         [HttpDelete]
         public void Delete(int skillID, int candidateID)
         {
             service.Remove(skillID, candidateID);
         }
-        [Route("api/CandidateSkillController")]
+        [Route("api/CandidateSkill")]
         [HttpPut]
-        public void Update(int skillID, int candidateID, int month, string level)
+        public void Update(int skillID, int candidateID, CandidateSkillShortDTO candidateSkill)
         {
-            service.Update(skillID, candidateID, month, level);
+            service.Update(skillID, candidateID, candidateSkill);
         }
-        [Route("api/CandidateSkillController")]
+        [Route("api/CandidateSkill")]
         [HttpPost]
-        public void Create(int skillID, int candidateID, int month, string level)
+        public void Create(CandidateSkillDTO candidateSkill)
         {
-            service.Create(skillID, candidateID, month, level);
+            service.Create(candidateSkill);
         }
     }
 }

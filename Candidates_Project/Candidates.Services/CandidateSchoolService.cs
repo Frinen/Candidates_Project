@@ -15,16 +15,16 @@ namespace Candidates.Services
         {
             context = _context;
         }
-        public void Create( int highSchoolID, int candidateID, string from, string to, string degree)
+        public void Create( CandidateSchoolDTO _candidateSchool)
         {
             context.Database.EnsureCreated();
-            var candidateschool = new CandidateSchool {HighSchoolID = highSchoolID, CandidateID = candidateID, From = DateTime.Parse(from), To = DateTime.Parse(to), Degree = degree };
+            var candidateschool = new CandidateSchool {HighSchoolID = _candidateSchool.HighSchoolID, CandidateID = _candidateSchool.CandidateID, From = _candidateSchool.From, To = _candidateSchool.To, Degree = _candidateSchool.Degree};
             context.CandidateSchools.Add(candidateschool);
             context.SaveChanges();
         }
-        public void Update(int highSchoolID, int candidateID, string from, string to, string degree)
+        public void Update(int highSchoolID, int candidateID, CandidateSchoolShortDTO _candidateSchool)
         {
-            var candidateSchool = new CandidateSchool { HighSchoolID = highSchoolID, CandidateID = candidateID, From = DateTime.Parse(from), To = DateTime.Parse(to), Degree = degree };
+            var candidateSchool = new CandidateSchool { HighSchoolID = highSchoolID, CandidateID = candidateID, From = _candidateSchool.From, To = _candidateSchool.To, Degree = _candidateSchool.Degree};
             context.CandidateSchools.Update(candidateSchool);
             context.SaveChanges();
 
@@ -40,7 +40,7 @@ namespace Candidates.Services
                 context.SaveChanges();
             }
         }
-        public CandidateSchoolDTO Display( int highSchoolID, int candidateID)
+        public CandidateSchoolDTO Get( int highSchoolID, int candidateID)
         {
             
             var candidateSchools = context.CandidateSchools.Include(c => c.CandidateID).Select(c => new CandidateSchoolDTO()
@@ -55,7 +55,7 @@ namespace Candidates.Services
             return candidateSchool;
 
         }
-        public IQueryable<CandidateSchoolDTO> Display()
+        public IQueryable<CandidateSchoolDTO> Get()
         {
             var candidateSchools = from c in context.CandidateSchools
                                    select new CandidateSchoolDTO()

@@ -16,17 +16,17 @@ namespace Candidates.Services
         {
             context = _context;
         }
-        public void Create(string name)
+        public void Create(HighSchoolShortDTO _highSchool)
         {
             context.Database.EnsureCreated();
-            var school = new HighSchool { Name = name };
-            context.HighSchools.Add(school);
+            var highSchool = new HighSchool { Name = _highSchool.Name };
+            context.HighSchools.Add(highSchool);
             context.SaveChanges();
         }
-        public void Update(int id, string name)
+        public void Update(int id, HighSchoolShortDTO _highSchool)
         {
-            var school = new HighSchool {ID = id, Name = name };
-            context.HighSchools.Update(school);
+            var highSchool = new HighSchool {ID = id, Name = _highSchool.Name };
+            context.HighSchools.Update(highSchool);
             context.SaveChanges();
         }
         public void Remove(int id)
@@ -38,7 +38,7 @@ namespace Candidates.Services
                 context.SaveChanges();
             }
         }
-        public HighSchoolDTO Display(int id)
+        public HighSchoolDTO Get(int id)
         {
             var highschool = context.HighSchools.Include(c => c.Name).Select(c => new HighSchoolDTO()
             {
@@ -47,7 +47,7 @@ namespace Candidates.Services
             }).SingleOrDefault(c => c.ID == id);
             return highschool;
         }
-        public IQueryable<HighSchoolDTO> Display()
+        public IQueryable<HighSchoolDTO> Get()
         {
             var highSchools = from c in context.HighSchools
                                   select new HighSchoolDTO()

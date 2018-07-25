@@ -8,10 +8,10 @@ namespace Candidates.Services.Interfaces
 {
     public interface ICandidateLanguageService
     {
-        void Create(int languageID, int candidateID, string level);
-        void Update(int languageID, int candidateID, string level);
+        void Create(CandidateLanguageDTO _candidateLanguage);
+        void Update(int languageID, int candidateID, CandidateLanguageShortDTO _candidateLanguage);
         void Remove(int languageID, int candidateID);
-        CandidateLanguageDTO Display(int languageID, int candidateID);
-        IQueryable<CandidateLanguageDTO> Display();
+        CandidateLanguageDTO Get(int languageID, int candidateID);
+        IQueryable<CandidateLanguageDTO> Get();
     }
 }

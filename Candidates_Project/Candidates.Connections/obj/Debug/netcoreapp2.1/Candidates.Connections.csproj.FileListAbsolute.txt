@@ -1,0 +1,16 @@
+C:\Users\Combustible_Lemon\Documents\GitHub\Candidates_Project\Candidates_Project\Candidates.Connections\bin\Debug\netcoreapp2.1\Candidates.Connections.deps.json
+C:\Users\Combustible_Lemon\Documents\GitHub\Candidates_Project\Candidates_Project\Candidates.Connections\bin\Debug\netcoreapp2.1\Candidates.Connections.dll
+C:\Users\Combustible_Lemon\Documents\GitHub\Candidates_Project\Candidates_Project\Candidates.Connections\bin\Debug\netcoreapp2.1\Candidates.Connections.pdb
+C:\Users\Combustible_Lemon\Documents\GitHub\Candidates_Project\Candidates_Project\Candidates.Connections\bin\Debug\netcoreapp2.1\Candidates.Models.dll
+C:\Users\Combustible_Lemon\Documents\GitHub\Candidates_Project\Candidates_Project\Candidates.Connections\bin\Debug\netcoreapp2.1\Candidates.Services.dll
+C:\Users\Combustible_Lemon\Documents\GitHub\Candidates_Project\Candidates_Project\Candidates.Connections\bin\Debug\netcoreapp2.1\Candidates.Services.Interfaces.dll
+C:\Users\Combustible_Lemon\Documents\GitHub\Candidates_Project\Candidates_Project\Candidates.Connections\bin\Debug\netcoreapp2.1\Candidates.Services.Interfaces.pdb
+C:\Users\Combustible_Lemon\Documents\GitHub\Candidates_Project\Candidates_Project\Candidates.Connections\bin\Debug\netcoreapp2.1\Candidates.Services.pdb
+C:\Users\Combustible_Lemon\Documents\GitHub\Candidates_Project\Candidates_Project\Candidates.Connections\bin\Debug\netcoreapp2.1\Candidates.Models.pdb
+C:\Users\Combustible_Lemon\Documents\GitHub\Candidates_Project\Candidates_Project\Candidates.Connections\obj\Debug\netcoreapp2.1\Candidates.Connections.csprojAssemblyReference.cache
+C:\Users\Combustible_Lemon\Documents\GitHub\Candidates_Project\Candidates_Project\Candidates.Connections\obj\Debug\netcoreapp2.1\Candidates.Connections.csproj.CoreCompileInputs.cache
+C:\Users\Combustible_Lemon\Documents\GitHub\Candidates_Project\Candidates_Project\Candidates.Connections\obj\Debug\netcoreapp2.1\Candidates.Connections.AssemblyInfoInputs.cache
+C:\Users\Combustible_Lemon\Documents\GitHub\Candidates_Project\Candidates_Project\Candidates.Connections\obj\Debug\netcoreapp2.1\Candidates.Connections.AssemblyInfo.cs
+C:\Users\Combustible_Lemon\Documents\GitHub\Candidates_Project\Candidates_Project\Candidates.Connections\obj\Debug\netcoreapp2.1\Candidates.Connections.csproj.CopyComplete
+C:\Users\Combustible_Lemon\Documents\GitHub\Candidates_Project\Candidates_Project\Candidates.Connections\obj\Debug\netcoreapp2.1\Candidates.Connections.dll
+C:\Users\Combustible_Lemon\Documents\GitHub\Candidates_Project\Candidates_Project\Candidates.Connections\obj\Debug\netcoreapp2.1\Candidates.Connections.pdb

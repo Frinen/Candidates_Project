@@ -16,16 +16,16 @@ namespace Candidates.Services
         {
             context = _context;
         }
-        public void Create( int skillID, int candidateID, int month, string level)
+        public void Create(CandidateSkillDTO _candidateSkill)
         {
             context.Database.EnsureCreated();
-            var candidateskill = new CandidateSkill{ SkillID = skillID, CandidateID = candidateID, Month = month, Level = level};
+            var candidateskill = new CandidateSkill{ SkillID = _candidateSkill.SkillID, CandidateID = _candidateSkill.CandidateID, Month = _candidateSkill.Month, Level = _candidateSkill.Level};
             context.CandidateSkills.Add(candidateskill);
             context.SaveChanges();
         }
-        public void Update(int skillID, int candidateID, int month, string level)
+        public void Update(int skillID, int candidateID, CandidateSkillShortDTO _candidateSkill)
         {
-            var candidateskill = new CandidateSkill { SkillID = skillID, CandidateID = candidateID, Month = month, Level = level };
+            var candidateskill = new CandidateSkill { SkillID = skillID, CandidateID = candidateID, Month = _candidateSkill.Month, Level = _candidateSkill.Level };
             context.CandidateSkills.Update(candidateskill);
             context.SaveChanges();
             
@@ -39,7 +39,7 @@ namespace Candidates.Services
                 context.SaveChanges();
             }
         }
-        public CandidateSkillDTO Display( int skillID, int candidateID)
+        public CandidateSkillDTO Get( int skillID, int candidateID)
         {
             var candidateSkills = context.CandidateSkills.Include(c => c.CandidateID).Select(c => new CandidateSkillDTO()
             {
@@ -51,7 +51,7 @@ namespace Candidates.Services
             var candidateSkill = candidateSkills.SingleOrDefault(c => c.SkillID == skillID);
             return candidateSkill;
         }
-        public IQueryable<CandidateSkillDTO> Display()
+        public IQueryable<CandidateSkillDTO> Get()
         {
             var candidateSkills = from c in context.CandidateSkills
                                   select new CandidateSkillDTO()
