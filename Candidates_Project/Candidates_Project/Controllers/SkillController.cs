@@ -13,11 +13,11 @@ namespace Candidates_Project.Controllers
     
     public class SkillController : Controller
     {
-        private readonly ISkillService service;
+        private readonly ISkillService _service;
 
-        public SkillController(ISkillService _service)
+        public SkillController(ISkillService service)
         {
-            service = _service;
+            _service = service;
         }
 
         // GET: Default/Details/5
@@ -25,31 +25,31 @@ namespace Candidates_Project.Controllers
         [HttpGet]
         public SkillDTO Get(int id)
         {
-            return service.Get(id);
+            return _service.Get(id);
         }
         [Route("api/Skill")]
         [HttpGet]
         public IQueryable<SkillDTO> Get()
         {
-            return service.Get();
+            return _service.Get();
         }
         [Route("api/Skill")]
         [HttpDelete]
         public void Delete(int id)
         {
-            service.Remove(id);
+            _service.Remove(id);
         }
         [Route("api/Skill")]
         [HttpPut]
         public void Change(int id, SkillShortDTO skill)
         {
-            service.Update(id, skill);
+            _service.Update(id, skill);
         }
         [Route("api/Skill")]
         [HttpPost]
         public void Create(SkillShortDTO skill)
         {
-            service.Create(skill);
+            _service.Create(skill);
             
         }
     }

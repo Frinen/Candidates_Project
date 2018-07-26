@@ -11,38 +11,38 @@ namespace Candidates.Services
     
     public class CandidateLanguageService: ICandidateLanguageService
     {
-        CandidatesContext context;
-        public CandidateLanguageService(CandidatesContext _context)
+        private CandidatesContext _context;
+        public CandidateLanguageService(CandidatesContext context)
         {
-            context = _context;
+            _context = context;
         }
-        public void Create( CandidateLanguageDTO _candidateLanguage)
+        public void Create( CandidateLanguageDTO candidateLanguage)
         {
-            context.Database.EnsureCreated();
-            var candidateLanguage = new CandidateLanguage { LanguageID = _candidateLanguage.LanguageID, CandidateID = _candidateLanguage.CandidateID, Level = _candidateLanguage.Level };
-            context.CandidateLanguages.Add(candidateLanguage);
-            context.SaveChanges();
+            _context.Database.EnsureCreated();
+            var _candidateLanguage = new CandidateLanguage { LanguageID = candidateLanguage.LanguageID, CandidateID = candidateLanguage.CandidateID, Level = candidateLanguage.Level };
+            _context.CandidateLanguages.Add(_candidateLanguage);
+            _context.SaveChanges();
         }
-        public void Update( int languageID, int candidateID, CandidateLanguageShortDTO _candidateLanguage)
+        public void Update( int languageID, int candidateID, CandidateLanguageShortDTO candidateLanguage)
         {
-            var сandidateLanguage = new CandidateLanguage { LanguageID = languageID, CandidateID = candidateID, Level = _candidateLanguage.Level };
-            context.CandidateLanguages.Update(сandidateLanguage);
-            context.SaveChanges();
+            var _сandidateLanguage = new CandidateLanguage { LanguageID = languageID, CandidateID = candidateID, Level = candidateLanguage.Level };
+            _context.CandidateLanguages.Update(_сandidateLanguage);
+            _context.SaveChanges();
 
 
         }
         public void Remove( int languageID, int candidateID)
         {
-            var candidateLanguage = context.CandidateLanguages.Find(languageID, candidateID);
+            var candidateLanguage = _context.CandidateLanguages.Find(languageID, candidateID);
             if (candidateLanguage != null)
             {
-                context.CandidateLanguages.Remove(candidateLanguage);
-                context.SaveChanges();
+                _context.CandidateLanguages.Remove(candidateLanguage);
+                _context.SaveChanges();
             }
         }
         public CandidateLanguageDTO Get( int languageID, int candidateID)
         {
-            var candidateLanguages = context.CandidateLanguages.Include(c => c.CandidateID).Select(c => new CandidateLanguageDTO()
+            var candidateLanguages = _context.CandidateLanguages.Include(c => c.CandidateID).Select(c => new CandidateLanguageDTO()
             {
                CandidateID =c.CandidateID,
                LanguageID = c.LanguageID,
@@ -53,7 +53,7 @@ namespace Candidates.Services
         }
         public IQueryable<CandidateLanguageDTO> Get()
         {
-            var candidateLanguages = from c in context.CandidateLanguages
+            var candidateLanguages = from c in _context.CandidateLanguages
                              select new CandidateLanguageDTO()
                              {
                                  CandidateID = c.CandidateID,

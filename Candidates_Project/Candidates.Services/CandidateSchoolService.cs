@@ -10,40 +10,40 @@ namespace Candidates.Services
 {
     public class CandidateSchoolService: ICandidateSchoolService
     {
-        CandidatesContext context;
-        public CandidateSchoolService(CandidatesContext _context)
+        private CandidatesContext _context;
+        public CandidateSchoolService(CandidatesContext context)
         {
-            context = _context;
+            _context = context;
         }
-        public void Create( CandidateSchoolDTO _candidateSchool)
+        public void Create( CandidateSchoolDTO candidateSchool)
         {
-            context.Database.EnsureCreated();
-            var candidateschool = new CandidateSchool {HighSchoolID = _candidateSchool.HighSchoolID, CandidateID = _candidateSchool.CandidateID, From = _candidateSchool.From, To = _candidateSchool.To, Degree = _candidateSchool.Degree};
-            context.CandidateSchools.Add(candidateschool);
-            context.SaveChanges();
+            _context.Database.EnsureCreated();
+            var _candidateschool = new CandidateSchool {HighSchoolID = candidateSchool.HighSchoolID, CandidateID = candidateSchool.CandidateID, From = candidateSchool.From, To = candidateSchool.To, Degree = candidateSchool.Degree};
+            _context.CandidateSchools.Add(_candidateschool);
+            _context.SaveChanges();
         }
-        public void Update(int highSchoolID, int candidateID, CandidateSchoolShortDTO _candidateSchool)
+        public void Update(int highSchoolID, int candidateID, CandidateSchoolShortDTO candidateSchool)
         {
-            var candidateSchool = new CandidateSchool { HighSchoolID = highSchoolID, CandidateID = candidateID, From = _candidateSchool.From, To = _candidateSchool.To, Degree = _candidateSchool.Degree};
-            context.CandidateSchools.Update(candidateSchool);
-            context.SaveChanges();
+            var _candidateSchool = new CandidateSchool { HighSchoolID = highSchoolID, CandidateID = candidateID, From = candidateSchool.From, To = candidateSchool.To, Degree = candidateSchool.Degree};
+            _context.CandidateSchools.Update(_candidateSchool);
+            _context.SaveChanges();
 
 
 
         }
         public void Remove(int highSchoolID, int candidateID)
         {
-            var candidateSchool = context.CandidateSchools.Find(highSchoolID, candidateID);
+            var candidateSchool = _context.CandidateSchools.Find(highSchoolID, candidateID);
             if (candidateSchool != null)
             {
-                context.CandidateSchools.Remove(candidateSchool);
-                context.SaveChanges();
+                _context.CandidateSchools.Remove(candidateSchool);
+                _context.SaveChanges();
             }
         }
         public CandidateSchoolDTO Get( int highSchoolID, int candidateID)
         {
             
-            var candidateSchools = context.CandidateSchools.Include(c => c.CandidateID).Select(c => new CandidateSchoolDTO()
+            var candidateSchools = _context.CandidateSchools.Include(c => c.CandidateID).Select(c => new CandidateSchoolDTO()
             {
                 CandidateID = c.CandidateID,
                 HighSchoolID = c.HighSchoolID,
@@ -57,7 +57,7 @@ namespace Candidates.Services
         }
         public IQueryable<CandidateSchoolDTO> Get()
         {
-            var candidateSchools = from c in context.CandidateSchools
+            var candidateSchools = from c in _context.CandidateSchools
                                    select new CandidateSchoolDTO()
                                      {
                                        CandidateID = c.CandidateID,

@@ -11,36 +11,36 @@ namespace Candidates.Services
 {
     public class OptionsService : IOptionsService
     {
-        CandidatesContext context;
-        public OptionsService(CandidatesContext _context)
+        CandidatesContext _context;
+        public OptionsService(CandidatesContext context)
         {
-            context = _context;
+            _context = context;
         }
-        public void Create(OptionsDTO _options)
+        public void Create(OptionsDTO options)
         {
-            context.Database.EnsureCreated();
-            var options = new Options {CandidateID = _options.CandidateID, CanWorkRemotly = _options.CanWorkRemotly, CanRelocate = _options.CanRelocate, CanWorkInTheOffice = _options.CanWorkInTheOffice};
-            context.Options.Add(options);
-            context.SaveChanges();
+            _context.Database.EnsureCreated();
+            var _options = new Options {CandidateID = options.CandidateID, CanWorkRemotly = options.CanWorkRemotly, CanRelocate = options.CanRelocate, CanWorkInTheOffice = options.CanWorkInTheOffice};
+            _context.Options.Add(_options);
+            _context.SaveChanges();
         }
-        public void Update( int candidateID, OptionsShortDTO _options) 
+        public void Update( int candidateID, OptionsShortDTO options) 
         {
-            var options = new Options { CandidateID = candidateID, CanWorkRemotly = _options.CanWorkRemotly, CanRelocate = _options.CanRelocate, CanWorkInTheOffice = _options.CanWorkInTheOffice};
-            context.Options.Update(options);
-            context.SaveChanges();
+            var _options = new Options { CandidateID = candidateID, CanWorkRemotly = options.CanWorkRemotly, CanRelocate = options.CanRelocate, CanWorkInTheOffice = options.CanWorkInTheOffice};
+            _context.Options.Update(_options);
+            _context.SaveChanges();
         }
         public void Remove( int candidateID)
         {
-            var options = context.Options.Find(candidateID);
+            var options = _context.Options.Find(candidateID);
             if (options != null)
             {
-                context.Options.Remove(options);
-                context.SaveChanges();
+                _context.Options.Remove(options);
+                _context.SaveChanges();
             }
         }
         public OptionsDTO Get( int candidateID)
         {
-            var options = context.Options.Include(c => c.CandidateID).Select(c => new OptionsDTO()
+            var options = _context.Options.Include(c => c.CandidateID).Select(c => new OptionsDTO()
             {
                 CandidateID = c.CandidateID,
                 CanRelocate = c.CanRelocate,
@@ -51,7 +51,7 @@ namespace Candidates.Services
         }
         public IQueryable<OptionsDTO> Get()
         {
-            var options = from c in context.Options
+            var options = from c in _context.Options
                               select new OptionsDTO()
                               {
                                   CandidateID = c.CandidateID,

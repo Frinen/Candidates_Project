@@ -13,11 +13,11 @@ namespace Candidates_Project.Controllers
     
     public class CandidateLanguageController : Controller
     {
-        private readonly ICandidateLanguageService service;
+        private readonly ICandidateLanguageService _service;
 
-        public CandidateLanguageController(ICandidateLanguageService _service)
+        public CandidateLanguageController(ICandidateLanguageService service)
         {
-            service = _service;
+            _service = service;
         }
 
         // GET: Default/Details/5
@@ -25,31 +25,31 @@ namespace Candidates_Project.Controllers
         [HttpGet]
         public CandidateLanguageDTO Get(int languageID, int candidateID)
         {
-            return service.Get( languageID, candidateID);
+            return _service.Get( languageID, candidateID);
         }
         [Route("api/CandidateLanguage/")]
         [HttpGet]
         public IQueryable<CandidateLanguageDTO> Get()
         {
-            return service.Get();
+            return _service.Get();
         }
         [Route("api/CandidateLanguage/")]
         [HttpDelete]
         public void Delete(int languageID, int candidateID)
         {
-            service.Remove( languageID, candidateID);
+            _service.Remove( languageID, candidateID);
         }
         [Route("api/CandidateLanguage/")]
         [HttpPut]
         public void Update(int languageID, int candidateID, CandidateLanguageShortDTO candidateLanguage)
         {
-            service.Update( languageID, candidateID, candidateLanguage);
+            _service.Update( languageID, candidateID, candidateLanguage);
         }
         [Route("api/CandidateLanguage/")]
         [HttpPost]
         public void Create(CandidateLanguageDTO candidateLanguage)
         {
-            service.Create(candidateLanguage);
+            _service.Create(candidateLanguage);
             
         }
     }

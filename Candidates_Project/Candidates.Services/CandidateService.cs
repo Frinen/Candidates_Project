@@ -10,37 +10,37 @@ namespace Candidates.Services
 {
     public class CandidateService : ICandidateService
     {
-        CandidatesContext context;
-        public CandidateService(CandidatesContext _context)
+        private CandidatesContext _context;
+        public CandidateService(CandidatesContext context)
         {
-            context = _context;
+            _context = context;
         }
         public void Create(CandidateDTO person)
         {
-            context.Database.EnsureCreated();
+            _context.Database.EnsureCreated();
             var candidate = new Candidate { FirstName = person.FirstName, LastName = person.LastName, PhoneNumber = person.PhoneNumber, Sex = person.Sex, Skype = person.Skype, BirthDate = person.BirthDate, Email = person.Email };
-            context.Candidates.Add(candidate);
-            context.SaveChanges();
+            _context.Candidates.Add(candidate);
+            _context.SaveChanges();
         }
         public void Update( int id, CandidateDTO person)
         {
             var candidate = new Candidate {ID = id, FirstName = person.FirstName, LastName = person.LastName, PhoneNumber = person.PhoneNumber, Sex = person.Sex, Skype = person.Skype, BirthDate = person.BirthDate, Email = person.Email };
-            context.Candidates.Update(candidate);
-            context.SaveChanges();
+            _context.Candidates.Update(candidate);
+            _context.SaveChanges();
             
         }
         public void Remove( int id)
         {
-            var candidate = context.Candidates.Find(id);
+            var candidate = _context.Candidates.Find(id);
             if (candidate != null)
             {
-                context.Candidates.Remove(candidate);
-                context.SaveChanges();
+                _context.Candidates.Remove(candidate);
+                _context.SaveChanges();
             }
         }
         public CandidateDetailsDTO Get( int id)
         {
-            var candidate = context.Candidates.Include(c => c.LastName).Select(c => new CandidateDetailsDTO()
+            var candidate = _context.Candidates.Include(c => c.LastName).Select(c => new CandidateDetailsDTO()
             {
                 ID = c.ID,
                 FirstName = c.LastName,
@@ -55,7 +55,7 @@ namespace Candidates.Services
         }
         public IQueryable<CandidateShortDTO> Get()
         {
-            var candidates = from c in context.Candidates
+            var candidates = from c in _context.Candidates
                         select new CandidateShortDTO()
                         {
                             ID = c.ID,

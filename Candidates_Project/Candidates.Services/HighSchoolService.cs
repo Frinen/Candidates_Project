@@ -11,36 +11,36 @@ namespace Candidates.Services
 {
     public class HighSchoolService : IHighSchoolService
     {
-        CandidatesContext context;
-        public HighSchoolService(CandidatesContext _context)
+        private CandidatesContext _context;
+        public HighSchoolService(CandidatesContext context)
         {
-            context = _context;
+           _context = context;
         }
-        public void Create(HighSchoolShortDTO _highSchool)
+        public void Create(HighSchoolShortDTO highSchool)
         {
-            context.Database.EnsureCreated();
-            var highSchool = new HighSchool { Name = _highSchool.Name };
-            context.HighSchools.Add(highSchool);
-            context.SaveChanges();
+            _context.Database.EnsureCreated();
+            var _highSchool = new HighSchool { Name = highSchool.Name };
+            _context.HighSchools.Add(_highSchool);
+            _context.SaveChanges();
         }
-        public void Update(int id, HighSchoolShortDTO _highSchool)
+        public void Update(int id, HighSchoolShortDTO highSchool)
         {
-            var highSchool = new HighSchool {ID = id, Name = _highSchool.Name };
-            context.HighSchools.Update(highSchool);
-            context.SaveChanges();
+            var _highSchool = new HighSchool {ID = id, Name = highSchool.Name };
+            _context.HighSchools.Update(_highSchool);
+            _context.SaveChanges();
         }
         public void Remove(int id)
         {
-            var highschool = context.HighSchools.Find(id);
+            var highschool = _context.HighSchools.Find(id);
             if (highschool != null)
             { 
-                context.HighSchools.Remove(highschool);
-                context.SaveChanges();
+                _context.HighSchools.Remove(highschool);
+                _context.SaveChanges();
             }
         }
         public HighSchoolDTO Get(int id)
         {
-            var highschool = context.HighSchools.Include(c => c.Name).Select(c => new HighSchoolDTO()
+            var highschool = _context.HighSchools.Include(c => c.Name).Select(c => new HighSchoolDTO()
             {
                 ID = c.ID,
                 Name = c.Name
@@ -49,7 +49,7 @@ namespace Candidates.Services
         }
         public IQueryable<HighSchoolDTO> Get()
         {
-            var highSchools = from c in context.HighSchools
+            var highSchools = from c in _context.HighSchools
                                   select new HighSchoolDTO()
                                   {
                                       ID = c.ID,

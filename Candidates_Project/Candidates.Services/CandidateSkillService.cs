@@ -11,37 +11,37 @@ namespace Candidates.Services
 {
     public class CandidateSkillService : ICandidateSkillService
     {
-        CandidatesContext context;
-        public CandidateSkillService(CandidatesContext _context)
+        CandidatesContext _context;
+        public CandidateSkillService(CandidatesContext context)
         {
-            context = _context;
+            _context = context;
         }
-        public void Create(CandidateSkillDTO _candidateSkill)
+        public void Create(CandidateSkillDTO candidateSkill)
         {
-            context.Database.EnsureCreated();
-            var candidateskill = new CandidateSkill{ SkillID = _candidateSkill.SkillID, CandidateID = _candidateSkill.CandidateID, Month = _candidateSkill.Month, Level = _candidateSkill.Level};
-            context.CandidateSkills.Add(candidateskill);
-            context.SaveChanges();
+            _context.Database.EnsureCreated();
+            var _candidateskill = new CandidateSkill{ SkillID = candidateSkill.SkillID, CandidateID = candidateSkill.CandidateID, Month = candidateSkill.Month, Level = candidateSkill.Level};
+            _context.CandidateSkills.Add(_candidateskill);
+            _context.SaveChanges();
         }
-        public void Update(int skillID, int candidateID, CandidateSkillShortDTO _candidateSkill)
+        public void Update(int skillID, int candidateID, CandidateSkillShortDTO candidateSkill)
         {
-            var candidateskill = new CandidateSkill { SkillID = skillID, CandidateID = candidateID, Month = _candidateSkill.Month, Level = _candidateSkill.Level };
-            context.CandidateSkills.Update(candidateskill);
-            context.SaveChanges();
+            var _candidateskill = new CandidateSkill { SkillID = skillID, CandidateID = candidateID, Month = candidateSkill.Month, Level = candidateSkill.Level };
+            _context.CandidateSkills.Update(_candidateskill);
+            _context.SaveChanges();
             
         }
         public void Remove(int skillID, int candidateID)
         {
-            var candidateSkill = context.CandidateSkills.Find(skillID, candidateID);
+            var candidateSkill = _context.CandidateSkills.Find(skillID, candidateID);
             if (candidateSkill != null)
             {
-                context.CandidateSkills.Remove(candidateSkill);
-                context.SaveChanges();
+                _context.CandidateSkills.Remove(candidateSkill);
+                _context.SaveChanges();
             }
         }
         public CandidateSkillDTO Get( int skillID, int candidateID)
         {
-            var candidateSkills = context.CandidateSkills.Include(c => c.CandidateID).Select(c => new CandidateSkillDTO()
+            var candidateSkills = _context.CandidateSkills.Include(c => c.CandidateID).Select(c => new CandidateSkillDTO()
             {
                 CandidateID = c.CandidateID,
                 SkillID = c.SkillID,
@@ -53,7 +53,7 @@ namespace Candidates.Services
         }
         public IQueryable<CandidateSkillDTO> Get()
         {
-            var candidateSkills = from c in context.CandidateSkills
+            var candidateSkills = from c in _context.CandidateSkills
                                   select new CandidateSkillDTO()
                                    {
                                       CandidateID = c.CandidateID,

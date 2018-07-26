@@ -13,11 +13,11 @@ namespace Candidates_Project.Controllers
     
     public class CandidateSchoolController:Controller
     {
-        private readonly ICandidateSchoolService service;
+        private readonly ICandidateSchoolService _service;
 
-        public CandidateSchoolController(ICandidateSchoolService _service)
+        public CandidateSchoolController(ICandidateSchoolService service)
         {
-            service = _service;
+            _service = service;
         }
 
         // GET: Default/Details/5
@@ -25,31 +25,31 @@ namespace Candidates_Project.Controllers
         [HttpGet]
         public CandidateSchoolDTO Get(int highSchoolID, int candidateID)
         {
-            return service.Get(highSchoolID, candidateID);
+            return _service.Get(highSchoolID, candidateID);
         }
         [Route("api/CandidateSchool")]
         [HttpGet]
         public IQueryable<CandidateSchoolDTO> Get()
         {
-            return service.Get();
+            return _service.Get();
         }
         [Route("api/CandidateSchool")]
         [HttpDelete]
         public void Delete(int highSchoolID, int candidateID)
         {
-            service.Remove(highSchoolID, candidateID);
+            _service.Remove(highSchoolID, candidateID);
         }
         [Route("api/CandidateSchool")]
         [HttpPut]
         public void Update(int highSchoolID, int candidateID, CandidateSchoolShortDTO candidateSchool)
         {
-            service.Update( highSchoolID, candidateID, candidateSchool);
+            _service.Update( highSchoolID, candidateID, candidateSchool);
         }
         [Route("api/CandidateSchool")]
         [HttpPost]
         public void Create(CandidateSchoolDTO candidateSchool)
         {
-            service.Create(candidateSchool);
+            _service.Create(candidateSchool);
 
 
         }

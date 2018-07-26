@@ -13,11 +13,11 @@ namespace Candidates_Project.Controllers
    
     public class OptionsController : Controller
     {
-        private readonly IOptionsService service;
+        private readonly IOptionsService _service;
 
-        public OptionsController(IOptionsService _service)
+        public OptionsController(IOptionsService service)
         {
-            service = _service;
+            _service = service;
         }
 
         // GET: Default/Details/5
@@ -25,31 +25,31 @@ namespace Candidates_Project.Controllers
         [HttpGet]
         public OptionsDTO Get(int id)
         {
-            return service.Get(id);
+            return _service.Get(id);
         }
         [Route("api/Options")]
         [HttpGet]
         public IQueryable<OptionsDTO> Get()
         {
-            return service.Get();
+            return _service.Get();
         }
         [Route("api/Options")]
         [HttpDelete]
         public void Delete(int id)
         {
-            service.Remove(id);
+            _service.Remove(id);
         }
         [Route("api/Options")]
         [HttpPut]
         public void Update(int candidateID, OptionsShortDTO options)
         {
-            service.Update(candidateID, options);
+            _service.Update(candidateID, options);
         }
         [Route("api/Options")]
         [HttpPost]
         public void Create(OptionsDTO options)
         {
-            service.Create(options);
+            _service.Create(options);
         }
     }
 }

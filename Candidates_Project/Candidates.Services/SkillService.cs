@@ -12,36 +12,36 @@ namespace Candidates.Services
     
     public class SkillService : ISkillService
     {
-        CandidatesContext context;
-        public SkillService(CandidatesContext _context)
+        CandidatesContext _context;
+        public SkillService(CandidatesContext context)
         {
-            context = _context;
+            _context = context;
         }
-        public void Create(SkillShortDTO _skill)
+        public void Create(SkillShortDTO skill)
         {
-            context.Database.EnsureCreated();
-            var skill = new Skill { Name = _skill.Name };
-            context.Skills.Add(skill);
-            context.SaveChanges();
+            _context.Database.EnsureCreated();
+            var _skill = new Skill { Name = skill.Name };
+            _context.Skills.Add(_skill);
+            _context.SaveChanges();
         }
-        public void Update(int id, SkillShortDTO _skill)
+        public void Update(int id, SkillShortDTO skill)
         {
-            var skill = new Skill {ID = id, Name = _skill.Name };
-            context.Skills.Update(skill);
-            context.SaveChanges();
+            var _skill = new Skill {ID = id, Name = skill.Name };
+            _context.Skills.Update(_skill);
+            _context.SaveChanges();
         }
         public void Remove(int id)
         {
-            var skill = context.Skills.Find(id);
+            var skill = _context.Skills.Find(id);
             if (skill != null)
             { 
-                context.Skills.Remove(skill);
-                context.SaveChanges();
+                _context.Skills.Remove(skill);
+                _context.SaveChanges();
             }
         }
         public SkillDTO Get(int id)
         {
-            var skill = context.Skills.Include(c => c.Name).Select(c => new SkillDTO()
+            var skill = _context.Skills.Include(c => c.Name).Select(c => new SkillDTO()
             {
                 ID = c.ID,
                 Name = c.Name
@@ -50,7 +50,7 @@ namespace Candidates.Services
         }
         public IQueryable<SkillDTO> Get()
         {
-            var skills = from c in context.Skills
+            var skills = from c in _context.Skills
                               select new SkillDTO()
                               {
                                   ID = c.ID,
