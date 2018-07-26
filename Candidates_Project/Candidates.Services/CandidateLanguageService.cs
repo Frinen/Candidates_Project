@@ -42,25 +42,26 @@ namespace Candidates.Services
         }
         public CandidateLanguageDTO Get( int languageID, int candidateID)
         {
-            var candidateLanguages = _context.CandidateLanguages.Include(c => c.CandidateID).Select(c => new CandidateLanguageDTO()
+            var candidatesLanguages = _context.CandidateLanguages.Include(c => c.CandidateID).Select(c => new CandidateLanguageDTO()
             {
                CandidateID =c.CandidateID,
                LanguageID = c.LanguageID,
                Level = c.Level
             }).Where(c => c.CandidateID == candidateID);
-            var candidateLanguage = candidateLanguages.SingleOrDefault(c => c.LanguageID == languageID);
+            var candidateLanguage = candidatesLanguages.SingleOrDefault(c => c.LanguageID == languageID);
             return candidateLanguage;
         }
-        public IQueryable<CandidateLanguageDTO> Get()
+        public IQueryable<CandidateLanguageDTO> GetPage(int page, int pageSize)
         {
-            var candidateLanguages = from c in _context.CandidateLanguages
+            var candidatesLanguages = from c in _context.CandidateLanguages
                              select new CandidateLanguageDTO()
                              {
                                  CandidateID = c.CandidateID,
                                  LanguageID = c.LanguageID,
                                  Level = c.Level
                              };
-            return candidateLanguages;
+            var candidatesLanguagesRange = candidatesLanguages.Skip((page - 1) * pageSize).Take(pageSize);
+            return candidatesLanguagesRange;
         }
     }
 }

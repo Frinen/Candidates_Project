@@ -12,6 +12,6 @@ namespace Candidates.Services.Interfaces
         void Update(int id, LanguageShortDTO language);
         void Remove(int id);
         LanguageDTO Get(int id);
-        IQueryable<LanguageDTO> Get();
+        IQueryable<LanguageDTO> GetPage(int page, int pageSize);
     }
 }

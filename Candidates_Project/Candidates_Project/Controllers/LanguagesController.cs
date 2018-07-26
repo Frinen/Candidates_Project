@@ -11,41 +11,41 @@ using Microsoft.AspNetCore.Mvc;
 namespace Candidates_Project.Controllers
 {
     
-    public class LanguageController : Controller
+    public class LanguagesController : Controller
     {
         private readonly ILanguageService _service;
 
-        public LanguageController(ILanguageService service)
+        public LanguagesController(ILanguageService service)
         {
             _service = service;
         }
 
         // GET: Default/Details/5
-        [Route("api/Language/id")]
+        [Route("api/Languages/id")]
         [HttpGet]
         public LanguageDTO Get(int id)
         {
             return _service.Get( id);
         }
-        [Route("api/Language")]
+        [Route("api/Languages")]
         [HttpGet]
-        public IQueryable<LanguageDTO> Get()
+        public IQueryable<LanguageDTO> GetPage(int page, int pageSize)
         {
-            return _service.Get();
+            return _service.GetPage(page, pageSize);
         }
-        [Route("api/Language")]
+        [Route("api/Languages")]
         [HttpDelete]
         public void Delete(int id)
         {
             _service.Remove(id);
         }
-        [Route("api/Language")]
+        [Route("api/Languages")]
         [HttpPut]
         public void Update(int id, LanguageShortDTO language)
         {
             _service.Update(id, language);
         }
-        [Route("api/Language")]
+        [Route("api/Languages")]
         [HttpPost]
         public void Create(LanguageShortDTO language)
         {

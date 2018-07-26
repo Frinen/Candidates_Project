@@ -49,7 +49,7 @@ namespace Candidates.Services
             return language;
 
         }
-        public IQueryable<LanguageDTO> Get()
+        public IQueryable<LanguageDTO> GetPage(int page, int pageSize)
         {
             var languages = from c in _context.Languages
                               select new LanguageDTO()
@@ -57,7 +57,8 @@ namespace Candidates.Services
                                   ID = c.ID,
                                   Name = c.Name
                               };
-            return languages;
+            var languagesRange = languages.Skip((page - 1) * pageSize).Take(pageSize);
+            return languagesRange;
         }
     }
 }

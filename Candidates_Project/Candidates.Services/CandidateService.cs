@@ -53,7 +53,7 @@ namespace Candidates.Services
             }).SingleOrDefault(c => c.ID == id);
              return candidate;
         }
-        public IQueryable<CandidateShortDTO> Get()
+        public IQueryable<CandidateShortDTO> GetPage(int page, int pageSize)
         {
             var candidates = from c in _context.Candidates
                         select new CandidateShortDTO()
@@ -63,8 +63,8 @@ namespace Candidates.Services
                             LastName = c.LastName,
                             BirthDate = c.BirthDate
                         };
-
-            return candidates;
+            var candidatesRange = candidates.Skip((page-1)* pageSize).Take(pageSize);
+            return candidatesRange;
 
         }
     }

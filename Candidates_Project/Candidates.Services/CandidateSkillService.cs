@@ -51,9 +51,9 @@ namespace Candidates.Services
             var candidateSkill = candidateSkills.SingleOrDefault(c => c.SkillID == skillID);
             return candidateSkill;
         }
-        public IQueryable<CandidateSkillDTO> Get()
+        public IQueryable<CandidateSkillDTO> GetPage(int page, int pageSize)
         {
-            var candidateSkills = from c in _context.CandidateSkills
+            var candidatesSkills = from c in _context.CandidateSkills
                                   select new CandidateSkillDTO()
                                    {
                                       CandidateID = c.CandidateID,
@@ -61,7 +61,8 @@ namespace Candidates.Services
                                       Level = c.Level,
                                       Month = c.Month
                                   };
-            return candidateSkills;
+            var candidatesSkillsRange = candidatesSkills.Skip((page - 1) * pageSize).Take(pageSize);
+            return candidatesSkillsRange;
         }
     }
 }

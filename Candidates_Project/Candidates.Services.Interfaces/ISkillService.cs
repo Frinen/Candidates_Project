@@ -12,6 +12,6 @@ namespace Candidates.Services.Interfaces
         void Update(int id, SkillShortDTO skill);
         void Remove(int id);
         SkillDTO Get(int id);
-        IQueryable<SkillDTO> Get();
+        IQueryable<SkillDTO> GetPage(int page, int pageSize);
     }
 }

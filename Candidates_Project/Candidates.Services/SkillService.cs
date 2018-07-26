@@ -48,7 +48,7 @@ namespace Candidates.Services
             }).SingleOrDefault(c => c.ID == id);
             return skill;
         }
-        public IQueryable<SkillDTO> Get()
+        public IQueryable<SkillDTO> GetPage(int page, int pageSize)
         {
             var skills = from c in _context.Skills
                               select new SkillDTO()
@@ -56,7 +56,8 @@ namespace Candidates.Services
                                   ID = c.ID,
                                   Name = c.Name
                               };
-            return skills;
+            var skillsRange = skills.Skip((page - 1) * pageSize).Take(pageSize);
+            return skillsRange;
         }
     }
 }

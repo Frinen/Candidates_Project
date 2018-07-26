@@ -29,9 +29,9 @@ namespace Candidates_Project.Controllers
         }
         [Route("api/Options")]
         [HttpGet]
-        public IQueryable<OptionsDTO> Get()
+        public IQueryable<OptionsDTO> GetPage(int page, int pageSize)
         {
-            return _service.Get();
+            return _service.GetPage(page, pageSize);
         }
         [Route("api/Options")]
         [HttpDelete]

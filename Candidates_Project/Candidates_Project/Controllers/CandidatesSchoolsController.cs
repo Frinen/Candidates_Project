@@ -11,47 +11,45 @@ using System.Threading.Tasks;
 namespace Candidates_Project.Controllers
 {
     
-    public class CandidateSchoolController:Controller
+    public class CandidatesSchoolsController:Controller
     {
         private readonly ICandidateSchoolService _service;
 
-        public CandidateSchoolController(ICandidateSchoolService service)
+        public CandidatesSchoolsController(ICandidateSchoolService service)
         {
             _service = service;
         }
 
         // GET: Default/Details/5
-        [Route("api/CandidateSchool/highSchoolID&candidateID")]
+        [Route("api/CandidatesSchools/highSchoolID&candidateID")]
         [HttpGet]
         public CandidateSchoolDTO Get(int highSchoolID, int candidateID)
         {
             return _service.Get(highSchoolID, candidateID);
         }
-        [Route("api/CandidateSchool")]
+        [Route("api/CandidatesSchools")]
         [HttpGet]
-        public IQueryable<CandidateSchoolDTO> Get()
+        public IQueryable<CandidateSchoolDTO> GetPage(int page, int pageSize)
         {
-            return _service.Get();
+            return _service.GetPage(page, pageSize);
         }
-        [Route("api/CandidateSchool")]
+        [Route("api/CandidatesSchools")]
         [HttpDelete]
         public void Delete(int highSchoolID, int candidateID)
         {
             _service.Remove(highSchoolID, candidateID);
         }
-        [Route("api/CandidateSchool")]
+        [Route("api/CandidatesSchools")]
         [HttpPut]
         public void Update(int highSchoolID, int candidateID, CandidateSchoolShortDTO candidateSchool)
         {
             _service.Update( highSchoolID, candidateID, candidateSchool);
         }
-        [Route("api/CandidateSchool")]
+        [Route("api/CandidatesSchools")]
         [HttpPost]
         public void Create(CandidateSchoolDTO candidateSchool)
         {
             _service.Create(candidateSchool);
-
-
         }
     }
 }

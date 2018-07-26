@@ -49,7 +49,7 @@ namespace Candidates.Services
             }).SingleOrDefault(c => c.CandidateID == candidateID);
             return options;
         }
-        public IQueryable<OptionsDTO> Get()
+        public IQueryable<OptionsDTO> GetPage(int page, int pageSize)
         {
             var options = from c in _context.Options
                               select new OptionsDTO()
@@ -59,7 +59,8 @@ namespace Candidates.Services
                                   CanWorkInTheOffice = c.CanWorkInTheOffice,
                                   CanWorkRemotly = c.CanWorkRemotly
                               };
-            return options;
+            var optionsRange = options.Skip((page - 1) * pageSize).Take(pageSize);
+            return optionsRange;
         }
     }
 }

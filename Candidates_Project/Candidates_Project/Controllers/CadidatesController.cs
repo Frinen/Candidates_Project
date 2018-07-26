@@ -11,41 +11,41 @@ using Candidates.Services.Interfaces;
 namespace Candidates_Project.Controllers
 {
     
-    public class CandidateController : Controller
+    public class CandidatesController : Controller
     {
         private readonly ICandidateService _service;
 
-        public CandidateController(ICandidateService service)
+        public CandidatesController(ICandidateService service)
         {
             _service = service;
         }
 
-        // GET: Default/Details/5
-        [Route("api/Candidate/id")]
+        
+        [Route("api/Candidates/id")]
         [HttpGet]
         public CandidateDetailsDTO Get(int id)
         {
             return _service.Get(id);
         }
-        [Route("api/Candidate/")]
+        [Route("api/Candidates/")]
         [HttpGet]
-        public IQueryable<CandidateShortDTO> Get()
+        public IQueryable<CandidateShortDTO> GetPage(int page, int pageSize)
         {
-            return _service.Get();
+            return _service.GetPage(page, pageSize);
         }
-        [Route("api/Candidate/")]
+        [Route("api/Candidates/")]
         [HttpDelete]
         public void Delete(int id)
         {
             _service.Remove(id);
         }
-        [Route("api/Candidate/")]
+        [Route("api/Candidates/")]
         [HttpPut]
         public void Update( int id, CandidateDTO candidate)
         {
             _service.Update( id, candidate);
         }
-        [Route("api/Candidate/")]
+        [Route("api/Candidates/")]
         [HttpPost]
         public void Create(CandidateDTO candidate)
         {

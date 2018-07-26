@@ -55,9 +55,9 @@ namespace Candidates.Services
             return candidateSchool;
 
         }
-        public IQueryable<CandidateSchoolDTO> Get()
+        public IQueryable<CandidateSchoolDTO> GetPage(int page, int pageSize)
         {
-            var candidateSchools = from c in _context.CandidateSchools
+            var candidatesSchools = from c in _context.CandidateSchools
                                    select new CandidateSchoolDTO()
                                      {
                                        CandidateID = c.CandidateID,
@@ -66,7 +66,9 @@ namespace Candidates.Services
                                        From = c.From,
                                        To = c.To
                                    };
-            return candidateSchools;
+            var candidatesSchoolsRange = candidatesSchools.Skip((page - 1) * pageSize).Take(pageSize);
+            return candidatesSchoolsRange;
+
         }
     }
 }

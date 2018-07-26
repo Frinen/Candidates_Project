@@ -47,7 +47,7 @@ namespace Candidates.Services
             }).SingleOrDefault(c => c.ID == id);
             return highschool;
         }
-        public IQueryable<HighSchoolDTO> Get()
+        public IQueryable<HighSchoolDTO> GetPage(int page, int pageSize)
         {
             var highSchools = from c in _context.HighSchools
                                   select new HighSchoolDTO()
@@ -55,7 +55,8 @@ namespace Candidates.Services
                                       ID = c.ID,
                                       Name = c.Name
                                   };
-            return highSchools;
+            var highSchoolsRange = highSchools.Skip((page - 1) * pageSize).Take(pageSize);
+            return highSchoolsRange;
         }
     }
 }

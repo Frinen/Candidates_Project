@@ -12,6 +12,6 @@ namespace Candidates.Services.Interfaces
         void Update(int id, HighSchoolShortDTO highSchool);
         void Remove(int id);
         HighSchoolDTO Get(int id);
-        IQueryable<HighSchoolDTO> Get();
+        IQueryable<HighSchoolDTO> GetPage(int page, int pageSize);
     }
 }

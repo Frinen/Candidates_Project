@@ -11,41 +11,41 @@ using Microsoft.AspNetCore.Mvc;
 namespace Candidates_Project.Controllers
 {
     
-    public class SkillController : Controller
+    public class SkillsController : Controller
     {
         private readonly ISkillService _service;
 
-        public SkillController(ISkillService service)
+        public SkillsController(ISkillService service)
         {
             _service = service;
         }
 
         // GET: Default/Details/5
-        [Route("api/Skill/id")]
+        [Route("api/Skills/id")]
         [HttpGet]
         public SkillDTO Get(int id)
         {
             return _service.Get(id);
         }
-        [Route("api/Skill")]
+        [Route("api/Skills")]
         [HttpGet]
-        public IQueryable<SkillDTO> Get()
+        public IQueryable<SkillDTO> GetPage(int page, int pageSize)
         {
-            return _service.Get();
+            return _service.GetPage(page, pageSize);
         }
-        [Route("api/Skill")]
+        [Route("api/Skills")]
         [HttpDelete]
         public void Delete(int id)
         {
             _service.Remove(id);
         }
-        [Route("api/Skill")]
+        [Route("api/Skills")]
         [HttpPut]
         public void Change(int id, SkillShortDTO skill)
         {
             _service.Update(id, skill);
         }
-        [Route("api/Skill")]
+        [Route("api/Skills")]
         [HttpPost]
         public void Create(SkillShortDTO skill)
         {

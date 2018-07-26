@@ -11,41 +11,41 @@ using Microsoft.AspNetCore.Mvc;
 namespace Candidates_Project.Controllers
 {
     
-    public class HighSchoolController : Controller
+    public class HighSchoolsController : Controller
     {
         private readonly IHighSchoolService _service;
 
-        public HighSchoolController(IHighSchoolService service)
+        public HighSchoolsController(IHighSchoolService service)
         {
             _service = service;
         }
 
         // GET: Default/Details/5
-        [Route("api/HighSchool/id")]
+        [Route("api/HighSchools/id")]
         [HttpGet]
         public HighSchoolDTO Get(int id)
         {
             return _service.Get(id);
         }
-        [Route("api/HighSchool")]
+        [Route("api/HighSchools")]
         [HttpGet]
-        public IQueryable<HighSchoolDTO> Get()
+        public IQueryable<HighSchoolDTO> GetPage(int page, int pageSize)
         {
-            return _service.Get();
+            return _service.GetPage(page, pageSize);
         }
-        [Route("api/HighSchool")]
+        [Route("api/HighSchools")]
         [HttpDelete]
         public void Delete(int id)
         {
             _service.Remove(id);
         }
-        [Route("api/HighSchool")]
+        [Route("api/HighSchools")]
         [HttpPut]
         public void Update(int id, HighSchoolShortDTO highSchool)
         {
             _service.Update(id, highSchool);
         }
-        [Route("api/HighSchool")]
+        [Route("api/HighSchools")]
         [HttpPost]
         public void Create(HighSchoolShortDTO highSchool)
         {
