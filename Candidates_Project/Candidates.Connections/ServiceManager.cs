@@ -9,7 +9,7 @@ namespace Candidates.Connections
 {
     public class ServiceManager
     {
-        public static void AddAddTransient(IServiceCollection services)
+        public static void AddTransient(IServiceCollection services)
         {
             services.AddTransient<ICandidateService, CandidateService>();
             services.AddTransient<ICandidateLanguageService, CandidateLanguageService>();

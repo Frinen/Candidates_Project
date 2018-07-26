@@ -44,7 +44,7 @@ namespace Candidates_Project
                 c.IncludeXmlComments(xmlPath);
             });
             
-            ServiceManager.AddAddTransient(services);
+            ServiceManager.AddTransient(services);
             
         }
 
