@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Data.Entity;
+using Candidates.Library;
+
 namespace Candidates.Services
 {
     
@@ -51,7 +53,7 @@ namespace Candidates.Services
             var candidateLanguage = candidatesLanguages.SingleOrDefault(c => c.LanguageID == languageID);
             return candidateLanguage;
         }
-        public IQueryable<CandidateLanguageDTO> GetPage(int page, int pageSize)
+        public IQueryable<CandidateLanguageDTO> Get(QuerySettings settings)
         {
             var candidatesLanguages = from c in _context.CandidateLanguages
                              select new CandidateLanguageDTO()
@@ -60,7 +62,7 @@ namespace Candidates.Services
                                  LanguageID = c.LanguageID,
                                  Level = c.Level
                              };
-            var candidatesLanguagesRange = candidatesLanguages.Skip((page - 1) * pageSize).Take(pageSize);
+            var candidatesLanguagesRange = candidatesLanguages.Skip((settings.page - 1) * settings.pageSize).Take(settings.pageSize);
             return candidatesLanguagesRange;
         }
     }

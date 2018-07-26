@@ -1,4 +1,5 @@
-﻿using Candidates.Models.Context;
+﻿using Candidates.Library;
+using Candidates.Models.Context;
 using Candidates.Models.Models;
 using Candidates.Services.Interfaces;
 using System;
@@ -51,7 +52,7 @@ namespace Candidates.Services
             var candidateSkill = candidateSkills.SingleOrDefault(c => c.SkillID == skillID);
             return candidateSkill;
         }
-        public IQueryable<CandidateSkillDTO> GetPage(int page, int pageSize)
+        public IQueryable<CandidateSkillDTO> Get(QuerySettings settings)
         {
             var candidatesSkills = from c in _context.CandidateSkills
                                   select new CandidateSkillDTO()
@@ -61,7 +62,7 @@ namespace Candidates.Services
                                       Level = c.Level,
                                       Month = c.Month
                                   };
-            var candidatesSkillsRange = candidatesSkills.Skip((page - 1) * pageSize).Take(pageSize);
+            var candidatesSkillsRange = candidatesSkills.Skip((settings.page - 1) * settings.pageSize).Take(settings.pageSize);
             return candidatesSkillsRange;
         }
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Candidates.Library;
 using Candidates.Models.Context;
 using Candidates.Models.Models;
 using Candidates.Services;
@@ -29,9 +30,9 @@ namespace Candidates_Project.Controllers
         }
         [Route("api/CandidatesLanguages/")]
         [HttpGet]
-        public IQueryable<CandidateLanguageDTO> GetPage(int page, int pageSize)
+        public IQueryable<CandidateLanguageDTO> Get(QuerySettings settings)
         {
-            return _service.GetPage(page, pageSize);
+            return _service.Get(settings);
         }
         [Route("api/CandidatesLanguages/")]
         [HttpDelete]

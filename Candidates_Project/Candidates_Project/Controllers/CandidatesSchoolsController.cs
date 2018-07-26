@@ -1,4 +1,5 @@
-﻿using Candidates.Models.Context;
+﻿using Candidates.Library;
+using Candidates.Models.Context;
 using Candidates.Models.Models;
 using Candidates.Services;
 using Candidates.Services.Interfaces;
@@ -29,9 +30,9 @@ namespace Candidates_Project.Controllers
         }
         [Route("api/CandidatesSchools")]
         [HttpGet]
-        public IQueryable<CandidateSchoolDTO> GetPage(int page, int pageSize)
+        public IQueryable<CandidateSchoolDTO> Get(QuerySettings settings)
         {
-            return _service.GetPage(page, pageSize);
+            return _service.Get(settings);
         }
         [Route("api/CandidatesSchools")]
         [HttpDelete]

@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Data.Entity;
+using Candidates.Library;
+
 namespace Candidates.Services
 {
     public class CandidateService : ICandidateService
@@ -53,7 +55,7 @@ namespace Candidates.Services
             }).SingleOrDefault(c => c.ID == id);
              return candidate;
         }
-        public IQueryable<CandidateShortDTO> GetPage(int page, int pageSize)
+        public IQueryable<CandidateShortDTO> Get(QuerySettings settings)
         {
             var candidates = from c in _context.Candidates
                         select new CandidateShortDTO()
@@ -63,7 +65,7 @@ namespace Candidates.Services
                             LastName = c.LastName,
                             BirthDate = c.BirthDate
                         };
-            var candidatesRange = candidates.Skip((page-1)* pageSize).Take(pageSize);
+            var candidatesRange = candidates.Skip((settings.page - 1) * settings.pageSize).Take(settings.pageSize);
             return candidatesRange;
 
         }

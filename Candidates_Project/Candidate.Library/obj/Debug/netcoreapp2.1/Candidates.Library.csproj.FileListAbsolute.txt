@@ -1,0 +1,9 @@
+C:\Users\Combustible_Lemon\Documents\GitHub\Candidates_Project\Candidates_Project\Candidate.Library\bin\Debug\netcoreapp2.1\Candidates.Library.deps.json
+C:\Users\Combustible_Lemon\Documents\GitHub\Candidates_Project\Candidates_Project\Candidate.Library\bin\Debug\netcoreapp2.1\Candidates.Library.dll
+C:\Users\Combustible_Lemon\Documents\GitHub\Candidates_Project\Candidates_Project\Candidate.Library\bin\Debug\netcoreapp2.1\Candidates.Library.pdb
+C:\Users\Combustible_Lemon\Documents\GitHub\Candidates_Project\Candidates_Project\Candidate.Library\obj\Debug\netcoreapp2.1\Candidates.Library.csprojAssemblyReference.cache
+C:\Users\Combustible_Lemon\Documents\GitHub\Candidates_Project\Candidates_Project\Candidate.Library\obj\Debug\netcoreapp2.1\Candidates.Library.csproj.CoreCompileInputs.cache
+C:\Users\Combustible_Lemon\Documents\GitHub\Candidates_Project\Candidates_Project\Candidate.Library\obj\Debug\netcoreapp2.1\Candidates.Library.AssemblyInfoInputs.cache
+C:\Users\Combustible_Lemon\Documents\GitHub\Candidates_Project\Candidates_Project\Candidate.Library\obj\Debug\netcoreapp2.1\Candidates.Library.AssemblyInfo.cs
+C:\Users\Combustible_Lemon\Documents\GitHub\Candidates_Project\Candidates_Project\Candidate.Library\obj\Debug\netcoreapp2.1\Candidates.Library.dll
+C:\Users\Combustible_Lemon\Documents\GitHub\Candidates_Project\Candidates_Project\Candidate.Library\obj\Debug\netcoreapp2.1\Candidates.Library.pdb

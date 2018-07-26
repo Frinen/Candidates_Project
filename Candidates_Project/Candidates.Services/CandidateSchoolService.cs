@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Data.Entity;
+using Candidates.Library;
+
 namespace Candidates.Services
 {
     public class CandidateSchoolService: ICandidateSchoolService
@@ -55,7 +57,7 @@ namespace Candidates.Services
             return candidateSchool;
 
         }
-        public IQueryable<CandidateSchoolDTO> GetPage(int page, int pageSize)
+        public IQueryable<CandidateSchoolDTO> Get(QuerySettings settings)
         {
             var candidatesSchools = from c in _context.CandidateSchools
                                    select new CandidateSchoolDTO()
@@ -66,7 +68,7 @@ namespace Candidates.Services
                                        From = c.From,
                                        To = c.To
                                    };
-            var candidatesSchoolsRange = candidatesSchools.Skip((page - 1) * pageSize).Take(pageSize);
+            var candidatesSchoolsRange = candidatesSchools.Skip((settings.page - 1) * settings.pageSize).Take(settings.pageSize);
             return candidatesSchoolsRange;
 
         }

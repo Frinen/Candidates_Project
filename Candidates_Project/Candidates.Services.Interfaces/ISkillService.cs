@@ -1,4 +1,5 @@
-﻿using Candidates.Models.Models;
+﻿using Candidates.Library;
+using Candidates.Models.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,6 @@ namespace Candidates.Services.Interfaces
         void Update(int id, SkillShortDTO skill);
         void Remove(int id);
         SkillDTO Get(int id);
-        IQueryable<SkillDTO> GetPage(int page, int pageSize);
+        IQueryable<SkillDTO> Get(QuerySettings settings);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Candidates.Models.Context;
+﻿using Candidates.Library;
+using Candidates.Models.Context;
 using Candidates.Models.Models;
 using Candidates.Services.Interfaces;
 using System;
@@ -48,7 +49,7 @@ namespace Candidates.Services
             }).SingleOrDefault(c => c.ID == id);
             return skill;
         }
-        public IQueryable<SkillDTO> GetPage(int page, int pageSize)
+        public IQueryable<SkillDTO> Get(QuerySettings settings)
         {
             var skills = from c in _context.Skills
                               select new SkillDTO()
@@ -56,7 +57,7 @@ namespace Candidates.Services
                                   ID = c.ID,
                                   Name = c.Name
                               };
-            var skillsRange = skills.Skip((page - 1) * pageSize).Take(pageSize);
+            var skillsRange = skills.Skip((settings.page - 1) * settings.pageSize).Take(settings.pageSize);
             return skillsRange;
         }
     }

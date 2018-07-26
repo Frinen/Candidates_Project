@@ -1,4 +1,5 @@
-﻿using Candidates.Models.Context;
+﻿using Candidates.Library;
+using Candidates.Models.Context;
 using Candidates.Models.Models;
 using Candidates.Services.Interfaces;
 using System;
@@ -47,7 +48,7 @@ namespace Candidates.Services
             }).SingleOrDefault(c => c.ID == id);
             return highschool;
         }
-        public IQueryable<HighSchoolDTO> GetPage(int page, int pageSize)
+        public IQueryable<HighSchoolDTO> Get(QuerySettings settings)
         {
             var highSchools = from c in _context.HighSchools
                                   select new HighSchoolDTO()
@@ -55,7 +56,7 @@ namespace Candidates.Services
                                       ID = c.ID,
                                       Name = c.Name
                                   };
-            var highSchoolsRange = highSchools.Skip((page - 1) * pageSize).Take(pageSize);
+            var highSchoolsRange = highSchools.Skip((settings.page - 1) * settings.pageSize).Take(settings.pageSize);
             return highSchoolsRange;
         }
     }

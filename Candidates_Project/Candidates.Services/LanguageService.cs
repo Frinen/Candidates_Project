@@ -1,4 +1,5 @@
-﻿using Candidates.Models.Context;
+﻿using Candidates.Library;
+using Candidates.Models.Context;
 using Candidates.Models.Models;
 using Candidates.Services.Interfaces;
 using System;
@@ -49,7 +50,7 @@ namespace Candidates.Services
             return language;
 
         }
-        public IQueryable<LanguageDTO> GetPage(int page, int pageSize)
+        public IQueryable<LanguageDTO> Get(QuerySettings settings)
         {
             var languages = from c in _context.Languages
                               select new LanguageDTO()
@@ -57,7 +58,7 @@ namespace Candidates.Services
                                   ID = c.ID,
                                   Name = c.Name
                               };
-            var languagesRange = languages.Skip((page - 1) * pageSize).Take(pageSize);
+            var languagesRange = languages.Skip((settings.page - 1) * settings.pageSize).Take(settings.pageSize);
             return languagesRange;
         }
     }

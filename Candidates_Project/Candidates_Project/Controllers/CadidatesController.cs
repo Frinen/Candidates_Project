@@ -7,6 +7,7 @@ using Candidates.Models.Context;
 using Candidates.Services;
 using Candidates.Models.Models;
 using Candidates.Services.Interfaces;
+using Candidates.Library;
 
 namespace Candidates_Project.Controllers
 {
@@ -29,9 +30,9 @@ namespace Candidates_Project.Controllers
         }
         [Route("api/Candidates/")]
         [HttpGet]
-        public IQueryable<CandidateShortDTO> GetPage(int page, int pageSize)
+        public IQueryable<CandidateShortDTO> Get(QuerySettings settings)
         {
-            return _service.GetPage(page, pageSize);
+            return _service.Get(settings);
         }
         [Route("api/Candidates/")]
         [HttpDelete]

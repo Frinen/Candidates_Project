@@ -1,4 +1,5 @@
-﻿using Candidates.Models.Context;
+﻿using Candidates.Library;
+using Candidates.Models.Context;
 using Candidates.Models.Models;
 using Candidates.Services.Interfaces;
 using System;
@@ -49,7 +50,7 @@ namespace Candidates.Services
             }).SingleOrDefault(c => c.CandidateID == candidateID);
             return options;
         }
-        public IQueryable<OptionsDTO> GetPage(int page, int pageSize)
+        public IQueryable<OptionsDTO> Get(QuerySettings settings)
         {
             var options = from c in _context.Options
                               select new OptionsDTO()
@@ -59,7 +60,7 @@ namespace Candidates.Services
                                   CanWorkInTheOffice = c.CanWorkInTheOffice,
                                   CanWorkRemotly = c.CanWorkRemotly
                               };
-            var optionsRange = options.Skip((page - 1) * pageSize).Take(pageSize);
+            var optionsRange = options.Skip((settings.page - 1) * settings.pageSize).Take(settings.pageSize);
             return optionsRange;
         }
     }
