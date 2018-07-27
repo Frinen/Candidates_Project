@@ -9,12 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="7.0.1" />
     <PackageReference Include="EntityFramework" Version="6.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.2" />
     <PackageReference Include="System.Linq" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Candidates.Mappers\Candidates.Mappers.csproj" />
     <ProjectReference Include="..\Candidates.Models\Candidates.Models.csproj" />
     <ProjectReference Include="..\Candidates.Services.Interfaces\Candidates.Services.Interfaces.csproj" />
   </ItemGroup>

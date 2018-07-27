@@ -30,7 +30,7 @@ namespace Candidates_Project.Controllers
         }
         [Route("api/Candidates/")]
         [HttpGet]
-        public IQueryable<CandidateShortDTO> Get(QuerySettings settings)
+        public List<CandidateShortDTO> Get(QuerySettings settings)
         {
             return _service.Get(settings);
         }

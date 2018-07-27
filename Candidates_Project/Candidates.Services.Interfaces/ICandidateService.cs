@@ -13,6 +13,6 @@ namespace Candidates.Services.Interfaces
         void Update(int id, CandidateDTO candidate);
         void Remove(int id);
         CandidateDetailsDTO Get(int id);
-        IQueryable<CandidateShortDTO> Get(QuerySettings settings);
+        List<CandidateShortDTO> Get(QuerySettings settings);
     }
 }

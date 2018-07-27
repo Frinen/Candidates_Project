@@ -7,6 +7,8 @@ using System.Text;
 using System.Linq;
 using System.Data.Entity;
 using Candidates.Library;
+using AutoMapper;
+using Candidates.Mappers;
 
 namespace Candidates.Services
 {
@@ -20,13 +22,13 @@ namespace Candidates.Services
         public void Create(CandidateDTO person)
         {
             _context.Database.EnsureCreated();
-            var candidate = new Candidate { FirstName = person.FirstName, LastName = person.LastName, PhoneNumber = person.PhoneNumber, Sex = person.Sex, Skype = person.Skype, BirthDate = person.BirthDate, Email = person.Email };
+            var candidate = CandidateMapper.DtoToModel(person);
             _context.Candidates.Add(candidate);
             _context.SaveChanges();
         }
         public void Update( int id, CandidateDTO person)
         {
-            var candidate = new Candidate {ID = id, FirstName = person.FirstName, LastName = person.LastName, PhoneNumber = person.PhoneNumber, Sex = person.Sex, Skype = person.Skype, BirthDate = person.BirthDate, Email = person.Email };
+            var candidate = CandidateMapper.DtoToModel(person, id);
             _context.Candidates.Update(candidate);
             _context.SaveChanges();
             
@@ -42,31 +44,20 @@ namespace Candidates.Services
         }
         public CandidateDetailsDTO Get( int id)
         {
-            var candidate = _context.Candidates.Include(c => c.LastName).Select(c => new CandidateDetailsDTO()
-            {
-                ID = c.ID,
-                FirstName = c.LastName,
-                LastName = c.LastName,
-                BirthDate = c.BirthDate,
-                Email = c.Email,
-                PhoneNumber = c.PhoneNumber,
-                Sex = c.Sex,
-                Skype = c.Skype
-            }).SingleOrDefault(c => c.ID == id);
-             return candidate;
+            var candidate = _context.Candidates.Find(id);
+            var candidateDTO = CandidateMapper.ModelToDto(candidate);
+            return candidateDTO;
         }
-        public IQueryable<CandidateShortDTO> Get(QuerySettings settings)
+        public List<CandidateShortDTO> Get(QuerySettings settings)
         {
-            var candidates = from c in _context.Candidates
-                        select new CandidateShortDTO()
-                        {
-                            ID = c.ID,
-                            FirstName = c.FirstName,
-                            LastName = c.LastName,
-                            BirthDate = c.BirthDate
-                        };
+            var candidates= new List<Candidate>();
+            foreach (var c in _context.Candidates)
+                candidates.Add(c);
             var candidatesRange = candidates.Skip((settings.page - 1) * settings.pageSize).Take(settings.pageSize);
-            return candidatesRange;
+            var candidatesRangeDTO = new List<CandidateShortDTO>();
+            foreach (var c in candidatesRange)
+                candidatesRangeDTO.Add(CandidateMapper.ModelToShortDto(c));
+            return candidatesRangeDTO;
 
         }
     }
