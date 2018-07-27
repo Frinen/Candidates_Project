@@ -1,4 +1,5 @@
 ﻿using Candidates.Library;
+using Candidates.Models.DTO;
 using Candidates.Models.Models;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,6 @@ namespace Candidates.Services.Interfaces
         void Update(int highSchoolID, int candidateID, CandidateSchoolShortDTO candidateSchool);
         void Remove(int highSchoolID, int candidateID);
         CandidateSchoolDTO Get(int highSchoolID, int candidateID);
-        IQueryable<CandidateSchoolDTO> Get(QuerySettings settings);
+        List<CandidateSchoolDTO> Get(QuerySettings settings);
     }
 }

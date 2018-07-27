@@ -5,8 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-using System.Data.Entity;
 using Candidates.Library;
+using Candidates.Models.DTO;
+using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using Candidates.Mappers;
 
 namespace Candidates.Services
 {
@@ -21,13 +24,13 @@ namespace Candidates.Services
         public void Create( CandidateLanguageDTO candidateLanguage)
         {
             _context.Database.EnsureCreated();
-            var _candidateLanguage = new CandidateLanguage { LanguageID = candidateLanguage.LanguageID, CandidateID = candidateLanguage.CandidateID, Level = candidateLanguage.Level };
+            var _candidateLanguage = Mapper.Map<CandidateLanguageDTO, CandidateLanguage> (candidateLanguage);
             _context.CandidateLanguages.Add(_candidateLanguage);
             _context.SaveChanges();
         }
         public void Update( int languageID, int candidateID, CandidateLanguageShortDTO candidateLanguage)
         {
-            var _сandidateLanguage = new CandidateLanguage { LanguageID = languageID, CandidateID = candidateID, Level = candidateLanguage.Level };
+            var _сandidateLanguage = CandidateLanguageMapper.DtoToModel(languageID, candidateID, candidateLanguage);
             _context.CandidateLanguages.Update(_сandidateLanguage);
             _context.SaveChanges();
 
@@ -44,26 +47,18 @@ namespace Candidates.Services
         }
         public CandidateLanguageDTO Get( int languageID, int candidateID)
         {
-            var candidatesLanguages = _context.CandidateLanguages.Include(c => c.CandidateID).Select(c => new CandidateLanguageDTO()
-            {
-               CandidateID =c.CandidateID,
-               LanguageID = c.LanguageID,
-               Level = c.Level
-            }).Where(c => c.CandidateID == candidateID);
-            var candidateLanguage = candidatesLanguages.SingleOrDefault(c => c.LanguageID == languageID);
-            return candidateLanguage;
+            var candidateLanguage = _context.CandidateLanguages.Find(languageID, candidateID);
+            var candidateLanguageDTO = Mapper.Map<CandidateLanguage, CandidateLanguageDTO>(candidateLanguage);
+            return candidateLanguageDTO;
         }
-        public IQueryable<CandidateLanguageDTO> Get(QuerySettings settings)
+        public List<CandidateLanguageDTO> Get(QuerySettings settings)
         {
-            var candidatesLanguages = from c in _context.CandidateLanguages
-                             select new CandidateLanguageDTO()
-                             {
-                                 CandidateID = c.CandidateID,
-                                 LanguageID = c.LanguageID,
-                                 Level = c.Level
-                             };
-            var candidatesLanguagesRange = candidatesLanguages.Skip((settings.page - 1) * settings.pageSize).Take(settings.pageSize);
-            return candidatesLanguagesRange;
+            var candidatesLanguages = new List<CandidateLanguage>();
+            foreach (var c in _context.CandidateLanguages)
+                candidatesLanguages.Add(c);
+            var candidatesLanguagesRange = candidatesLanguages.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
+            var candidatesLanguagesDTO = Mapper.Map<List<CandidateLanguage>, List<CandidateLanguageDTO>>(candidatesLanguagesRange);
+            return candidatesLanguagesDTO;
         }
     }
 }

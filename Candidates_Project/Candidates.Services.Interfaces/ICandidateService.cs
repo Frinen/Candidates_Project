@@ -1,4 +1,5 @@
 ﻿using Candidates.Library;
+using Candidates.Models.DTO;
 using Candidates.Models.Models;
 using System;
 using System.Collections.Generic;

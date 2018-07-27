@@ -3,15 +3,17 @@ using System;
 using Candidates.Models.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Candidates.Models.Migrations
 {
     [DbContext(typeof(CandidatesContext))]
-    partial class CandidatesContextModelSnapshot : ModelSnapshot
+    [Migration("20180727124809_ChangeNames")]
+    partial class ChangeNames
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -131,15 +133,18 @@ namespace Candidates.Models.Migrations
 
             modelBuilder.Entity("Candidates.Models.Models.Options", b =>
                 {
-                    b.Property<int>("ID");
+                    b.Property<bool>("CanWorkRemotly");
 
                     b.Property<bool>("CanRelocate");
 
                     b.Property<bool>("CanWorkInTheOffice");
 
-                    b.Property<bool>("CanWorkRemotly");
+                    b.Property<int>("ID");
 
-                    b.HasKey("ID");
+                    b.HasKey("CanWorkRemotly");
+
+                    b.HasIndex("ID")
+                        .IsUnique();
 
                     b.ToTable("Options");
                 });

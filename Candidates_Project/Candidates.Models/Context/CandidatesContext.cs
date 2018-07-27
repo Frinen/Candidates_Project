@@ -29,7 +29,7 @@ namespace Candidates.Models.Context
             modelBuilder.Entity<Candidate>()
             .HasOne(p => p.Options)
             .WithOne(i => i.Candidate)
-            .HasForeignKey<Options>(b => b.CandidateID);
+            .HasForeignKey<Options>(b => b.ID);
 
             modelBuilder.Entity<CandidateSkill>()
             .HasOne(pt => pt.Candidate)
@@ -60,7 +60,7 @@ namespace Candidates.Models.Context
             .HasOne(pt => pt.Language)
             .WithMany(t => t.CandidateLanguages)
             .HasForeignKey(pt => pt.LanguageID);
-
+            modelBuilder.Entity<Options>().HasKey(t => new {t.ID });
             modelBuilder.Entity<CandidateLanguage>().HasKey(t => new { t.CandidateID, t.LanguageID });
             modelBuilder.Entity<CandidateSchool>().HasKey(t => new { t.CandidateID, t.HighSchoolID });
             modelBuilder.Entity<CandidateSkill>().HasKey(t => new { t.CandidateID, t.SkillID });

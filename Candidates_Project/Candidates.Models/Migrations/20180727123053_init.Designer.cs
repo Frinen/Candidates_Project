@@ -3,15 +3,17 @@ using System;
 using Candidates.Models.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Candidates.Models.Migrations
 {
     [DbContext(typeof(CandidatesContext))]
-    partial class CandidatesContextModelSnapshot : ModelSnapshot
+    [Migration("20180727123053_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,7 +23,7 @@ namespace Candidates.Models.Migrations
 
             modelBuilder.Entity("Candidates.Models.Models.Candidate", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("CandidateID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("BirthDate");
@@ -44,7 +46,7 @@ namespace Candidates.Models.Migrations
 
                     b.Property<string>("Skype");
 
-                    b.HasKey("ID");
+                    b.HasKey("CandidateID");
 
                     b.ToTable("Candidates");
                 });
@@ -131,7 +133,7 @@ namespace Candidates.Models.Migrations
 
             modelBuilder.Entity("Candidates.Models.Models.Options", b =>
                 {
-                    b.Property<int>("ID");
+                    b.Property<int>("CandidateID");
 
                     b.Property<bool>("CanRelocate");
 
@@ -139,7 +141,7 @@ namespace Candidates.Models.Migrations
 
                     b.Property<bool>("CanWorkRemotly");
 
-                    b.HasKey("ID");
+                    b.HasKey("CandidateID");
 
                     b.ToTable("Options");
                 });
@@ -199,7 +201,7 @@ namespace Candidates.Models.Migrations
                 {
                     b.HasOne("Candidates.Models.Models.Candidate", "Candidate")
                         .WithOne("Options")
-                        .HasForeignKey("Candidates.Models.Models.Options", "ID")
+                        .HasForeignKey("Candidates.Models.Models.Options", "CandidateID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

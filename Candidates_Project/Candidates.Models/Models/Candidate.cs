@@ -5,10 +5,8 @@ using System.Text;
 
 namespace Candidates.Models.Models
 {
-    public class Candidate
+    public class Candidate : Model
     {
-
-        public int ID { get; set; }
         [Required]
         [StringLength(30)]
         public string FirstName { get; set; }

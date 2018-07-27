@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Candidates.Models.Models
+namespace Candidates.Models.DTO
 {
-    public class CandidateSkillDTO
+    public class CandidateLanguageDTO
     {
-        public int SkillID { get; set; }
+        public int LanguageID { get; set; }
         public int CandidateID { get; set; }
-        public int Month { get; set; }
         public string Level { get; set; }
     }
 }

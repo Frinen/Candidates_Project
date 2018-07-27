@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Candidates.Models.Models
+namespace Candidates.Models.DTO
 {
-    public class SkillShortDTO
+    public class LanguageShortDTO
     {
         public string Name { get; set; }
     }

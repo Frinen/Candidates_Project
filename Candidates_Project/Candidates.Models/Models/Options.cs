@@ -5,10 +5,8 @@ using System.Text;
 
 namespace Candidates.Models.Models
 {
-    public class Options
+    public class Options:Model
     {
-        [Key]
-        public int CandidateID { get; set; }
         [Required]
         public bool CanWorkRemotly { get; set; }
         [Required]

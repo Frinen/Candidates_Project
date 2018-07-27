@@ -1,12 +1,15 @@
 ﻿using Candidates.Library;
 using Candidates.Models.Context;
+using Candidates.Models.DTO;
 using Candidates.Models.Models;
 using Candidates.Services.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text;
+using AutoMapper;
+using Candidates.Mappers;
 
 namespace Candidates.Services
 {
@@ -20,13 +23,13 @@ namespace Candidates.Services
         public void Create(OptionsDTO options)
         {
             _context.Database.EnsureCreated();
-            var _options = new Options {CandidateID = options.CandidateID, CanWorkRemotly = options.CanWorkRemotly, CanRelocate = options.CanRelocate, CanWorkInTheOffice = options.CanWorkInTheOffice};
+            var _options = Mapper.Map<OptionsDTO, Options>(options);
             _context.Options.Add(_options);
             _context.SaveChanges();
         }
         public void Update( int candidateID, OptionsShortDTO options) 
         {
-            var _options = new Options { CandidateID = candidateID, CanWorkRemotly = options.CanWorkRemotly, CanRelocate = options.CanRelocate, CanWorkInTheOffice = options.CanWorkInTheOffice};
+            var _options = OptionsMapper.DtoToModel(candidateID,options);
             _context.Options.Update(_options);
             _context.SaveChanges();
         }
@@ -41,27 +44,18 @@ namespace Candidates.Services
         }
         public OptionsDTO Get( int candidateID)
         {
-            var options = _context.Options.Include(c => c.CandidateID).Select(c => new OptionsDTO()
-            {
-                CandidateID = c.CandidateID,
-                CanRelocate = c.CanRelocate,
-                CanWorkInTheOffice = c.CanWorkInTheOffice,
-                CanWorkRemotly = c.CanWorkRemotly
-            }).SingleOrDefault(c => c.CandidateID == candidateID);
-            return options;
+            var options = _context.Options.Find(candidateID);
+            var optionsDTO = Mapper.Map<Options, OptionsDTO>(options);
+            return optionsDTO;
         }
-        public IQueryable<OptionsDTO> Get(QuerySettings settings)
+        public List<OptionsDTO> Get(QuerySettings settings)
         {
-            var options = from c in _context.Options
-                              select new OptionsDTO()
-                              {
-                                  CandidateID = c.CandidateID,
-                                  CanRelocate = c.CanRelocate,
-                                  CanWorkInTheOffice = c.CanWorkInTheOffice,
-                                  CanWorkRemotly = c.CanWorkRemotly
-                              };
-            var optionsRange = options.Skip((settings.page - 1) * settings.pageSize).Take(settings.pageSize);
-            return optionsRange;
+            var options = new List<Options>();
+            foreach (var o in _context.Options)
+                options.Add(o);
+            var optionsRange = options.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
+            var optionsDTO = Mapper.Map<List<Options>, List<OptionsDTO>>(optionsRange);
+            return optionsDTO;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Candidates.Library;
+using Candidates.Models.DTO;
 using Candidates.Models.Models;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,6 @@ namespace Candidates.Services.Interfaces
         void Update(int candidateID, OptionsShortDTO options);
         void Remove(int candidateID);
         OptionsDTO Get(int candidateID);
-        IQueryable<OptionsDTO> Get(QuerySettings settings);
+        List<OptionsDTO> Get(QuerySettings settings);
     }
 }

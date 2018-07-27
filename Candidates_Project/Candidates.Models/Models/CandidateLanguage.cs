@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Candidates.Models.Models
 {
-    public class CandidateLanguage
+    public class CandidateLanguage 
     {
-        public int LanguageID { get; set; }
-
         public int CandidateID { get; set; }
+        public int LanguageID { get; set; }
+        
         [Required]
         public string Level { get; set; }
         public Candidate Candidate { get; set; }

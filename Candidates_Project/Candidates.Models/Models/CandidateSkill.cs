@@ -5,10 +5,10 @@ using System.Text;
 
 namespace Candidates.Models.Models
 {
-    public class CandidateSkill
+    public class CandidateSkill 
     {
-        public int SkillID { get; set; }
         public int CandidateID { get; set; }
+        public int SkillID { get; set; }
         [Required]
         public int Month { get; set; }
         [Required]

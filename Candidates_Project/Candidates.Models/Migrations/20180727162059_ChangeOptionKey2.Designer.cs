@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Candidates.Models.Migrations
 {
     [DbContext(typeof(CandidatesContext))]
-    [Migration("20180711133246_init")]
-    partial class init
+    [Migration("20180727162059_ChangeOptionKey2")]
+    partial class ChangeOptionKey2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -133,7 +133,7 @@ namespace Candidates.Models.Migrations
 
             modelBuilder.Entity("Candidates.Models.Models.Options", b =>
                 {
-                    b.Property<int>("CandidateID");
+                    b.Property<int>("ID");
 
                     b.Property<bool>("CanRelocate");
 
@@ -141,7 +141,7 @@ namespace Candidates.Models.Migrations
 
                     b.Property<bool>("CanWorkRemotly");
 
-                    b.HasKey("CandidateID");
+                    b.HasKey("ID");
 
                     b.ToTable("Options");
                 });
@@ -201,7 +201,7 @@ namespace Candidates.Models.Migrations
                 {
                     b.HasOne("Candidates.Models.Models.Candidate", "Candidate")
                         .WithOne("Options")
-                        .HasForeignKey("Candidates.Models.Models.Options", "CandidateID")
+                        .HasForeignKey("Candidates.Models.Models.Options", "ID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

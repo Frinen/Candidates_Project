@@ -1,12 +1,15 @@
 ﻿using Candidates.Library;
 using Candidates.Models.Context;
+using Candidates.Models.DTO;
 using Candidates.Models.Models;
 using Candidates.Services.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text;
+using AutoMapper;
+using Candidates.Mappers;
 
 namespace Candidates.Services
 {
@@ -21,13 +24,13 @@ namespace Candidates.Services
         public void Create(SkillShortDTO skill)
         {
             _context.Database.EnsureCreated();
-            var _skill = new Skill { Name = skill.Name };
+            var _skill = Mapper.Map<SkillShortDTO, Skill>(skill);
             _context.Skills.Add(_skill);
             _context.SaveChanges();
         }
         public void Update(int id, SkillShortDTO skill)
         {
-            var _skill = new Skill {ID = id, Name = skill.Name };
+            var _skill = SkillMapper.DtoToModel(id, skill);
             _context.Skills.Update(_skill);
             _context.SaveChanges();
         }
@@ -42,23 +45,18 @@ namespace Candidates.Services
         }
         public SkillDTO Get(int id)
         {
-            var skill = _context.Skills.Include(c => c.Name).Select(c => new SkillDTO()
-            {
-                ID = c.ID,
-                Name = c.Name
-            }).SingleOrDefault(c => c.ID == id);
-            return skill;
+            var skill = _context.Skills.Find(id);
+            var skillDTO = Mapper.Map<Skill, SkillDTO>(skill);
+            return skillDTO;
         }
-        public IQueryable<SkillDTO> Get(QuerySettings settings)
+        public List<SkillDTO> Get(QuerySettings settings)
         {
-            var skills = from c in _context.Skills
-                              select new SkillDTO()
-                              {
-                                  ID = c.ID,
-                                  Name = c.Name
-                              };
-            var skillsRange = skills.Skip((settings.page - 1) * settings.pageSize).Take(settings.pageSize);
-            return skillsRange;
+            var skills = new List<Skill>();
+            foreach (var s in _context.Skills)
+                skills.Add(s);
+            var skillsRange = skills.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
+            var skillsDTO = Mapper.Map<List<Skill>, List<SkillDTO>>(skillsRange);
+            return skillsDTO;
         }
     }
 }

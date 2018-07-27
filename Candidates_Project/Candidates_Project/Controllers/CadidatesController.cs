@@ -8,6 +8,7 @@ using Candidates.Services;
 using Candidates.Models.Models;
 using Candidates.Services.Interfaces;
 using Candidates.Library;
+using Candidates.Models.DTO;
 
 namespace Candidates_Project.Controllers
 {

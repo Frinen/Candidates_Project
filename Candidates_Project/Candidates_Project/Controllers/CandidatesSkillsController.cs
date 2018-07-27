@@ -8,7 +8,7 @@ using Candidates.Models.Models;
 using Candidates.Services;
 using Candidates.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-
+using Candidates.Models.DTO;
 namespace Candidates_Project.Controllers
 {
     
@@ -30,7 +30,7 @@ namespace Candidates_Project.Controllers
         }
         [Route("api/CandidatesSkill")]
         [HttpGet]
-        public IQueryable<CandidateSkillDTO> Get(QuerySettings settings)
+        public List<CandidateSkillDTO> Get(QuerySettings settings)
         {
             return _service.Get(settings);
         }

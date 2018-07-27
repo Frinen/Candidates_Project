@@ -12,7 +12,7 @@ namespace Candidates.Models.Migrations
                 name: "Candidates",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false)
+                    CandidateID = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     FirstName = table.Column<string>(maxLength: 30, nullable: false),
                     LastName = table.Column<string>(maxLength: 30, nullable: false),
@@ -24,7 +24,7 @@ namespace Candidates.Models.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Candidates", x => x.ID);
+                    table.PrimaryKey("PK_Candidates", x => x.CandidateID);
                 });
 
             migrationBuilder.CreateTable(
@@ -82,7 +82,7 @@ namespace Candidates.Models.Migrations
                         name: "FK_Options_Candidates_CandidateID",
                         column: x => x.CandidateID,
                         principalTable: "Candidates",
-                        principalColumn: "ID",
+                        principalColumn: "CandidateID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -90,8 +90,8 @@ namespace Candidates.Models.Migrations
                 name: "CandidateSchools",
                 columns: table => new
                 {
-                    HighSchoolID = table.Column<int>(nullable: false),
                     CandidateID = table.Column<int>(nullable: false),
+                    HighSchoolID = table.Column<int>(nullable: false),
                     From = table.Column<DateTime>(nullable: false),
                     To = table.Column<DateTime>(nullable: false),
                     Degree = table.Column<string>(nullable: false)
@@ -103,7 +103,7 @@ namespace Candidates.Models.Migrations
                         name: "FK_CandidateSchools_Candidates_CandidateID",
                         column: x => x.CandidateID,
                         principalTable: "Candidates",
-                        principalColumn: "ID",
+                        principalColumn: "CandidateID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CandidateSchools_HighSchools_HighSchoolID",
@@ -117,8 +117,8 @@ namespace Candidates.Models.Migrations
                 name: "CandidateLanguages",
                 columns: table => new
                 {
-                    LanguageID = table.Column<int>(nullable: false),
                     CandidateID = table.Column<int>(nullable: false),
+                    LanguageID = table.Column<int>(nullable: false),
                     Level = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
@@ -128,7 +128,7 @@ namespace Candidates.Models.Migrations
                         name: "FK_CandidateLanguages_Candidates_CandidateID",
                         column: x => x.CandidateID,
                         principalTable: "Candidates",
-                        principalColumn: "ID",
+                        principalColumn: "CandidateID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CandidateLanguages_Languages_LanguageID",
@@ -142,8 +142,8 @@ namespace Candidates.Models.Migrations
                 name: "CandidateSkills",
                 columns: table => new
                 {
-                    SkillID = table.Column<int>(nullable: false),
                     CandidateID = table.Column<int>(nullable: false),
+                    SkillID = table.Column<int>(nullable: false),
                     Month = table.Column<int>(nullable: false),
                     Level = table.Column<string>(nullable: false)
                 },
@@ -154,7 +154,7 @@ namespace Candidates.Models.Migrations
                         name: "FK_CandidateSkills_Candidates_CandidateID",
                         column: x => x.CandidateID,
                         principalTable: "Candidates",
-                        principalColumn: "ID",
+                        principalColumn: "CandidateID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CandidateSkills_Skills_SkillID",

@@ -1,4 +1,5 @@
 ﻿using Candidates.Library;
+using Candidates.Models.DTO;
 using Candidates.Models.Models;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,6 @@ namespace Candidates.Services.Interfaces
         void Update(int languageID, int candidateID, CandidateLanguageShortDTO candidateLanguage);
         void Remove(int languageID, int candidateID);
         CandidateLanguageDTO Get(int languageID, int candidateID);
-        IQueryable<CandidateLanguageDTO> Get(QuerySettings settings);
+        List<CandidateLanguageDTO> Get(QuerySettings settings);
     }
 }

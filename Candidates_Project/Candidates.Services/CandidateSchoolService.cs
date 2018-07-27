@@ -5,8 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using Candidates.Library;
+using Candidates.Models.DTO;
+using AutoMapper;
+using Candidates.Mappers;
 
 namespace Candidates.Services
 {
@@ -20,18 +23,15 @@ namespace Candidates.Services
         public void Create( CandidateSchoolDTO candidateSchool)
         {
             _context.Database.EnsureCreated();
-            var _candidateschool = new CandidateSchool {HighSchoolID = candidateSchool.HighSchoolID, CandidateID = candidateSchool.CandidateID, From = candidateSchool.From, To = candidateSchool.To, Degree = candidateSchool.Degree};
+            var _candidateschool = Mapper.Map<CandidateSchoolDTO, CandidateSchool>(candidateSchool);
             _context.CandidateSchools.Add(_candidateschool);
             _context.SaveChanges();
         }
         public void Update(int highSchoolID, int candidateID, CandidateSchoolShortDTO candidateSchool)
         {
-            var _candidateSchool = new CandidateSchool { HighSchoolID = highSchoolID, CandidateID = candidateID, From = candidateSchool.From, To = candidateSchool.To, Degree = candidateSchool.Degree};
+            var _candidateSchool = CandidateSchoolMapper.DtoToModel(highSchoolID, candidateID, candidateSchool);
             _context.CandidateSchools.Update(_candidateSchool);
             _context.SaveChanges();
-
-
-
         }
         public void Remove(int highSchoolID, int candidateID)
         {
@@ -44,33 +44,18 @@ namespace Candidates.Services
         }
         public CandidateSchoolDTO Get( int highSchoolID, int candidateID)
         {
-            
-            var candidateSchools = _context.CandidateSchools.Include(c => c.CandidateID).Select(c => new CandidateSchoolDTO()
-            {
-                CandidateID = c.CandidateID,
-                HighSchoolID = c.HighSchoolID,
-                Degree = c.Degree,
-                From = c.From,
-                To = c.To
-            }).Where(c => c.HighSchoolID == highSchoolID);
-            var candidateSchool = candidateSchools.SingleOrDefault(c => c.HighSchoolID == highSchoolID);
-            return candidateSchool;
-
+            var candidateSchool = _context.CandidateSchools.Find(highSchoolID,candidateID);
+            var candidateSchoolDTO = Mapper.Map<CandidateSchool, CandidateSchoolDTO>(candidateSchool);
+            return candidateSchoolDTO;
         }
-        public IQueryable<CandidateSchoolDTO> Get(QuerySettings settings)
+        public List<CandidateSchoolDTO> Get(QuerySettings settings)
         {
-            var candidatesSchools = from c in _context.CandidateSchools
-                                   select new CandidateSchoolDTO()
-                                     {
-                                       CandidateID = c.CandidateID,
-                                       HighSchoolID = c.HighSchoolID,
-                                       Degree = c.Degree,
-                                       From = c.From,
-                                       To = c.To
-                                   };
-            var candidatesSchoolsRange = candidatesSchools.Skip((settings.page - 1) * settings.pageSize).Take(settings.pageSize);
-            return candidatesSchoolsRange;
-
+            var candidatesSchools = new List<CandidateSchool>();
+            foreach (var c in _context.CandidateSchools)
+                candidatesSchools.Add(c);
+            var candidatesSchoolsRange = candidatesSchools.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
+            var candidatesSchoolsDTO = Mapper.Map<List<CandidateSchool>, List<CandidateSchoolDTO>>(candidatesSchoolsRange);
+            return candidatesSchoolsDTO;
         }
     }
 }

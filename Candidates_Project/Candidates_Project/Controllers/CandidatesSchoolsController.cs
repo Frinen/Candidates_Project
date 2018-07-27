@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Candidates.Models.DTO;
 namespace Candidates_Project.Controllers
 {
     
@@ -30,7 +30,7 @@ namespace Candidates_Project.Controllers
         }
         [Route("api/CandidatesSchools")]
         [HttpGet]
-        public IQueryable<CandidateSchoolDTO> Get(QuerySettings settings)
+        public List<CandidateSchoolDTO> Get(QuerySettings settings)
         {
             return _service.Get(settings);
         }

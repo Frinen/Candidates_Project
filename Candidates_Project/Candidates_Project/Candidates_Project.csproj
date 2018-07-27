@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Candidates.Connections\Candidates.Connections.csproj" />
+    <ProjectReference Include="..\Candidates.Mappers\Candidates.Mappers.csproj" />
     <ProjectReference Include="..\Candidates.Models\Candidates.Models.csproj" />
     <ProjectReference Include="..\Candidates.Services.Interfaces\Candidates.Services.Interfaces.csproj" />
   </ItemGroup>

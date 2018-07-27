@@ -5,9 +5,8 @@ using System.Text;
 
 namespace Candidates.Models.Models
 {
-    public class Skill
+    public class Skill:Model
     {
-        public int ID { get; set; }
         public string Name { get; set; }
         public List<CandidateSkill> CandidateSkills { get; set; }
     }

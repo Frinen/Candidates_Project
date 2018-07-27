@@ -5,9 +5,8 @@ using System.Text;
 
 namespace Candidates.Models.Models
 {
-    public class HighSchool
+    public class HighSchool:Model
     {
-        public int ID { get; set; }
         [Required]
         public string Name { get; set; }
         public List<CandidateSchool> CandidateSchool { get; set; }

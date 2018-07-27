@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Candidates.Mappers;
 using Candidates.Services;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -18,7 +19,7 @@ namespace Candidates_Project
         {
             var host = CreateWebHostBuilder(args).Build();
 
-           // AddTest.AddCandidate(host, "Fort", "Carson", "1996-09-01",  "Male", "806855058623", "FCarson@gnmail.com",  "FCarson");
+            MapperManager.Initiaize();
 
             host.Run();
         }

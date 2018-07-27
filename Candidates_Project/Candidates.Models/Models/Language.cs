@@ -5,9 +5,8 @@ using System.Text;
 
 namespace Candidates.Models.Models
 { 
-    public class Language
+    public class Language:Model
     {
-        public int ID { get; set; }
         [Required]
         public string Name { get; set; }
         public List<CandidateLanguage> CandidateLanguages { get; set; }

@@ -1,12 +1,15 @@
 ﻿using Candidates.Library;
 using Candidates.Models.Context;
+using Candidates.Models.DTO;
 using Candidates.Models.Models;
 using Candidates.Services.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text;
+using AutoMapper;
+using Candidates.Mappers;
 
 namespace Candidates.Services
 {
@@ -20,16 +23,15 @@ namespace Candidates.Services
         public void Create(CandidateSkillDTO candidateSkill)
         {
             _context.Database.EnsureCreated();
-            var _candidateskill = new CandidateSkill{ SkillID = candidateSkill.SkillID, CandidateID = candidateSkill.CandidateID, Month = candidateSkill.Month, Level = candidateSkill.Level};
+            var _candidateskill = Mapper.Map<CandidateSkillDTO, CandidateSkill>(candidateSkill);
             _context.CandidateSkills.Add(_candidateskill);
             _context.SaveChanges();
         }
         public void Update(int skillID, int candidateID, CandidateSkillShortDTO candidateSkill)
         {
-            var _candidateskill = new CandidateSkill { SkillID = skillID, CandidateID = candidateID, Month = candidateSkill.Month, Level = candidateSkill.Level };
+            var _candidateskill = CandidateSkillMapper.DtoToModel(skillID, candidateID, candidateSkill);
             _context.CandidateSkills.Update(_candidateskill);
             _context.SaveChanges();
-            
         }
         public void Remove(int skillID, int candidateID)
         {
@@ -42,28 +44,18 @@ namespace Candidates.Services
         }
         public CandidateSkillDTO Get( int skillID, int candidateID)
         {
-            var candidateSkills = _context.CandidateSkills.Include(c => c.CandidateID).Select(c => new CandidateSkillDTO()
-            {
-                CandidateID = c.CandidateID,
-                SkillID = c.SkillID,
-                Level = c.Level,
-                Month = c.Month
-            }).Where(c => c.CandidateID == candidateID);
-            var candidateSkill = candidateSkills.SingleOrDefault(c => c.SkillID == skillID);
-            return candidateSkill;
+            var candidateSkill = _context.CandidateSkills.Find(skillID, candidateID);
+            var candidateSkillDTO = Mapper.Map<CandidateSkill, CandidateSkillDTO>(candidateSkill);
+            return candidateSkillDTO;
         }
-        public IQueryable<CandidateSkillDTO> Get(QuerySettings settings)
+        public List<CandidateSkillDTO> Get(QuerySettings settings)
         {
-            var candidatesSkills = from c in _context.CandidateSkills
-                                  select new CandidateSkillDTO()
-                                   {
-                                      CandidateID = c.CandidateID,
-                                      SkillID = c.SkillID,
-                                      Level = c.Level,
-                                      Month = c.Month
-                                  };
-            var candidatesSkillsRange = candidatesSkills.Skip((settings.page - 1) * settings.pageSize).Take(settings.pageSize);
-            return candidatesSkillsRange;
+            var candidatesSkills = new List<CandidateSkill>();
+            foreach (var c in _context.CandidateSkills)
+                candidatesSkills.Add(c);
+            var candidatesSkillsRange = candidatesSkills.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
+            var candidatesSkillsDTO = Mapper.Map<List<CandidateSkill>, List<CandidateSkillDTO>>(candidatesSkillsRange);
+            return candidatesSkillsDTO;
         }
     }
 }

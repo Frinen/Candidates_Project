@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Candidates.Library;
 using Candidates.Models.Context;
+using Candidates.Models.DTO;
 using Candidates.Models.Models;
 using Candidates.Services;
 using Candidates.Services.Interfaces;
@@ -30,7 +31,7 @@ namespace Candidates_Project.Controllers
         }
         [Route("api/CandidatesLanguages/")]
         [HttpGet]
-        public IQueryable<CandidateLanguageDTO> Get(QuerySettings settings)
+        public List<CandidateLanguageDTO> Get(QuerySettings settings)
         {
             return _service.Get(settings);
         }
