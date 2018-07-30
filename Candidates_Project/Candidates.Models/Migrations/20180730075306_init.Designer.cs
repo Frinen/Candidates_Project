@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Candidates.Models.Migrations
 {
     [DbContext(typeof(CandidatesContext))]
-    [Migration("20180727162059_ChangeOptionKey2")]
-    partial class ChangeOptionKey2
+    [Migration("20180730075306_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,7 +42,8 @@ namespace Candidates.Models.Migrations
                     b.Property<string>("PhoneNumber")
                         .IsRequired();
 
-                    b.Property<string>("Sex");
+                    b.Property<string>("Sex")
+                        .IsRequired();
 
                     b.Property<string>("Skype");
 
@@ -151,7 +152,8 @@ namespace Candidates.Models.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("ID");
 

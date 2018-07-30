@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text;
 using AutoMapper;
-using Candidates.Mappers;
 
 namespace Candidates.Services
 {
@@ -20,17 +19,17 @@ namespace Candidates.Services
         {
             _context = context;
         }
-        public void Create(CandidateSkillDTO candidateSkill)
+        public void Create(CandidateSkillDTO candidateSkillDTO)
         {
             _context.Database.EnsureCreated();
-            var _candidateskill = Mapper.Map<CandidateSkillDTO, CandidateSkill>(candidateSkill);
-            _context.CandidateSkills.Add(_candidateskill);
+            var candidateskill = Mapper.Map<CandidateSkillDTO, CandidateSkill>(candidateSkillDTO);
+            _context.CandidateSkills.Add(candidateskill);
             _context.SaveChanges();
         }
-        public void Update(int skillID, int candidateID, CandidateSkillShortDTO candidateSkill)
+        public void Update(CandidateSkillDTO candidateSkillDTO)
         {
-            var _candidateskill = CandidateSkillMapper.DtoToModel(skillID, candidateID, candidateSkill);
-            _context.CandidateSkills.Update(_candidateskill);
+            var candidateskill = Mapper.Map<CandidateSkillDTO, CandidateSkill>(candidateSkillDTO);
+            _context.CandidateSkills.Update(candidateskill);
             _context.SaveChanges();
         }
         public void Remove(int skillID, int candidateID)
@@ -53,9 +52,9 @@ namespace Candidates.Services
             var candidatesSkills = new List<CandidateSkill>();
             foreach (var c in _context.CandidateSkills)
                 candidatesSkills.Add(c);
-            var candidatesSkillsRange = candidatesSkills.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
-            var candidatesSkillsDTO = Mapper.Map<List<CandidateSkill>, List<CandidateSkillDTO>>(candidatesSkillsRange);
-            return candidatesSkillsDTO;
+            var candidatesSkillsPage = candidatesSkills.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
+            var candidatesSkillsPageDTO = Mapper.Map<List<CandidateSkill>, List<CandidateSkillDTO>>(candidatesSkillsPage);
+            return candidatesSkillsPageDTO;
         }
     }
 }

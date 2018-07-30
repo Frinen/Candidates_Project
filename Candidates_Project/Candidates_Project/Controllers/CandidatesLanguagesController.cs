@@ -43,9 +43,9 @@ namespace Candidates_Project.Controllers
         }
         [Route("api/CandidatesLanguages/")]
         [HttpPut]
-        public void Update(int languageID, int candidateID, CandidateLanguageShortDTO candidateLanguage)
+        public void Update(CandidateLanguageDTO candidateLanguage)
         {
-            _service.Update( languageID, candidateID, candidateLanguage);
+            _service.Update(candidateLanguage);
         }
         [Route("api/CandidatesLanguages/")]
         [HttpPost]

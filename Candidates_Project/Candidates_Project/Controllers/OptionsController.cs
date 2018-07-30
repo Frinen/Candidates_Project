@@ -42,9 +42,9 @@ namespace Candidates_Project.Controllers
         }
         [Route("api/Options")]
         [HttpPut]
-        public void Update(int candidateID, OptionsShortDTO options)
+        public void Update(OptionsDTO options)
         {
-            _service.Update(candidateID, options);
+            _service.Update(options);
         }
         [Route("api/Options")]
         [HttpPost]

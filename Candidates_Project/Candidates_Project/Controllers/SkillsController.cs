@@ -42,9 +42,9 @@ namespace Candidates_Project.Controllers
         }
         [Route("api/Skills")]
         [HttpPut]
-        public void Change(int id, SkillShortDTO skill)
+        public void Change(SkillDTO skill)
         {
-            _service.Update(id, skill);
+            _service.Update(skill);
         }
         [Route("api/Skills")]
         [HttpPost]

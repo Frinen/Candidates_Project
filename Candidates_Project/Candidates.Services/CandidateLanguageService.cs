@@ -9,8 +9,6 @@ using Candidates.Library;
 using Candidates.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
-using Candidates.Mappers;
-
 namespace Candidates.Services
 {
     
@@ -21,20 +19,18 @@ namespace Candidates.Services
         {
             _context = context;
         }
-        public void Create( CandidateLanguageDTO candidateLanguage)
+        public void Create( CandidateLanguageDTO candidateLanguageDTO)
         {
             _context.Database.EnsureCreated();
-            var _candidateLanguage = Mapper.Map<CandidateLanguageDTO, CandidateLanguage> (candidateLanguage);
-            _context.CandidateLanguages.Add(_candidateLanguage);
+            var candidateLanguage = Mapper.Map<CandidateLanguageDTO, CandidateLanguage> (candidateLanguageDTO);
+            _context.CandidateLanguages.Add(candidateLanguage);
             _context.SaveChanges();
         }
-        public void Update( int languageID, int candidateID, CandidateLanguageShortDTO candidateLanguage)
+        public void Update( CandidateLanguageDTO candidateLanguageDTO)
         {
-            var _сandidateLanguage = CandidateLanguageMapper.DtoToModel(languageID, candidateID, candidateLanguage);
-            _context.CandidateLanguages.Update(_сandidateLanguage);
+            var сandidateLanguage = Mapper.Map<CandidateLanguageDTO, CandidateLanguage>(candidateLanguageDTO);
+            _context.CandidateLanguages.Update(сandidateLanguage);
             _context.SaveChanges();
-
-
         }
         public void Remove( int languageID, int candidateID)
         {
@@ -56,9 +52,9 @@ namespace Candidates.Services
             var candidatesLanguages = new List<CandidateLanguage>();
             foreach (var c in _context.CandidateLanguages)
                 candidatesLanguages.Add(c);
-            var candidatesLanguagesRange = candidatesLanguages.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
-            var candidatesLanguagesDTO = Mapper.Map<List<CandidateLanguage>, List<CandidateLanguageDTO>>(candidatesLanguagesRange);
-            return candidatesLanguagesDTO;
+            var candidatesLanguagesPage = candidatesLanguages.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
+            var candidatesLanguagesPageDTO = Mapper.Map<List<CandidateLanguage>, List<CandidateLanguageDTO>>(candidatesLanguagesPage);
+            return candidatesLanguagesPageDTO;
         }
     }
 }

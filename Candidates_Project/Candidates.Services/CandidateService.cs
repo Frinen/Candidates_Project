@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using Candidates.Library;
 using AutoMapper;
 using Candidates.Models.DTO;
-using Candidates.Mappers;
 
 namespace Candidates.Services
 {
@@ -21,16 +20,16 @@ namespace Candidates.Services
             _context = context;
            
         }
-        public void Create(CandidateDTO person)
+        public void Create(CandidateDTO candidateDTO)
         {
             _context.Database.EnsureCreated();
-            var candidate = Mapper.Map<CandidateDTO, Candidate>(person);
+            var candidate = Mapper.Map<CandidateDTO, Candidate>(candidateDTO);
             _context.Candidates.Add(candidate);
             _context.SaveChanges();
         }
-        public void Update( int id, CandidateDTO person)
+        public void Update(CandidateDetailsDTO candidateDTO)
         {
-            var candidate = CandidateMapper.DtoToModel(person,id);
+            var candidate = Mapper.Map<CandidateDetailsDTO, Candidate>(candidateDTO);
             _context.Candidates.Update(candidate);
             _context.SaveChanges();
             
@@ -55,9 +54,9 @@ namespace Candidates.Services
             var candidates= new List<Candidate>();
             foreach (var c in _context.Candidates)
                 candidates.Add(c);
-            var candidatesRange = candidates.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
-            var candidatesRangeDTO = Mapper.Map<List<Candidate>, List<CandidateShortDTO>>(candidatesRange);
-            return candidatesRangeDTO;
+            var candidatesPage = candidates.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
+            var candidatesPageDTO = Mapper.Map<List<Candidate>, List<CandidateShortDTO>>(candidatesPage);
+            return candidatesPageDTO;
         }
     }
 }

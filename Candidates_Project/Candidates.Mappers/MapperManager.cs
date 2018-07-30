@@ -13,6 +13,7 @@ namespace Candidates.Mappers
         {
             Mapper.Initialize(cfg => {
                 cfg.CreateMap<CandidateDTO, Candidate>();
+                cfg.CreateMap<CandidateDetailsDTO, Candidate>();
                 cfg.CreateMap<Candidate, CandidateDetailsDTO>();
                 cfg.CreateMap<Candidate, CandidateShortDTO>();
 
@@ -28,15 +29,18 @@ namespace Candidates.Mappers
 
                 cfg.CreateMap<HighSchoolShortDTO, HighSchool>();
                 cfg.CreateMap<HighSchool, HighSchoolDTO>();
+                cfg.CreateMap<HighSchoolDTO, HighSchool>();
 
                 cfg.CreateMap<LanguageShortDTO, Language>();
                 cfg.CreateMap<Language, LanguageDTO>();
+                cfg.CreateMap<LanguageDTO, Language>();
 
                 cfg.CreateMap<OptionsDTO, Options>();
                 cfg.CreateMap<Options, OptionsDTO>();
 
                 cfg.CreateMap<SkillShortDTO, Skill>();
                 cfg.CreateMap<Skill, SkillDTO>();
+                cfg.CreateMap<SkillDTO, Skill>();
             });
         }
     }

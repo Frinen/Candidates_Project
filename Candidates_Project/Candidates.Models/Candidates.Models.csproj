@@ -6,6 +6,9 @@
 
   <ItemGroup>
     <Compile Remove="Migrations\20180711133246_init.cs" />
+    <Compile Remove="Migrations\20180727123053_init.cs" />
+    <Compile Remove="Migrations\20180727124809_ChangeNames.cs" />
+    <Compile Remove="Migrations\20180727161714_ChangeOptionKey.cs" />
   </ItemGroup>
 
   <ItemGroup>

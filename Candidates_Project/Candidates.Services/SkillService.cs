@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text;
 using AutoMapper;
-using Candidates.Mappers;
 
 namespace Candidates.Services
 {
@@ -21,17 +20,17 @@ namespace Candidates.Services
         {
             _context = context;
         }
-        public void Create(SkillShortDTO skill)
+        public void Create(SkillShortDTO skillDTO)
         {
             _context.Database.EnsureCreated();
-            var _skill = Mapper.Map<SkillShortDTO, Skill>(skill);
-            _context.Skills.Add(_skill);
+            var skill = Mapper.Map<SkillShortDTO, Skill>(skillDTO);
+            _context.Skills.Add(skill);
             _context.SaveChanges();
         }
-        public void Update(int id, SkillShortDTO skill)
+        public void Update(SkillDTO skillDTO)
         {
-            var _skill = SkillMapper.DtoToModel(id, skill);
-            _context.Skills.Update(_skill);
+            var skill = Mapper.Map<SkillDTO, Skill>(skillDTO);
+            _context.Skills.Update(skill);
             _context.SaveChanges();
         }
         public void Remove(int id)
@@ -54,9 +53,9 @@ namespace Candidates.Services
             var skills = new List<Skill>();
             foreach (var s in _context.Skills)
                 skills.Add(s);
-            var skillsRange = skills.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
-            var skillsDTO = Mapper.Map<List<Skill>, List<SkillDTO>>(skillsRange);
-            return skillsDTO;
+            var skillsPage = skills.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
+            var skillsPageDTO = Mapper.Map<List<Skill>, List<SkillDTO>>(skillsPage);
+            return skillsPageDTO;
         }
     }
 }

@@ -10,8 +10,8 @@ namespace Candidates.Services.Interfaces
 {
     public interface IHighSchoolService
     {
-        void Create(HighSchoolShortDTO highSchool);
-        void Update(int id, HighSchoolShortDTO highSchool);
+        void Create(HighSchoolShortDTO highSchoolDTO);
+        void Update(HighSchoolDTO highSchoolDTO);
         void Remove(int id);
         HighSchoolDTO Get(int id);
         List<HighSchoolDTO> Get(QuerySettings settings);

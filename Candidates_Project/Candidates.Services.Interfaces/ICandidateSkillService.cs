@@ -10,8 +10,8 @@ namespace Candidates.Services.Interfaces
 {
     public interface ICandidateSkillService
     {
-        void Create(CandidateSkillDTO candidateSkill);
-        void Update(int skillID, int candidateID, CandidateSkillShortDTO candidateSkill);
+        void Create(CandidateSkillDTO candidateSkillDTO);
+        void Update(CandidateSkillDTO candidateSkillDTO);
         void Remove(int skillID, int candidateID);
         CandidateSkillDTO Get(int skillID, int candidateID);
         List<CandidateSkillDTO> Get(QuerySettings settings);

@@ -40,7 +40,8 @@ namespace Candidates.Models.Migrations
                     b.Property<string>("PhoneNumber")
                         .IsRequired();
 
-                    b.Property<string>("Sex");
+                    b.Property<string>("Sex")
+                        .IsRequired();
 
                     b.Property<string>("Skype");
 
@@ -149,7 +150,8 @@ namespace Candidates.Models.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("ID");
 

@@ -21,8 +21,6 @@ namespace Candidates_Project.Controllers
         {
             _service = service;
         }
-
-        
         [Route("api/Candidates/id")]
         [HttpGet]
         public CandidateDetailsDTO Get(int id)
@@ -43,9 +41,9 @@ namespace Candidates_Project.Controllers
         }
         [Route("api/Candidates/")]
         [HttpPut]
-        public void Update( int id, CandidateDTO candidate)
+        public void Update(CandidateDetailsDTO candidate)
         {
-            _service.Update( id, candidate);
+            _service.Update(candidate);
         }
         [Route("api/Candidates/")]
         [HttpPost]

@@ -16,6 +16,7 @@ namespace Candidates.Models.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime BirthDate { get; set; }
+        [Required]
         public string Sex { get; set; }
         [Required]
         public string PhoneNumber { get; set; }

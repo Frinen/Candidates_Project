@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using Candidates.Library;
 using Candidates.Models.DTO;
 using AutoMapper;
-using Candidates.Mappers;
 
 namespace Candidates.Services
 {
@@ -20,17 +19,17 @@ namespace Candidates.Services
         {
             _context = context;
         }
-        public void Create( CandidateSchoolDTO candidateSchool)
+        public void Create( CandidateSchoolDTO candidateSchoolDTO)
         {
             _context.Database.EnsureCreated();
-            var _candidateschool = Mapper.Map<CandidateSchoolDTO, CandidateSchool>(candidateSchool);
-            _context.CandidateSchools.Add(_candidateschool);
+            var candidateschool = Mapper.Map<CandidateSchoolDTO, CandidateSchool>(candidateSchoolDTO);
+            _context.CandidateSchools.Add(candidateschool);
             _context.SaveChanges();
         }
-        public void Update(int highSchoolID, int candidateID, CandidateSchoolShortDTO candidateSchool)
+        public void Update(CandidateSchoolDTO candidateSchoolDTO)
         {
-            var _candidateSchool = CandidateSchoolMapper.DtoToModel(highSchoolID, candidateID, candidateSchool);
-            _context.CandidateSchools.Update(_candidateSchool);
+            var candidateSchool = Mapper.Map<CandidateSchoolDTO, CandidateSchool>(candidateSchoolDTO);
+            _context.CandidateSchools.Update(candidateSchool);
             _context.SaveChanges();
         }
         public void Remove(int highSchoolID, int candidateID)
@@ -53,9 +52,9 @@ namespace Candidates.Services
             var candidatesSchools = new List<CandidateSchool>();
             foreach (var c in _context.CandidateSchools)
                 candidatesSchools.Add(c);
-            var candidatesSchoolsRange = candidatesSchools.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
-            var candidatesSchoolsDTO = Mapper.Map<List<CandidateSchool>, List<CandidateSchoolDTO>>(candidatesSchoolsRange);
-            return candidatesSchoolsDTO;
+            var candidatesSchoolsPage = candidatesSchools.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
+            var candidatesSchoolsPageDTO = Mapper.Map<List<CandidateSchool>, List<CandidateSchoolDTO>>(candidatesSchoolsPage);
+            return candidatesSchoolsPageDTO;
         }
     }
 }

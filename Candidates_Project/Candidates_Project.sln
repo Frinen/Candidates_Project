@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Candidates.Connections", "C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Candidates.Library", "Candidates.Library\Candidates.Library.csproj", "{C25653F6-5826-4B40-B3B8-723442123745}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Candidates.Mappers", "Candidates.Mappers\Candidates.Mappers.csproj", "{5259E88B-AEAF-4006-963D-B504DBE04C94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Candidates.Mappers", "Candidates.Mappers\Candidates.Mappers.csproj", "{FC340E46-F7E2-47E3-ABAA-8FC5EEB2CA6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +47,10 @@ Global
 		{C25653F6-5826-4B40-B3B8-723442123745}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C25653F6-5826-4B40-B3B8-723442123745}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C25653F6-5826-4B40-B3B8-723442123745}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5259E88B-AEAF-4006-963D-B504DBE04C94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5259E88B-AEAF-4006-963D-B504DBE04C94}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5259E88B-AEAF-4006-963D-B504DBE04C94}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5259E88B-AEAF-4006-963D-B504DBE04C94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC340E46-F7E2-47E3-ABAA-8FC5EEB2CA6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC340E46-F7E2-47E3-ABAA-8FC5EEB2CA6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC340E46-F7E2-47E3-ABAA-8FC5EEB2CA6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC340E46-F7E2-47E3-ABAA-8FC5EEB2CA6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

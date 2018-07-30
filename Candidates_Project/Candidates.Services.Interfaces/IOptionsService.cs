@@ -10,8 +10,8 @@ namespace Candidates.Services.Interfaces
 {
     public interface IOptionsService
     {
-        void Create(OptionsDTO options);
-        void Update(int candidateID, OptionsShortDTO options);
+        void Create(OptionsDTO optionsDTO);
+        void Update(OptionsDTO optionsDTO);
         void Remove(int candidateID);
         OptionsDTO Get(int candidateID);
         List<OptionsDTO> Get(QuerySettings settings);

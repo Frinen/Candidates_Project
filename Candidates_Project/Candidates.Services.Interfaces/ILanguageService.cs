@@ -10,8 +10,8 @@ namespace Candidates.Services.Interfaces
 {
     public interface ILanguageService
     {
-        void Create(LanguageShortDTO language);
-        void Update(int id, LanguageShortDTO language);
+        void Create(LanguageShortDTO languageDTO);
+        void Update(LanguageDTO languageDTO);
         void Remove(int id);
         LanguageDTO Get(int id);
         List<LanguageDTO> Get(QuerySettings settings);

@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Candidates.Models.Models
 {
-    public class CandidateSkill 
+    public class CandidateSkill : CandidateProperties
     {
-        public int CandidateID { get; set; }
+        [Required]
         public int SkillID { get; set; }
         [Required]
         public int Month { get; set; }

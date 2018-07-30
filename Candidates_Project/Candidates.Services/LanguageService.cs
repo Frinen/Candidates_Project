@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text;
 using AutoMapper;
-using Candidates.Mappers;
 
 namespace Candidates.Services
 {
@@ -20,17 +19,17 @@ namespace Candidates.Services
         {
             _context = context;
         }
-        public void Create(LanguageShortDTO language)
+        public void Create(LanguageShortDTO languageDTO)
         {
             _context.Database.EnsureCreated();
-            var _language = Mapper.Map<LanguageShortDTO, Language>(language);
-            _context.Languages.Add(_language);
+            var language = Mapper.Map<LanguageShortDTO, Language>(languageDTO);
+            _context.Languages.Add(language);
             _context.SaveChanges();
         }
-        public void Update(int id, LanguageShortDTO language)
+        public void Update(LanguageDTO languageDTO)
         {
-            var _language = LanguageMapper.DtoToModel(id, language);
-            _context.Languages.Update(_language);
+            var language = Mapper.Map<LanguageDTO, Language>(languageDTO);
+            _context.Languages.Update(language);
             _context.SaveChanges();
         }
         public void Remove( int id)
@@ -53,9 +52,9 @@ namespace Candidates.Services
             var languages = new List<Language>();
             foreach (var l in _context.Languages)
                 languages.Add(l);
-            var languagesRange = languages.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
-            var languagesDTO = Mapper.Map<List<Language>, List<LanguageDTO>>(languagesRange);
-            return languagesDTO;
+            var languagesPage = languages.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
+            var languagesPageDTO = Mapper.Map<List<Language>, List<LanguageDTO>>(languagesPage);
+            return languagesPageDTO;
         }
     }
 }

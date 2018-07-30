@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text;
 using AutoMapper;
-using Candidates.Mappers;
 
 namespace Candidates.Services
 {
@@ -20,17 +19,17 @@ namespace Candidates.Services
         {
             _context = context;
         }
-        public void Create(OptionsDTO options)
+        public void Create(OptionsDTO optionsDTO)
         {
             _context.Database.EnsureCreated();
-            var _options = Mapper.Map<OptionsDTO, Options>(options);
-            _context.Options.Add(_options);
+            var options = Mapper.Map<OptionsDTO, Options>(optionsDTO);
+            _context.Options.Add(options);
             _context.SaveChanges();
         }
-        public void Update( int candidateID, OptionsShortDTO options) 
+        public void Update(OptionsDTO optionsDTO) 
         {
-            var _options = OptionsMapper.DtoToModel(candidateID,options);
-            _context.Options.Update(_options);
+            var options = Mapper.Map<OptionsDTO, Options>(optionsDTO);
+            _context.Options.Update(options);
             _context.SaveChanges();
         }
         public void Remove( int candidateID)
@@ -53,9 +52,9 @@ namespace Candidates.Services
             var options = new List<Options>();
             foreach (var o in _context.Options)
                 options.Add(o);
-            var optionsRange = options.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
-            var optionsDTO = Mapper.Map<List<Options>, List<OptionsDTO>>(optionsRange);
-            return optionsDTO;
+            var optionsPage = options.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
+            var optionsPageDTO = Mapper.Map<List<Options>, List<OptionsDTO>>(optionsPage);
+            return optionsPageDTO;
         }
     }
 }

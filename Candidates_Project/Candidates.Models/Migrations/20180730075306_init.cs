@@ -12,19 +12,19 @@ namespace Candidates.Models.Migrations
                 name: "Candidates",
                 columns: table => new
                 {
-                    CandidateID = table.Column<int>(nullable: false)
+                    ID = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     FirstName = table.Column<string>(maxLength: 30, nullable: false),
                     LastName = table.Column<string>(maxLength: 30, nullable: false),
                     BirthDate = table.Column<DateTime>(nullable: false),
-                    Sex = table.Column<string>(nullable: true),
+                    Sex = table.Column<string>(nullable: false),
                     PhoneNumber = table.Column<string>(nullable: false),
                     Email = table.Column<string>(nullable: false),
                     Skype = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Candidates", x => x.CandidateID);
+                    table.PrimaryKey("PK_Candidates", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -59,7 +59,7 @@ namespace Candidates.Models.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -70,19 +70,19 @@ namespace Candidates.Models.Migrations
                 name: "Options",
                 columns: table => new
                 {
-                    CandidateID = table.Column<int>(nullable: false),
+                    ID = table.Column<int>(nullable: false),
                     CanWorkRemotly = table.Column<bool>(nullable: false),
                     CanRelocate = table.Column<bool>(nullable: false),
                     CanWorkInTheOffice = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Options", x => x.CandidateID);
+                    table.PrimaryKey("PK_Options", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Options_Candidates_CandidateID",
-                        column: x => x.CandidateID,
+                        name: "FK_Options_Candidates_ID",
+                        column: x => x.ID,
                         principalTable: "Candidates",
-                        principalColumn: "CandidateID",
+                        principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -103,7 +103,7 @@ namespace Candidates.Models.Migrations
                         name: "FK_CandidateSchools_Candidates_CandidateID",
                         column: x => x.CandidateID,
                         principalTable: "Candidates",
-                        principalColumn: "CandidateID",
+                        principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CandidateSchools_HighSchools_HighSchoolID",
@@ -128,7 +128,7 @@ namespace Candidates.Models.Migrations
                         name: "FK_CandidateLanguages_Candidates_CandidateID",
                         column: x => x.CandidateID,
                         principalTable: "Candidates",
-                        principalColumn: "CandidateID",
+                        principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CandidateLanguages_Languages_LanguageID",
@@ -154,7 +154,7 @@ namespace Candidates.Models.Migrations
                         name: "FK_CandidateSkills_Candidates_CandidateID",
                         column: x => x.CandidateID,
                         principalTable: "Candidates",
-                        principalColumn: "CandidateID",
+                        principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CandidateSkills_Skills_SkillID",

@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text;
 using AutoMapper;
-using Candidates.Mappers;
 
 namespace Candidates.Services
 {
@@ -20,17 +19,17 @@ namespace Candidates.Services
         {
            _context = context;
         }
-        public void Create(HighSchoolShortDTO highSchool)
+        public void Create(HighSchoolShortDTO highSchoolDTO)
         {
             _context.Database.EnsureCreated();
-            var _highSchool = Mapper.Map<HighSchoolShortDTO, HighSchool>(highSchool);
-            _context.HighSchools.Add(_highSchool);
+            var highSchool = Mapper.Map<HighSchoolShortDTO, HighSchool>(highSchoolDTO);
+            _context.HighSchools.Add(highSchool);
             _context.SaveChanges();
         }
-        public void Update(int id, HighSchoolShortDTO highSchool)
+        public void Update( HighSchoolDTO highSchoolDTO)
         {
-            var _highSchool = HighSchoolMapper.DtoToModel(id, highSchool);
-            _context.HighSchools.Update(_highSchool);
+            var highSchool = Mapper.Map<HighSchoolDTO, HighSchool>(highSchoolDTO);
+            _context.HighSchools.Update(highSchool);
             _context.SaveChanges();
         }
         public void Remove(int id)
@@ -51,11 +50,11 @@ namespace Candidates.Services
         public List<HighSchoolDTO> Get(QuerySettings settings)
         {
             var highSchools = new List<HighSchool>();
-            foreach (var c in _context.HighSchools)
-                highSchools.Add(c);
-            var highSchoolsRange = highSchools.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
-            var highSchoolsDTO = Mapper.Map<List<HighSchool>, List<HighSchoolDTO>>(highSchoolsRange);
-            return highSchoolsDTO;
+            foreach (var h in _context.HighSchools)
+                highSchools.Add(h);
+            var highSchoolsPage = highSchools.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
+            var highSchoolsPageDTO = Mapper.Map<List<HighSchool>, List<HighSchoolDTO>>(highSchoolsPage);
+            return highSchoolsPageDTO;
         }
     }
 }

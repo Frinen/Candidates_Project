@@ -42,9 +42,9 @@ namespace Candidates_Project.Controllers
         }
         [Route("api/CandidatesSchools")]
         [HttpPut]
-        public void Update(int highSchoolID, int candidateID, CandidateSchoolShortDTO candidateSchool)
+        public void Update(CandidateSchoolDTO candidateSchool)
         {
-            _service.Update( highSchoolID, candidateID, candidateSchool);
+            _service.Update(candidateSchool);
         }
         [Route("api/CandidatesSchools")]
         [HttpPost]

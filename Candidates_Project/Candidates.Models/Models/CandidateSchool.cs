@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Candidates.Models.Models
 {
-    public class CandidateSchool 
+    public class CandidateSchool : CandidateProperties
     {
-        public int CandidateID { get; set; }
+        [Required]
         public int HighSchoolID { get; set; }
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime From { get; set; }
