@@ -53,9 +53,9 @@ namespace Candidates.Services
             var skills = new List<Skill>();
             foreach (var s in _context.Skills)
                 skills.Add(s);
-            if ((settings.page - 1) * settings.pageSize + settings.pageSize <= skills.Count)
+            if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= skills.Count)
             {
-                var skillsPage = skills.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
+                var skillsPage = skills.GetRange((settings.Page - 1) * settings.PageSize, settings.PageSize);
                 var skillsPageDTO = Mapper.Map<List<Skill>, List<SkillDTO>>(skillsPage);
                 return skillsPageDTO;
             }

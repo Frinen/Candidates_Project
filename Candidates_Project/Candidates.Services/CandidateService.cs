@@ -54,9 +54,9 @@ namespace Candidates.Services
             var candidates= new List<Candidate>();
             foreach (var c in _context.Candidates)
                 candidates.Add(c);
-            if ((settings.page - 1) * settings.pageSize + settings.pageSize <= candidates.Count)
+            if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= candidates.Count)
             {
-                var candidatesPage = candidates.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
+                var candidatesPage = candidates.GetRange((settings.Page - 1) * settings.PageSize, settings.PageSize);
                 var candidatesPageDTO = Mapper.Map<List<Candidate>, List<CandidateShortDTO>>(candidatesPage);
                 return candidatesPageDTO;
             }
