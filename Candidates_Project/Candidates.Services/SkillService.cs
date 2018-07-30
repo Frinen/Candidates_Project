@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text;
 using AutoMapper;
+using Candidates.Responses;
 
 namespace Candidates.Services
 {
@@ -48,22 +49,24 @@ namespace Candidates.Services
             var skillDTO = Mapper.Map<Skill, SkillDTO>(skill);
             return skillDTO;
         }
-        public List<SkillDTO> Get(QuerySettings settings)
+        public SkillResponse Get(QuerySettings settings)
         {
-            var skills = new List<Skill>();
-            foreach (var s in _context.Skills)
-                skills.Add(s);
-            if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= skills.Count)
+            var response = new SkillResponse();
+            if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= _context.Skills.Count())
             {
-                var skillsPage = skills.GetRange((settings.Page - 1) * settings.PageSize, settings.PageSize);
-                var skillsPageDTO = Mapper.Map<List<Skill>, List<SkillDTO>>(skillsPage);
-                return skillsPageDTO;
+                IEnumerable<Skill> skillsPage = _context.Skills.Skip((settings.Page - 1) * settings.PageSize).Take(settings.PageSize);
+                var skillsPageDTO = Mapper.Map<IEnumerable<Skill>, IEnumerable<SkillDTO>>(skillsPage);
+                response.List = skillsPageDTO;
+                response.PageCount = _context.Skills.Count() / settings.PageSize;
+                response.ItemCount = _context.Skills.Count();
+                response.Message = "Ok";
             }
             else
             {
-                var skillsPageDTO = Mapper.Map<List<Skill>, List<SkillDTO>>(skills);
-                return skillsPageDTO;
+                response.Message = $" Incorrect page or item count, max item count: { _context.Skills.Count() }";
+                response.ItemCount = _context.Skills.Count();
             }
+            return response;
         }
     }
 }

@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Candidates.Library;
 using Candidates.Models.DTO;
 using AutoMapper;
+using Candidates.Responses;
 
 namespace Candidates.Services
 {
@@ -47,22 +48,24 @@ namespace Candidates.Services
             var candidateSchoolDTO = Mapper.Map<CandidateSchool, CandidateSchoolDTO>(candidateSchool);
             return candidateSchoolDTO;
         }
-        public List<CandidateSchoolDTO> Get(QuerySettings settings)
+        public CandidateSchoolResponse Get(QuerySettings settings)
         {
-            var candidatesSchools = new List<CandidateSchool>();
-            foreach (var c in _context.CandidateSchools)
-                candidatesSchools.Add(c);
-            if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= candidatesSchools.Count)
+            var response = new CandidateSchoolResponse();
+            if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= _context.CandidateSchools.Count())
             {
-                var candidatesSchoolsPage = candidatesSchools.GetRange((settings.Page - 1) * settings.PageSize, settings.PageSize);
-                var candidatesSchoolsPageDTO = Mapper.Map<List<CandidateSchool>, List<CandidateSchoolDTO>>(candidatesSchoolsPage);
-                return candidatesSchoolsPageDTO;
+                IEnumerable<CandidateSchool> candidatesSchoolsPage = _context.CandidateSchools.Skip((settings.Page - 1) * settings.PageSize).Take(settings.PageSize);
+                var candidatesSchoolsPageDTO = Mapper.Map<IEnumerable<CandidateSchool>, IEnumerable<CandidateSchoolDTO>>(candidatesSchoolsPage);
+                response.List = candidatesSchoolsPageDTO;
+                response.PageCount = _context.CandidateSchools.Count() / settings.PageSize;
+                response.ItemCount = _context.CandidateLanguages.Count();
+                response.Message = "Ok";
             }
             else
             {
-                var candidatesSchoolsPageDTO = Mapper.Map<List<CandidateSchool>, List<CandidateSchoolDTO>>(candidatesSchools);
-                return candidatesSchoolsPageDTO;
+                response.Message = $" Incorrect page or item count, max item count: { _context.CandidateSchools.Count() }";
+                response.ItemCount = _context.CandidateSchools.Count();
             }
+            return response;
         }
     }
 }

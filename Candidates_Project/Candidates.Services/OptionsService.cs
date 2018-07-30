@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text;
 using AutoMapper;
+using Candidates.Responses;
 
 namespace Candidates.Services
 {
@@ -47,22 +48,24 @@ namespace Candidates.Services
             var optionsDTO = Mapper.Map<Options, OptionsDTO>(options);
             return optionsDTO;
         }
-        public List<OptionsDTO> Get(QuerySettings settings)
+        public OptionsResponse Get(QuerySettings settings)
         {
-            var options = new List<Options>();
-            foreach (var o in _context.Options)
-                options.Add(o);
-            if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= options.Count)
+            var response = new OptionsResponse();
+            if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= _context.Languages.Count())
             {
-                var optionsPage = options.GetRange((settings.Page - 1) * settings.PageSize, settings.PageSize);
-                var optionsPageDTO = Mapper.Map<List<Options>, List<OptionsDTO>>(optionsPage);
-                return optionsPageDTO;
+                IEnumerable<Options> optionsPage = _context.Options.Skip((settings.Page - 1) * settings.PageSize).Take(settings.PageSize);
+                var optionsPageDTO = Mapper.Map<IEnumerable<Options>, IEnumerable<OptionsDTO>>(optionsPage);
+                response.List = optionsPageDTO;
+                response.PageCount = _context.Options.Count() / settings.PageSize;
+                response.ItemCount = _context.Options.Count();
+                response.Message = "Ok";
             }
             else
             {
-                var optionsPageDTO = Mapper.Map<List<Options>, List<OptionsDTO>>(options);
-                return optionsPageDTO;
+                response.Message = $" Incorrect page or item count, max item count: { _context.Languages.Count() }";
+                response.ItemCount = _context.Options.Count();
             }
+            return response;
         }
     }
 }

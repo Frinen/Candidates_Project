@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text;
 using AutoMapper;
+using Candidates.Responses;
 
 namespace Candidates.Services
 {
@@ -47,22 +48,25 @@ namespace Candidates.Services
             var candidateSkillDTO = Mapper.Map<CandidateSkill, CandidateSkillDTO>(candidateSkill);
             return candidateSkillDTO;
         }
-        public List<CandidateSkillDTO> Get(QuerySettings settings)
+        public CandidateSkillResponse Get(QuerySettings settings)
         {
-            var candidatesSkills = new List<CandidateSkill>();
-            foreach (var c in _context.CandidateSkills)
-                candidatesSkills.Add(c);
-            if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= candidatesSkills.Count)
+            var response = new CandidateSkillResponse();
+            if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= _context.CandidateSkills.Count())
             {
-                var candidatesSkillsPage = candidatesSkills.GetRange((settings.Page - 1) * settings.PageSize, settings.PageSize);
-                var candidatesSkillsPageDTO = Mapper.Map<List<CandidateSkill>, List<CandidateSkillDTO>>(candidatesSkillsPage);
-                return candidatesSkillsPageDTO;
+                IEnumerable<CandidateSkill> candidatesSkillsPage = _context.CandidateSkills.Skip((settings.Page - 1) * settings.PageSize).Take(settings.PageSize);
+                var candidatesSkillsPageDTO = Mapper.Map<IEnumerable<CandidateSkill>, IEnumerable<CandidateSkillDTO>>(candidatesSkillsPage);
+                response.List = candidatesSkillsPageDTO;
+                response.PageCount = _context.CandidateSkills.Count() / settings.PageSize;
+                response.ItemCount = _context.CandidateSkills.Count();
+                response.Message = "Ok";
             }
             else
             {
-                var candidatesSkillsPageDTO = Mapper.Map<List<CandidateSkill>, List<CandidateSkillDTO>>(candidatesSkills);
-                return candidatesSkillsPageDTO;
+                response.Message = $" Incorrect page or item count, max item count: { _context.CandidateSkills.Count() }";
+                response.ItemCount = _context.CandidateSkills.Count();
             }
+            return response;
         }
     }
+    
 }

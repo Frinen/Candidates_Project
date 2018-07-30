@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Candidates.Library", "Candi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Candidates.Mappers", "Candidates.Mappers\Candidates.Mappers.csproj", "{FC340E46-F7E2-47E3-ABAA-8FC5EEB2CA6A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Candidates.Responses", "Candidates.Responses\Candidates.Responses.csproj", "{02E91CB1-986E-463C-A84F-3C6D5FD4F666}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{FC340E46-F7E2-47E3-ABAA-8FC5EEB2CA6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC340E46-F7E2-47E3-ABAA-8FC5EEB2CA6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC340E46-F7E2-47E3-ABAA-8FC5EEB2CA6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02E91CB1-986E-463C-A84F-3C6D5FD4F666}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02E91CB1-986E-463C-A84F-3C6D5FD4F666}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02E91CB1-986E-463C-A84F-3C6D5FD4F666}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02E91CB1-986E-463C-A84F-3C6D5FD4F666}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text;
 using AutoMapper;
+using Candidates.Responses;
 
 namespace Candidates.Services
 {
@@ -47,22 +48,24 @@ namespace Candidates.Services
             var languageDTO = Mapper.Map<Language, LanguageDTO>(language);
             return languageDTO;
         }
-        public List<LanguageDTO> Get(QuerySettings settings)
+        public LanguageResponse Get(QuerySettings settings)
         {
-            var languages = new List<Language>();
-            foreach (var l in _context.Languages)
-                languages.Add(l);
-            if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= languages.Count)
+            var response = new LanguageResponse();
+            if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= _context.Languages.Count())
             {
-                var languagesPage = languages.GetRange((settings.Page - 1) * settings.PageSize, settings.PageSize);
-                var languagesPageDTO = Mapper.Map<List<Language>, List<LanguageDTO>>(languagesPage);
-                return languagesPageDTO;
+                IEnumerable<Language> languagesPage = _context.Languages.Skip((settings.Page - 1) * settings.PageSize).Take(settings.PageSize);
+                var languagesPageDTO = Mapper.Map<IEnumerable<Language>, IEnumerable<LanguageDTO>>(languagesPage);
+                response.List = languagesPageDTO;
+                response.PageCount = _context.Languages.Count() / settings.PageSize;
+                response.ItemCount = _context.Languages.Count();
+                response.Message = "Ok";
             }
             else
             {
-                var languagesPageDTO = Mapper.Map<List<Language>, List<LanguageDTO>>(languages);
-                return languagesPageDTO;
+                response.Message = $" Incorrect page or item count, max item count: { _context.Languages.Count() }";
+                response.ItemCount = _context.Languages.Count();
             }
+            return response;
         }
     }
 }

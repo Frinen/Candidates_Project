@@ -6,6 +6,7 @@ using Candidates.Library;
 using Candidates.Models.Context;
 using Candidates.Models.DTO;
 using Candidates.Models.Models;
+using Candidates.Responses;
 using Candidates.Services;
 using Candidates.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -31,7 +32,7 @@ namespace Candidates_Project.Controllers
         }
         [Route("api/CandidatesLanguages/")]
         [HttpGet]
-        public List<CandidateLanguageDTO> Get(QuerySettings settings)
+        public CandidateLanguageResponse Get(QuerySettings settings)
         {
             return _service.Get(settings);
         }

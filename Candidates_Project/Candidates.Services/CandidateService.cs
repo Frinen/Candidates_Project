@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Candidates.Library;
 using AutoMapper;
 using Candidates.Models.DTO;
+using Candidates.Responses;
 
 namespace Candidates.Services
 {
@@ -49,22 +50,24 @@ namespace Candidates.Services
             var candidateDTO = Mapper.Map<Candidate, CandidateDetailsDTO>(candidate);
             return candidateDTO;
         }
-        public List<CandidateShortDTO> Get(QuerySettings settings)
+        public CandidateResponse Get(QuerySettings settings)
         {
-            var candidates= new List<Candidate>();
-            foreach (var c in _context.Candidates)
-                candidates.Add(c);
-            if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= candidates.Count)
+            var response = new CandidateResponse();
+            if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= _context.Candidates.Count())
             {
-                var candidatesPage = candidates.GetRange((settings.Page - 1) * settings.PageSize, settings.PageSize);
-                var candidatesPageDTO = Mapper.Map<List<Candidate>, List<CandidateShortDTO>>(candidatesPage);
-                return candidatesPageDTO;
+                IEnumerable<Candidate> candidatesPage = _context.Candidates.Skip((settings.Page - 1) * settings.PageSize).Take(settings.PageSize);
+                var candidatesPageDTO = Mapper.Map<IEnumerable<Candidate>, IEnumerable<CandidateShortDTO>>(candidatesPage);
+                response.List = candidatesPageDTO;
+                response.PageCount = _context.Candidates.Count() / settings.PageSize;
+                response.ItemCount = _context.Candidates.Count();
+                response.Message = "Ok";
             }
             else
             {
-                var candidatesPageDTO = Mapper.Map<List<Candidate>, List<CandidateShortDTO>>(candidates);
-                return candidatesPageDTO;
+                response.Message = $" Incorrect page or item count, max item count: { _context.Candidates.Count() }";
+                response.ItemCount = _context.Candidates.Count();
             }
+            return response;
         }
     }
 }

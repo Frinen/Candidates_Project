@@ -9,6 +9,7 @@ using Candidates.Models.Models;
 using Candidates.Services.Interfaces;
 using Candidates.Library;
 using Candidates.Models.DTO;
+using Candidates.Responses;
 
 namespace Candidates_Project.Controllers
 {
@@ -29,7 +30,7 @@ namespace Candidates_Project.Controllers
         }
         [Route("api/Candidates/")]
         [HttpGet]
-        public List<CandidateShortDTO> Get(QuerySettings settings)
+        public CandidateResponse Get(QuerySettings settings)
         {
             return _service.Get(settings);
         }

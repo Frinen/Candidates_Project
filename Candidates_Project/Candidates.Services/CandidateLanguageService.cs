@@ -9,6 +9,8 @@ using Candidates.Library;
 using Candidates.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using Candidates.Responses;
+
 namespace Candidates.Services
 {
     
@@ -47,22 +49,24 @@ namespace Candidates.Services
             var candidateLanguageDTO = Mapper.Map<CandidateLanguage, CandidateLanguageDTO>(candidateLanguage);
             return candidateLanguageDTO;
         }
-        public List<CandidateLanguageDTO> Get(QuerySettings settings)
+        public CandidateLanguageResponse Get(QuerySettings settings)
         {
-            var candidatesLanguages = new List<CandidateLanguage>();
-            foreach (var c in _context.CandidateLanguages)
-                candidatesLanguages.Add(c);
-            if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= candidatesLanguages.Count)
+            var response = new CandidateLanguageResponse();
+            if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= _context.CandidateLanguages.Count())
             {
-                var candidatesLanguagesPage = candidatesLanguages.GetRange((settings.Page - 1) * settings.PageSize, settings.PageSize);
-                var candidatesLanguagesPageDTO = Mapper.Map<List<CandidateLanguage>, List<CandidateLanguageDTO>>(candidatesLanguagesPage);
-                return candidatesLanguagesPageDTO;
+                IEnumerable<CandidateLanguage> candidatesLanguagePage = _context.CandidateLanguages.Skip((settings.Page - 1) * settings.PageSize).Take(settings.PageSize);
+                var candidatesLanguagePageDTO = Mapper.Map<IEnumerable<CandidateLanguage>, IEnumerable<CandidateLanguageDTO>>(candidatesLanguagePage);
+                response.List = candidatesLanguagePageDTO;
+                response.PageCount = _context.CandidateLanguages.Count() / settings.PageSize;
+                response.ItemCount = _context.CandidateLanguages.Count();
+                response.Message = "Ok";
             }
             else
             {
-                var candidatesLanguagesPageDTO = Mapper.Map<List<CandidateLanguage>, List<CandidateLanguageDTO>>(candidatesLanguages);
-                return candidatesLanguagesPageDTO;
+                response.Message = $" Incorrect page or item count, max item count: { _context.CandidateLanguages.Count() }";
+                response.ItemCount = _context.CandidateLanguages.Count();
             }
+            return response;
         }
     }
 }

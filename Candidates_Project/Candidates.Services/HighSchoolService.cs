@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text;
 using AutoMapper;
+using Candidates.Responses;
 
 namespace Candidates.Services
 {
@@ -47,22 +48,24 @@ namespace Candidates.Services
             var highschoolDTO = Mapper.Map<HighSchool,HighSchoolDTO>(highschool);
             return highschoolDTO;
         }
-        public List<HighSchoolDTO> Get(QuerySettings settings)
+        public HighSchoolResponse Get(QuerySettings settings)
         {
-            var highSchools = new List<HighSchool>();
-            foreach (var h in _context.HighSchools)
-                highSchools.Add(h);
-            if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= highSchools.Count)
+            var response = new HighSchoolResponse();
+            if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= _context.HighSchools.Count())
             {
-                var highSchoolsPage = highSchools.GetRange((settings.Page - 1) * settings.PageSize, settings.PageSize);
-                var highSchoolsPageDTO = Mapper.Map<List<HighSchool>, List<HighSchoolDTO>>(highSchoolsPage);
-                return highSchoolsPageDTO;
+                IEnumerable<HighSchool> highSchoolsPage = _context.HighSchools.Skip((settings.Page - 1) * settings.PageSize).Take(settings.PageSize);
+                var highSchoolsPageDTO = Mapper.Map<IEnumerable<HighSchool>, IEnumerable<HighSchoolDTO>>(highSchoolsPage);
+                response.List = highSchoolsPageDTO;
+                response.PageCount = _context.HighSchools.Count() / settings.PageSize;
+                response.ItemCount = _context.HighSchools.Count();
+                response.Message = "Ok";
             }
             else
             {
-                var highSchoolsPageDTO = Mapper.Map<List<HighSchool>, List<HighSchoolDTO>>(highSchools);
-                return highSchoolsPageDTO;
+                response.Message = $" Incorrect page or item count, max item count: { _context.HighSchools.Count() }";
+                response.ItemCount = _context.HighSchools.Count();
             }
+            return response;
         }
     }
 }
