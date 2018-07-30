@@ -52,9 +52,17 @@ namespace Candidates.Services
             var highSchools = new List<HighSchool>();
             foreach (var h in _context.HighSchools)
                 highSchools.Add(h);
-            var highSchoolsPage = highSchools.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
-            var highSchoolsPageDTO = Mapper.Map<List<HighSchool>, List<HighSchoolDTO>>(highSchoolsPage);
-            return highSchoolsPageDTO;
+            if ((settings.page - 1) * settings.pageSize + settings.pageSize <= highSchools.Count)
+            {
+                var highSchoolsPage = highSchools.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
+                var highSchoolsPageDTO = Mapper.Map<List<HighSchool>, List<HighSchoolDTO>>(highSchoolsPage);
+                return highSchoolsPageDTO;
+            }
+            else
+            {
+                var highSchoolsPageDTO = Mapper.Map<List<HighSchool>, List<HighSchoolDTO>>(highSchools);
+                return highSchoolsPageDTO;
+            }
         }
     }
 }

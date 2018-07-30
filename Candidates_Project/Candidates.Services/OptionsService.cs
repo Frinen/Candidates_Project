@@ -52,9 +52,17 @@ namespace Candidates.Services
             var options = new List<Options>();
             foreach (var o in _context.Options)
                 options.Add(o);
-            var optionsPage = options.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
-            var optionsPageDTO = Mapper.Map<List<Options>, List<OptionsDTO>>(optionsPage);
-            return optionsPageDTO;
+            if ((settings.page - 1) * settings.pageSize + settings.pageSize <= options.Count)
+            {
+                var optionsPage = options.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
+                var optionsPageDTO = Mapper.Map<List<Options>, List<OptionsDTO>>(optionsPage);
+                return optionsPageDTO;
+            }
+            else
+            {
+                var optionsPageDTO = Mapper.Map<List<Options>, List<OptionsDTO>>(options);
+                return optionsPageDTO;
+            }
         }
     }
 }

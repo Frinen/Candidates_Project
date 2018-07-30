@@ -52,9 +52,17 @@ namespace Candidates.Services
             var candidatesLanguages = new List<CandidateLanguage>();
             foreach (var c in _context.CandidateLanguages)
                 candidatesLanguages.Add(c);
-            var candidatesLanguagesPage = candidatesLanguages.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
-            var candidatesLanguagesPageDTO = Mapper.Map<List<CandidateLanguage>, List<CandidateLanguageDTO>>(candidatesLanguagesPage);
-            return candidatesLanguagesPageDTO;
+            if ((settings.page - 1) * settings.pageSize + settings.pageSize <= candidatesLanguages.Count)
+            {
+                var candidatesLanguagesPage = candidatesLanguages.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
+                var candidatesLanguagesPageDTO = Mapper.Map<List<CandidateLanguage>, List<CandidateLanguageDTO>>(candidatesLanguagesPage);
+                return candidatesLanguagesPageDTO;
+            }
+            else
+            {
+                var candidatesLanguagesPageDTO = Mapper.Map<List<CandidateLanguage>, List<CandidateLanguageDTO>>(candidatesLanguages);
+                return candidatesLanguagesPageDTO;
+            }
         }
     }
 }

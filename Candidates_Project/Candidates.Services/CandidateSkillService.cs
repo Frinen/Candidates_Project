@@ -52,9 +52,17 @@ namespace Candidates.Services
             var candidatesSkills = new List<CandidateSkill>();
             foreach (var c in _context.CandidateSkills)
                 candidatesSkills.Add(c);
-            var candidatesSkillsPage = candidatesSkills.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
-            var candidatesSkillsPageDTO = Mapper.Map<List<CandidateSkill>, List<CandidateSkillDTO>>(candidatesSkillsPage);
-            return candidatesSkillsPageDTO;
+            if ((settings.page - 1) * settings.pageSize + settings.pageSize <= candidatesSkills.Count)
+            {
+                var candidatesSkillsPage = candidatesSkills.GetRange((settings.page - 1) * settings.pageSize, settings.pageSize);
+                var candidatesSkillsPageDTO = Mapper.Map<List<CandidateSkill>, List<CandidateSkillDTO>>(candidatesSkillsPage);
+                return candidatesSkillsPageDTO;
+            }
+            else
+            {
+                var candidatesSkillsPageDTO = Mapper.Map<List<CandidateSkill>, List<CandidateSkillDTO>>(candidatesSkills);
+                return candidatesSkillsPageDTO;
+            }
         }
     }
 }
