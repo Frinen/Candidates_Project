@@ -9,7 +9,6 @@ using Candidates.Library;
 using Candidates.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
-using Candidates.Responses;
 
 namespace Candidates.Services
 {
@@ -49,9 +48,9 @@ namespace Candidates.Services
             var candidateLanguageDTO = Mapper.Map<CandidateLanguage, CandidateLanguageDTO>(candidateLanguage);
             return candidateLanguageDTO;
         }
-        public CandidateLanguageResponse Get(QuerySettings settings)
+        public PageResponse<CandidateLanguageDTO> Get(QuerySettings settings)
         {
-            var response = new CandidateLanguageResponse();
+            var response = new PageResponse<CandidateLanguageDTO>();
             if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= _context.CandidateLanguages.Count())
             {
                 IEnumerable<CandidateLanguage> candidatesLanguagePage = _context.CandidateLanguages.Skip((settings.Page - 1) * settings.PageSize).Take(settings.PageSize);
@@ -59,11 +58,11 @@ namespace Candidates.Services
                 response.List = candidatesLanguagePageDTO;
                 response.PageCount = _context.CandidateLanguages.Count() / settings.PageSize;
                 response.ItemCount = _context.CandidateLanguages.Count();
-                response.Message = "Ok";
+               // response.Message = "Ok";
             }
             else
             {
-                response.Message = $" Incorrect page or item count, max item count: { _context.CandidateLanguages.Count() }";
+                //response.Message = $" Incorrect page or item count, max item count: { _context.CandidateLanguages.Count() }";
                 response.ItemCount = _context.CandidateLanguages.Count();
             }
             return response;

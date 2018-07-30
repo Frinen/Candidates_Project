@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text;
 using AutoMapper;
-using Candidates.Responses;
 
 namespace Candidates.Services
 {
@@ -48,9 +47,9 @@ namespace Candidates.Services
             var optionsDTO = Mapper.Map<Options, OptionsDTO>(options);
             return optionsDTO;
         }
-        public OptionsResponse Get(QuerySettings settings)
+        public PageResponse<OptionsDTO> Get(QuerySettings settings)
         {
-            var response = new OptionsResponse();
+            var response = new PageResponse<OptionsDTO>();
             if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= _context.Languages.Count())
             {
                 IEnumerable<Options> optionsPage = _context.Options.Skip((settings.Page - 1) * settings.PageSize).Take(settings.PageSize);
@@ -58,11 +57,11 @@ namespace Candidates.Services
                 response.List = optionsPageDTO;
                 response.PageCount = _context.Options.Count() / settings.PageSize;
                 response.ItemCount = _context.Options.Count();
-                response.Message = "Ok";
+               // response.Message = "Ok";
             }
             else
             {
-                response.Message = $" Incorrect page or item count, max item count: { _context.Languages.Count() }";
+               // response.Message = $" Incorrect page or item count, max item count: { _context.Languages.Count() }";
                 response.ItemCount = _context.Options.Count();
             }
             return response;

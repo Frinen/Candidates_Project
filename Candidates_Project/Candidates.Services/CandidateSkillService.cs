@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text;
 using AutoMapper;
-using Candidates.Responses;
 
 namespace Candidates.Services
 {
@@ -48,9 +47,9 @@ namespace Candidates.Services
             var candidateSkillDTO = Mapper.Map<CandidateSkill, CandidateSkillDTO>(candidateSkill);
             return candidateSkillDTO;
         }
-        public CandidateSkillResponse Get(QuerySettings settings)
+        public PageResponse<CandidateSkillDTO> Get(QuerySettings settings)
         {
-            var response = new CandidateSkillResponse();
+            var response = new PageResponse<CandidateSkillDTO>();
             if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= _context.CandidateSkills.Count())
             {
                 IEnumerable<CandidateSkill> candidatesSkillsPage = _context.CandidateSkills.Skip((settings.Page - 1) * settings.PageSize).Take(settings.PageSize);
@@ -58,11 +57,11 @@ namespace Candidates.Services
                 response.List = candidatesSkillsPageDTO;
                 response.PageCount = _context.CandidateSkills.Count() / settings.PageSize;
                 response.ItemCount = _context.CandidateSkills.Count();
-                response.Message = "Ok";
+               // response.Message = "Ok";
             }
             else
             {
-                response.Message = $" Incorrect page or item count, max item count: { _context.CandidateSkills.Count() }";
+                //response.Message = $" Incorrect page or item count, max item count: { _context.CandidateSkills.Count() }";
                 response.ItemCount = _context.CandidateSkills.Count();
             }
             return response;

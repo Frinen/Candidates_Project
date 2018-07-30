@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using Candidates.Library;
 using AutoMapper;
 using Candidates.Models.DTO;
-using Candidates.Responses;
 
 namespace Candidates.Services
 {
@@ -50,9 +49,9 @@ namespace Candidates.Services
             var candidateDTO = Mapper.Map<Candidate, CandidateDetailsDTO>(candidate);
             return candidateDTO;
         }
-        public CandidateResponse Get(QuerySettings settings)
+        public PageResponse<CandidateShortDTO> Get(QuerySettings settings)
         {
-            var response = new CandidateResponse();
+            var response = new PageResponse<CandidateShortDTO>();
             if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= _context.Candidates.Count())
             {
                 IEnumerable<Candidate> candidatesPage = _context.Candidates.Skip((settings.Page - 1) * settings.PageSize).Take(settings.PageSize);
@@ -60,11 +59,11 @@ namespace Candidates.Services
                 response.List = candidatesPageDTO;
                 response.PageCount = _context.Candidates.Count() / settings.PageSize;
                 response.ItemCount = _context.Candidates.Count();
-                response.Message = "Ok";
+               // response.Message = "Ok";
             }
             else
             {
-                response.Message = $" Incorrect page or item count, max item count: { _context.Candidates.Count() }";
+                //response.Message = $" Incorrect page or item count, max item count: { _context.Candidates.Count() }";
                 response.ItemCount = _context.Candidates.Count();
             }
             return response;

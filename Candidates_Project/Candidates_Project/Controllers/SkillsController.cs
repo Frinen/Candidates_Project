@@ -9,7 +9,6 @@ using Candidates.Services;
 using Candidates.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Candidates.Models.DTO;
-using Candidates.Responses;
 
 namespace Candidates_Project.Controllers
 {
@@ -32,7 +31,7 @@ namespace Candidates_Project.Controllers
         }
         [Route("api/Skills")]
         [HttpGet]
-        public SkillResponse Get(QuerySettings settings)
+        public PageResponse<SkillDTO> Get(QuerySettings settings)
         {
             return _service.Get(settings);
         }

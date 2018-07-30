@@ -9,7 +9,6 @@ using Candidates.Services;
 using Candidates.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Candidates.Models.DTO;
-using Candidates.Responses;
 
 namespace Candidates_Project.Controllers
 {
@@ -32,7 +31,7 @@ namespace Candidates_Project.Controllers
         }
         [Route("api/HighSchools")]
         [HttpGet]
-        public HighSchoolResponse Get(QuerySettings settings)
+        public PageResponse<HighSchoolDTO> Get(QuerySettings settings)
         {
             return _service.Get(settings);
         }

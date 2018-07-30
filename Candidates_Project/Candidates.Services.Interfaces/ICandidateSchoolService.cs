@@ -1,7 +1,6 @@
 ﻿using Candidates.Library;
 using Candidates.Models.DTO;
 using Candidates.Models.Models;
-using Candidates.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +14,6 @@ namespace Candidates.Services.Interfaces
         void Update(CandidateSchoolDTO candidateSchoolDTO);
         void Remove(int highSchoolID, int candidateID);
         CandidateSchoolDTO Get(int highSchoolID, int candidateID);
-        CandidateSchoolResponse Get(QuerySettings settings);
+        PageResponse<CandidateSchoolDTO> Get(QuerySettings settings);
     }
 }

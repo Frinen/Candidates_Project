@@ -1,7 +1,6 @@
 ﻿using Candidates.Library;
 using Candidates.Models.DTO;
 using Candidates.Models.Models;
-using Candidates.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +14,6 @@ namespace Candidates.Services.Interfaces
         void Update(LanguageDTO languageDTO);
         void Remove(int id);
         LanguageDTO Get(int id);
-        LanguageResponse Get(QuerySettings settings);
+        PageResponse<LanguageDTO> Get(QuerySettings settings);
     }
 }
