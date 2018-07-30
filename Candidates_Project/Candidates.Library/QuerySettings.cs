@@ -4,7 +4,7 @@ namespace Candidates.Library
 {
     public class QuerySettings
     {
-        public int page { get; set; }
-        public int pageSize { get; set; }
+        public int Page { get; set; }
+        public int PageSize { get; set; }
     }
 }
