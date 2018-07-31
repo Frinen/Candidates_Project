@@ -18,11 +18,11 @@ namespace Candidates.Models.Context
         public DbSet<Options> Options { get; set; }
         public DbSet<CandidateLanguage> CandidateLanguages { get; set; }
         public DbSet<Language> Languages { get; set; }
-        
         public DbSet<HighSchool> HighSchools { get; set; }
         public DbSet<CandidateSchool> CandidateSchools { get; set; }
         public DbSet<CandidateSkill> CandidateSkills { get; set; }
         public DbSet<Skill> Skills { get; set; }
+        public DbSet<Account> Accounts { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             

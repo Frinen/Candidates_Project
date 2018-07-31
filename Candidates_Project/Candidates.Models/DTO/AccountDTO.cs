@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Candidates.Models.Models
+namespace Candidates.Models.DTO
 {
-    public class Person
+    public class AccountDTO
     {
         public string Login { get; set; }
         public string Password { get; set; }

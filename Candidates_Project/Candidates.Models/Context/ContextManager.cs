@@ -12,7 +12,11 @@ namespace Candidates.Models.Context
         static public void CreateContext(IServiceCollection services, IConfiguration Configuration)
         {
             services.AddDbContext<CandidatesContext>(options =>
-      options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+        }
+        static public void Inicialize(ServiceCollection services)
+        {
+            
         }
     }
 }

@@ -6,7 +6,10 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Candidates.Library;
+using Candidates.Models.DTO;
 using Candidates.Models.Models;
+using Candidates.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -16,41 +19,51 @@ namespace Candidates_Project.Controllers
 {
     public class AccountController : Controller
     {
-        private List<Person> people = new List<Person>
+        IAccountService _service;
+        public AccountController (IAccountService service)
         {
-            new Person {Login="admin", Password="admin", Role = "admin" },
-            new Person { Login="hr", Password="hr", Role = "hr" }
-        };
-        [Route("api/AccountController")]
-        [HttpPost]
-        public IActionResult RequestToken( Person person)
-        {
-            if (people.FirstOrDefault(x => x.Login == person.Login && x.Password == person.Password) != null)  
-            {
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, person.Login),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, person.Role)
-                };
-
-                var key = AuthOptions.GetSymmetricSecurityKey();
-                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-                var token = new JwtSecurityToken(
-                    issuer: AuthOptions.ISSUER,
-                    audience: AuthOptions.AUDIENCE,
-                    claims: claims,
-                    expires: DateTime.Now.AddMinutes(30),
-                    signingCredentials: creds);
-
-                return Ok(new
-                {
-                    token = new JwtSecurityTokenHandler().WriteToken(token)
-                });
-            }
-
-            return BadRequest("Could not verify username and password");
+            _service = service;
         }
-      
+        [Route("api/AccountController/AccountDTO")]
+        [HttpPost]
+        public string RequestToken(AccountDTO person)
+        {
+            return _service.RequestToken(person);
+        }
+        [Route("api/AccountController/id")]
+        [HttpGet]
+        [Authorize(Roles = "admin")]
+        public AccountDTO Get(string login)
+        {
+            return _service.Get(login);
+        }
+        [Route("api/AccountController/")]
+        [HttpGet]
+        public PageResponse<AccountShortDTO> Get(QuerySettings settings)
+        {
+            return _service.Get(settings);
+        }
+        [Route("api/AccountController/")]
+        [Authorize(Roles = "admin")]
+        [HttpDelete]
+        public void Delete(string login)
+        {
+            _service.Remove(login);
+        }
+        [Route("api/AccountController/")]
+        [HttpPut]
+        [Authorize(Roles = "hadmin")]
+        public void Update(AccountDTO candidate)
+        {
+            _service.Update(candidate);
+        }
+        [Route("api/AccountController/")]
+        [HttpPost]
+        [Authorize(Roles = "admin")]
+        public void Create(AccountDTO candidate)
+        {
+            _service.Create(candidate);
+        }
+
     }
 }

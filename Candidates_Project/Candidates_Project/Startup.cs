@@ -29,9 +29,10 @@ namespace Candidates_Project
         }
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; set; }
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
          .AddJwtBearer(options =>
          {
@@ -46,6 +47,11 @@ namespace Candidates_Project
                  IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey()
              };
          });
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("customsettings.json", optional: true);
+
+            Configuration = builder.Build();
             ContextManager.CreateContext(services, Configuration);
             services.AddMvc();
             services.AddSwaggerGen(c =>
@@ -73,7 +79,6 @@ namespace Candidates_Project
             }
             app.UseAuthentication();
             app.UseSwagger();
-
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>

@@ -41,6 +41,10 @@ namespace Candidates.Mappers
                 cfg.CreateMap<SkillShortDTO, Skill>();
                 cfg.CreateMap<Skill, SkillDTO>();
                 cfg.CreateMap<SkillDTO, Skill>();
+
+                cfg.CreateMap<Account, AccountDTO>();
+                cfg.CreateMap<Account, AccountShortDTO>();
+                cfg.CreateMap<AccountDTO, Account>();
             });
         }
     }

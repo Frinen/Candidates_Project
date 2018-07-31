@@ -19,6 +19,7 @@ namespace Candidates.Connections
             services.AddTransient<ILanguageService, LanguageService>();
             services.AddTransient<IOptionsService, OptionsService>();
             services.AddTransient<ISkillService, SkillService>();
+            services.AddTransient<IAccountService, AccountService>();
         }
     }
 }
