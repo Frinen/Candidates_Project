@@ -9,6 +9,7 @@ using Candidates.Services;
 using Candidates.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Candidates.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Candidates_Project.Controllers
 {
@@ -37,18 +38,21 @@ namespace Candidates_Project.Controllers
         }
         [Route("api/Languages")]
         [HttpDelete]
+        [Authorize(Roles = "admin")]
         public void Delete(int id)
         {
             _service.Remove(id);
         }
         [Route("api/Languages")]
         [HttpPut]
+        [Authorize(Roles = "admin")]
         public void Update(LanguageDTO language)
         {
             _service.Update(language);
         }
         [Route("api/Languages")]
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public void Create(LanguageShortDTO language)
         {
             _service.Create(language);

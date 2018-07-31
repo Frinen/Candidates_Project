@@ -9,6 +9,7 @@ using Candidates.Services;
 using Candidates.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Candidates.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Candidates_Project.Controllers
 {
@@ -36,6 +37,7 @@ namespace Candidates_Project.Controllers
             return _service.Get(settings);
         }
         [Route("api/CandidatesSkills")]
+        [Authorize(Roles = "hr")]
         [HttpDelete]
         public void Delete(int skillID, int candidateID)
         {
@@ -43,12 +45,14 @@ namespace Candidates_Project.Controllers
         }
         [Route("api/CandidatesSkills")]
         [HttpPut]
+        [Authorize(Roles = "hr")]
         public void Update(CandidateSkillDTO candidateSkill)
         {
             _service.Update(candidateSkill);
         }
         [Route("api/CandidatesSkills")]
         [HttpPost]
+        [Authorize(Roles = "hr")]
         public void Create(CandidateSkillDTO candidateSkill)
         {
             _service.Create(candidateSkill);

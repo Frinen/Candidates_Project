@@ -9,6 +9,7 @@ using Candidates.Services;
 using Candidates.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Candidates.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Candidates_Project.Controllers
 {
@@ -36,6 +37,7 @@ namespace Candidates_Project.Controllers
             return _service.Get(settings);
         }
         [Route("api/HighSchools")]
+        [Authorize(Roles = "admin")]
         [HttpDelete]
         public void Delete(int id)
         {
@@ -43,12 +45,14 @@ namespace Candidates_Project.Controllers
         }
         [Route("api/HighSchools")]
         [HttpPut]
+        [Authorize(Roles = "admin")]
         public void Update(HighSchoolDTO highSchool)
         {
             _service.Update(highSchool);
         }
         [Route("api/HighSchools")]
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public void Create(HighSchoolShortDTO highSchool)
         {
             _service.Create(highSchool);

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Candidates.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Candidates_Project.Controllers
 {
@@ -37,18 +38,21 @@ namespace Candidates_Project.Controllers
         }
         [Route("api/CandidatesSchools")]
         [HttpDelete]
+        [Authorize(Roles = "hr")]
         public void Delete(int highSchoolID, int candidateID)
         {
             _service.Remove(highSchoolID, candidateID);
         }
         [Route("api/CandidatesSchools")]
         [HttpPut]
+        [Authorize(Roles = "hr")]
         public void Update(CandidateSchoolDTO candidateSchool)
         {
             _service.Update(candidateSchool);
         }
         [Route("api/CandidatesSchools")]
         [HttpPost]
+        [Authorize(Roles = "hr")]
         public void Create(CandidateSchoolDTO candidateSchool)
         {
             _service.Create(candidateSchool);
