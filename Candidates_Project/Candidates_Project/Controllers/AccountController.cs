@@ -14,11 +14,6 @@ using Newtonsoft.Json;
 
 namespace Candidates_Project.Controllers
 {
-    public class TokenRequest
-    {
-        public string Username { get; set; }
-        public string Password { get; set; }
-    }
     public class AccountController : Controller
     {
         private List<Person> people = new List<Person>
@@ -30,8 +25,7 @@ namespace Candidates_Project.Controllers
         [HttpPost]
         public IActionResult RequestToken( Person person)
         {
-            Person _person = people.FirstOrDefault(x => x.Login == person.Login && x.Password == person.Password);
-            if (_person != null)  
+            if (people.FirstOrDefault(x => x.Login == person.Login && x.Password == person.Password) != null)  
             {
                 var claims = new List<Claim>
                 {
