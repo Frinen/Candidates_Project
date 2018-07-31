@@ -9,6 +9,7 @@ using Candidates.Models.Models;
 using Candidates.Services.Interfaces;
 using Candidates.Library;
 using Candidates.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Candidates_Project.Controllers
 {
@@ -23,6 +24,7 @@ namespace Candidates_Project.Controllers
         }
         [Route("api/Candidates/id")]
         [HttpGet]
+        [Authorize]
         public CandidateDetailsDTO Get(int id)
         {
             return _service.Get(id);
