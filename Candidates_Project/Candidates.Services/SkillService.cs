@@ -32,40 +32,61 @@ namespace Candidates.Services
         }
         public async void UpdateAsync(SkillDTO skillDTO)
         {
-            var skill = Mapper.Map<SkillDTO, Skill>(skillDTO);
-            _context.Skills.Update(skill);
-            await _context.SaveChangesAsync();
+            if (await _context.Database.EnsureCreatedAsync())
+            {
+                var skill = Mapper.Map<SkillDTO, Skill>(skillDTO);
+                _context.Skills.Update(skill);
+                await _context.SaveChangesAsync();
+            }
         }
         public async void RemoveAsync(int id)
         {
-            var skill = await _context.Skills.FindAsync(id);
-            if (skill != null)
-            { 
-                _context.Skills.Remove(skill);
-                await _context.SaveChangesAsync();
+            if (await _context.Database.EnsureCreatedAsync())
+            {
+                var skill = await _context.Skills.FindAsync(id);
+                if (skill != null)
+                {
+                    _context.Skills.Remove(skill);
+                    await _context.SaveChangesAsync();
+                }
             }
         }
         public async Task<SkillDTO> GetAsync(int id)
         {
-            var skill = await _context.Skills.FindAsync(id);
-            var skillDTO = Mapper.Map<Skill, SkillDTO>(skill);
-            return skillDTO;
+            if (await _context.Database.EnsureCreatedAsync())
+            {
+                var skill = await _context.Skills.FindAsync(id);
+                var skillDTO = Mapper.Map<Skill, SkillDTO>(skill);
+                return skillDTO;
+            }
+            else
+            {
+                return null;
+            }
         }
         public PageResponse<SkillDTO> Get(QuerySettings settings)
         {
             var response = new PageResponse<SkillDTO>();
-            if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= _context.Skills.Count())
+            if (_context.Database.EnsureCreated())
             {
-                IEnumerable<Skill> skillsPage = _context.Skills.Skip((settings.Page - 1) * settings.PageSize).Take(settings.PageSize);
-                var skillsPageDTO = Mapper.Map<IEnumerable<Skill>, IEnumerable<SkillDTO>>(skillsPage);
-                response.List = skillsPageDTO;
-                response.PageCount = _context.Skills.Count() / settings.PageSize;
-                response.ItemCount = _context.Skills.Count();
-               // response.Message = "Ok";
+                if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= _context.Skills.Count())
+                {
+                    IEnumerable<Skill> skillsPage = _context.Skills.Skip((settings.Page - 1) * settings.PageSize).Take(settings.PageSize);
+                    var skillsPageDTO = Mapper.Map<IEnumerable<Skill>, IEnumerable<SkillDTO>>(skillsPage);
+                    response.List = skillsPageDTO;
+                    response.PageCount = _context.Skills.Count() / settings.PageSize;
+                    response.ItemCount = _context.Skills.Count();
+                    // response.Message = "Ok";
+                }
+                else
+                {
+                    // response.Message = $" Incorrect page or item count, max item count: { _context.Skills.Count() }";
+                    response.ItemCount = _context.Skills.Count();
+                }
             }
             else
             {
-               // response.Message = $" Incorrect page or item count, max item count: { _context.Skills.Count() }";
+                // response.Message = $" Incorrect page or item count, max item count: { _context.Skills.Count() }";
                 response.ItemCount = _context.Skills.Count();
             }
             return response;

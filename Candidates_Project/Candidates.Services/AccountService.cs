@@ -25,43 +25,66 @@ namespace Candidates.Services
         }
         public async void CreateAsync(AccountDTO accountDTO)
         {
-            await _context.Database.EnsureCreatedAsync();
-            var account = Mapper.Map<AccountDTO, Account>(accountDTO);
-            await _context.Accounts.AddAsync(account);
-            await _context.SaveChangesAsync();
+            if (await _context.Database.EnsureCreatedAsync())
+            {
+                var account = Mapper.Map<AccountDTO, Account>(accountDTO);
+                await _context.Accounts.AddAsync(account);
+                await _context.SaveChangesAsync();
+            }
         }
         public async void UpdateAsync(AccountDTO accountDTO)
         {
-            var account = Mapper.Map<AccountDTO, Account>(accountDTO);
-            _context.Accounts.Update(account);
-            await _context.SaveChangesAsync();
+            if (await _context.Database.EnsureCreatedAsync())
+            {
+                var account = Mapper.Map<AccountDTO, Account>(accountDTO);
+                _context.Accounts.Update(account);
+                await _context.SaveChangesAsync();
+            }
         }
         public async void RemoveAsync(string login)
         {
-            var account = await _context.Accounts.FindAsync(login);
-            if (account != null)
+            if (await _context.Database.EnsureCreatedAsync())
             {
-                _context.Accounts.Remove(account);
-                await _context.SaveChangesAsync();
+                var account = await _context.Accounts.FindAsync(login);
+                if (account != null)
+                {
+                    _context.Accounts.Remove(account);
+                    await _context.SaveChangesAsync();
+                }
             }
         }
         public async Task<AccountDTO> GetAsync(string login)
         {
-            var  account = await _context.Accounts.FindAsync(login);
-            var accountDTO = Mapper.Map<Account, AccountDTO>(account);
-            return accountDTO;
+            if (await _context.Database.EnsureCreatedAsync())
+            {
+                var account = await _context.Accounts.FindAsync(login);
+                var accountDTO = Mapper.Map<Account, AccountDTO>(account);
+                return accountDTO;
+            }
+            else
+            {
+                return null;
+            }
         }
         public PageResponse<AccountShortDTO> Get(QuerySettings settings)
         {
             var response = new PageResponse<AccountShortDTO>();
-            if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= _context.Accounts.Count())
+            if (_context.Database.EnsureCreated())
             {
-                IEnumerable<Account> accountsPage= _context.Accounts.Skip((settings.Page - 1) * settings.PageSize).Take(settings.PageSize);
-                var accountsPageDTO = Mapper.Map<IEnumerable<Account>, IEnumerable<AccountShortDTO>>(accountsPage);
-                response.List = accountsPageDTO;
-                response.PageCount = _context.Accounts.Count() / settings.PageSize;
-                response.ItemCount = _context.Accounts.Count();
-                // response.Message = "Ok";
+                if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= _context.Accounts.Count())
+                {
+                    IEnumerable<Account> accountsPage = _context.Accounts.Skip((settings.Page - 1) * settings.PageSize).Take(settings.PageSize);
+                    var accountsPageDTO = Mapper.Map<IEnumerable<Account>, IEnumerable<AccountShortDTO>>(accountsPage);
+                    response.List = accountsPageDTO;
+                    response.PageCount = _context.Accounts.Count() / settings.PageSize;
+                    response.ItemCount = _context.Accounts.Count();
+                    // response.Message = "Ok";
+                }
+                else
+                {
+                    //response.Message = $" Incorrect page or item count, max item count: { _context.CandidateLanguages.Count() }";
+                    response.ItemCount = _context.Accounts.Count();
+                }
             }
             else
             {

@@ -23,47 +23,69 @@ namespace Candidates.Services
         }
         public async void CreateAsync( CandidateLanguageDTO candidateLanguageDTO)
         {
-            await _context.Database.EnsureCreatedAsync();
-            var candidateLanguage = Mapper.Map<CandidateLanguageDTO, CandidateLanguage> (candidateLanguageDTO);
-            await _context.CandidateLanguages.AddAsync(candidateLanguage);
-            await _context.SaveChangesAsync();
+            if (await _context.Database.EnsureCreatedAsync())
+            {
+                var candidateLanguage = Mapper.Map<CandidateLanguageDTO, CandidateLanguage>(candidateLanguageDTO);
+                await _context.CandidateLanguages.AddAsync(candidateLanguage);
+                await _context.SaveChangesAsync();
+            }
         }
         public async void UpdateAsync( CandidateLanguageDTO candidateLanguageDTO)
         {
-            var сandidateLanguage = Mapper.Map<CandidateLanguageDTO, CandidateLanguage>(candidateLanguageDTO);
-            _context.CandidateLanguages.Update(сandidateLanguage);
-            await _context.SaveChangesAsync();
+            if (await _context.Database.EnsureCreatedAsync())
+            {
+                var сandidateLanguage = Mapper.Map<CandidateLanguageDTO, CandidateLanguage>(candidateLanguageDTO);
+                _context.CandidateLanguages.Update(сandidateLanguage);
+                await _context.SaveChangesAsync();
+            }
         }
         public async void RemoveAsync( int languageID, int candidateID)
         {
-            var candidateLanguage = await _context.CandidateLanguages.FindAsync(languageID, candidateID);
-            if (candidateLanguage != null)
+            if (await _context.Database.EnsureCreatedAsync())
             {
-                _context.CandidateLanguages.Remove(candidateLanguage);
-                await _context.SaveChangesAsync();
+                var candidateLanguage = await _context.CandidateLanguages.FindAsync(languageID, candidateID);
+                if (candidateLanguage != null)
+                {
+                    _context.CandidateLanguages.Remove(candidateLanguage);
+                    await _context.SaveChangesAsync();
+                }
             }
         }
         public async Task<CandidateLanguageDTO> GetAsync( int languageID, int candidateID)
         {
-            var candidateLanguage = await _context.CandidateLanguages.FindAsync(languageID, candidateID);
-            var candidateLanguageDTO = Mapper.Map<CandidateLanguage, CandidateLanguageDTO>(candidateLanguage);
-            return candidateLanguageDTO;
+            if (await _context.Database.EnsureCreatedAsync())
+            {
+                var candidateLanguage = await _context.CandidateLanguages.FindAsync(languageID, candidateID);
+                var candidateLanguageDTO = Mapper.Map<CandidateLanguage, CandidateLanguageDTO>(candidateLanguage);
+                return candidateLanguageDTO;
+            }
+            else
+            {
+                return null;
+            }
         }
         public PageResponse<CandidateLanguageDTO> Get(QuerySettings settings)
         {
             var response = new PageResponse<CandidateLanguageDTO>();
-            if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= _context.CandidateLanguages.Count())
+            if (_context.Database.EnsureCreated())
             {
-                IEnumerable<CandidateLanguage> candidatesLanguagePage = _context.CandidateLanguages.Skip((settings.Page - 1) * settings.PageSize).Take(settings.PageSize);
-                var candidatesLanguagePageDTO = Mapper.Map<IEnumerable<CandidateLanguage>, IEnumerable<CandidateLanguageDTO>>(candidatesLanguagePage);
-                response.List = candidatesLanguagePageDTO;
-                response.PageCount = _context.CandidateLanguages.Count() / settings.PageSize;
-                response.ItemCount = _context.CandidateLanguages.Count();
-               // response.Message = "Ok";
+                if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= _context.CandidateLanguages.Count())
+                {
+                    IEnumerable<CandidateLanguage> candidatesLanguagePage = _context.CandidateLanguages.Skip((settings.Page - 1) * settings.PageSize).Take(settings.PageSize);
+                    var candidatesLanguagePageDTO = Mapper.Map<IEnumerable<CandidateLanguage>, IEnumerable<CandidateLanguageDTO>>(candidatesLanguagePage);
+                    response.List = candidatesLanguagePageDTO;
+                    response.PageCount = _context.CandidateLanguages.Count() / settings.PageSize;
+                    response.ItemCount = _context.CandidateLanguages.Count();
+                    // response.Message = "Ok";
+                }
+                else
+                {
+                    //response.Message = $" Incorrect page or item count, max item count: { _context.CandidateLanguages.Count() }";
+                    response.ItemCount = _context.CandidateLanguages.Count();
+                }
             }
             else
             {
-                //response.Message = $" Incorrect page or item count, max item count: { _context.CandidateLanguages.Count() }";
                 response.ItemCount = _context.CandidateLanguages.Count();
             }
             return response;

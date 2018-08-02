@@ -31,40 +31,61 @@ namespace Candidates.Services
         }
         public async void UpdateAsync(OptionsDTO optionsDTO) 
         {
-            var options = Mapper.Map<OptionsDTO, Options>(optionsDTO);
-            _context.Options.Update(options);
-            await _context.SaveChangesAsync();
+            if (await _context.Database.EnsureCreatedAsync())
+            {
+                var options = Mapper.Map<OptionsDTO, Options>(optionsDTO);
+                _context.Options.Update(options);
+                await _context.SaveChangesAsync();
+            }
         }
         public async void RemoveAsync( int candidateID)
         {
-            var options = await _context.Options.FindAsync(candidateID);
-            if (options != null)
+            if (await _context.Database.EnsureCreatedAsync())
             {
-                _context.Options.Remove(options);
-                await _context.SaveChangesAsync();
+                var options = await _context.Options.FindAsync(candidateID);
+                if (options != null)
+                {
+                    _context.Options.Remove(options);
+                    await _context.SaveChangesAsync();
+                }
             }
         }
         public async Task<OptionsDTO> GetAsync( int candidateID)
         {
-            var options = await _context.Options.FindAsync(candidateID);
-            var optionsDTO = Mapper.Map<Options, OptionsDTO>(options);
-            return optionsDTO;
+            if (await _context.Database.EnsureCreatedAsync())
+            {
+                var options = await _context.Options.FindAsync(candidateID);
+                var optionsDTO = Mapper.Map<Options, OptionsDTO>(options);
+                return optionsDTO;
+            }
+            else
+            {
+                return null;
+            }
         }
         public PageResponse<OptionsDTO> Get(QuerySettings settings)
         {
             var response = new PageResponse<OptionsDTO>();
-            if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= _context.Languages.Count())
+            if (_context.Database.EnsureCreated())
             {
-                IEnumerable<Options> optionsPage = _context.Options.Skip((settings.Page - 1) * settings.PageSize).Take(settings.PageSize);
-                var optionsPageDTO = Mapper.Map<IEnumerable<Options>, IEnumerable<OptionsDTO>>(optionsPage);
-                response.List = optionsPageDTO;
-                response.PageCount = _context.Options.Count() / settings.PageSize;
-                response.ItemCount = _context.Options.Count();
-               // response.Message = "Ok";
+                if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= _context.Languages.Count())
+                {
+                    IEnumerable<Options> optionsPage = _context.Options.Skip((settings.Page - 1) * settings.PageSize).Take(settings.PageSize);
+                    var optionsPageDTO = Mapper.Map<IEnumerable<Options>, IEnumerable<OptionsDTO>>(optionsPage);
+                    response.List = optionsPageDTO;
+                    response.PageCount = _context.Options.Count() / settings.PageSize;
+                    response.ItemCount = _context.Options.Count();
+                    // response.Message = "Ok";
+                }
+                else
+                {
+                    // response.Message = $" Incorrect page or item count, max item count: { _context.Languages.Count() }";
+                    response.ItemCount = _context.Options.Count();
+                }
             }
             else
             {
-               // response.Message = $" Incorrect page or item count, max item count: { _context.Languages.Count() }";
+                // response.Message = $" Incorrect page or item count, max item count: { _context.Languages.Count() }";
                 response.ItemCount = _context.Options.Count();
             }
             return response;

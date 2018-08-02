@@ -22,10 +22,12 @@ namespace Candidates.Services
         }
         public async void CreateAsync( CandidateSchoolDTO candidateSchoolDTO)
         {
-            await _context.Database.EnsureCreatedAsync();
-            var candidateschool = Mapper.Map<CandidateSchoolDTO, CandidateSchool>(candidateSchoolDTO);
-            await _context.CandidateSchools.AddAsync(candidateschool);
-            await _context.SaveChangesAsync();
+            if (await _context.Database.EnsureCreatedAsync())
+            {
+                var candidateschool = Mapper.Map<CandidateSchoolDTO, CandidateSchool>(candidateSchoolDTO);
+                await _context.CandidateSchools.AddAsync(candidateschool);
+                await _context.SaveChangesAsync();
+            }
         }
         public async void UpdateAsync(CandidateSchoolDTO candidateSchoolDTO)
         {
@@ -35,30 +37,48 @@ namespace Candidates.Services
         }
         public async void RemoveAsync(int highSchoolID, int candidateID)
         {
-            var candidateSchool = await _context.CandidateSchools.FindAsync(highSchoolID, candidateID);
-            if (candidateSchool != null)
+            if (await _context.Database.EnsureCreatedAsync())
             {
-                _context.CandidateSchools.Remove(candidateSchool);
-                await _context.SaveChangesAsync();
+                var candidateSchool = await _context.CandidateSchools.FindAsync(highSchoolID, candidateID);
+                if (candidateSchool != null)
+                {
+                    _context.CandidateSchools.Remove(candidateSchool);
+                    await _context.SaveChangesAsync();
+                }
             }
         }
         public async Task<CandidateSchoolDTO> GetAsync( int highSchoolID, int candidateID)
         {
-            var candidateSchool = await _context.CandidateSchools.FindAsync(highSchoolID,candidateID);
-            var candidateSchoolDTO = Mapper.Map<CandidateSchool, CandidateSchoolDTO>(candidateSchool);
-            return candidateSchoolDTO;
+            if (await _context.Database.EnsureCreatedAsync())
+            {
+                var candidateSchool = await _context.CandidateSchools.FindAsync(highSchoolID, candidateID);
+                var candidateSchoolDTO = Mapper.Map<CandidateSchool, CandidateSchoolDTO>(candidateSchool);
+                return candidateSchoolDTO;
+            }
+            else
+            {
+                return null;
+            }
         }
         public PageResponse<CandidateSchoolDTO> Get(QuerySettings settings)
         {
             var response = new PageResponse<CandidateSchoolDTO>();
-            if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= _context.CandidateSchools.Count())
+            if (_context.Database.EnsureCreated())
             {
-                IEnumerable<CandidateSchool> candidatesSchoolsPage = _context.CandidateSchools.Skip((settings.Page - 1) * settings.PageSize).Take(settings.PageSize);
-                var candidatesSchoolsPageDTO = Mapper.Map<IEnumerable<CandidateSchool>, IEnumerable<CandidateSchoolDTO>>(candidatesSchoolsPage);
-                response.List = candidatesSchoolsPageDTO;
-                response.PageCount = _context.CandidateSchools.Count() / settings.PageSize;
-                response.ItemCount = _context.CandidateLanguages.Count();
-                //response.Message = "Ok";
+                if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= _context.CandidateSchools.Count())
+                {
+                    IEnumerable<CandidateSchool> candidatesSchoolsPage = _context.CandidateSchools.Skip((settings.Page - 1) * settings.PageSize).Take(settings.PageSize);
+                    var candidatesSchoolsPageDTO = Mapper.Map<IEnumerable<CandidateSchool>, IEnumerable<CandidateSchoolDTO>>(candidatesSchoolsPage);
+                    response.List = candidatesSchoolsPageDTO;
+                    response.PageCount = _context.CandidateSchools.Count() / settings.PageSize;
+                    response.ItemCount = _context.CandidateLanguages.Count();
+                    //response.Message = "Ok";
+                }
+                else
+                {
+                    //response.Message = $" Incorrect page or item count, max item count: { _context.CandidateSchools.Count() }";
+                    response.ItemCount = _context.CandidateSchools.Count();
+                }
             }
             else
             {

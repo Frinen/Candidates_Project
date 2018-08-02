@@ -23,44 +23,68 @@ namespace Candidates.Services
         }
         public async void CreateAsync(CandidateDTO candidateDTO)
         {
-            await _context.Database.EnsureCreatedAsync();
-            var candidate = Mapper.Map<CandidateDTO, Candidate>(candidateDTO);
-            await _context.Candidates.AddAsync(candidate);
-            await _context.SaveChangesAsync();
+            if (await _context.Database.EnsureCreatedAsync())
+            {
+                await _context.Database.EnsureCreatedAsync();
+                var candidate = Mapper.Map<CandidateDTO, Candidate>(candidateDTO);
+                await _context.Candidates.AddAsync(candidate);
+                await _context.SaveChangesAsync();
+            }
         }
         public async void UpdateAsync(CandidateDetailsDTO candidateDTO)
         {
-            var candidate = Mapper.Map<CandidateDetailsDTO, Candidate>(candidateDTO);
-            _context.Candidates.Update(candidate);
-            await _context.SaveChangesAsync();
+            if (await _context.Database.EnsureCreatedAsync())
+            {
+                var candidate = Mapper.Map<CandidateDetailsDTO, Candidate>(candidateDTO);
+                _context.Candidates.Update(candidate);
+                await _context.SaveChangesAsync();
+            }
             
         }
         public async void RemoveAsync( int id)
         {
-            var candidate = await _context.Candidates.FindAsync(id);
-            if (candidate != null)
+            if (await _context.Database.EnsureCreatedAsync())
             {
-                _context.Candidates.Remove(candidate);
-                await _context.SaveChangesAsync();
+                var candidate = await _context.Candidates.FindAsync(id);
+                if (candidate != null)
+                {
+                    _context.Candidates.Remove(candidate);
+                    await _context.SaveChangesAsync();
+                }
             }
         }
         public async Task<CandidateDetailsDTO> GetAsync( int id)
         {
-            var candidate = await _context.Candidates.FindAsync(id);
-            var candidateDTO = Mapper.Map<Candidate, CandidateDetailsDTO>(candidate);
-            return candidateDTO;
+            if (await _context.Database.EnsureCreatedAsync())
+            {
+                var candidate = await _context.Candidates.FindAsync(id);
+                var candidateDTO = Mapper.Map<Candidate, CandidateDetailsDTO>(candidate);
+                return candidateDTO;
+            }
+            else
+            {
+                return null;
+            }
         }
         public PageResponse<CandidateShortDTO> Get(QuerySettings settings)
         {
             var response = new PageResponse<CandidateShortDTO>();
-            if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= _context.Candidates.Count())
+            if (_context.Database.EnsureCreated())
             {
-                IEnumerable<Candidate> candidatesPage = _context.Candidates.Skip((settings.Page - 1) * settings.PageSize).Take(settings.PageSize);
-                var candidatesPageDTO = Mapper.Map<IEnumerable<Candidate>, IEnumerable<CandidateShortDTO>>(candidatesPage);
-                response.List = candidatesPageDTO;
-                response.PageCount = _context.Candidates.Count() / settings.PageSize;
-                response.ItemCount = _context.Candidates.Count();
-               // response.Message = "Ok";
+                if ((settings.Page - 1) * settings.PageSize + settings.PageSize <= _context.Candidates.Count())
+                {
+                    IEnumerable<Candidate> candidatesPage = _context.Candidates.Skip((settings.Page - 1) * settings.PageSize).Take(settings.PageSize);
+                    var candidatesPageDTO = Mapper.Map<IEnumerable<Candidate>, IEnumerable<CandidateShortDTO>>(candidatesPage);
+                    response.List = candidatesPageDTO;
+                    response.PageCount = _context.Candidates.Count() / settings.PageSize;
+                    response.ItemCount = _context.Candidates.Count();
+                    // response.Message = "Ok";
+                }
+                else
+                {
+                    //response.Message = $" Incorrect page or item count, max item count: { _context.Candidates.Count() }";
+                    response.ItemCount = _context.Candidates.Count();
+                }
             }
             else
             {
