@@ -26,9 +26,9 @@ namespace Candidates_Project.Controllers
         // GET: Default/Details/5
         [Route("api/Languages/id")]
         [HttpGet]
-        public LanguageDTO Get(int id)
+        public Task<LanguageDTO> Get(int id)
         {
-            return _service.Get( id);
+            return _service.GetAsync( id);
         }
         [Route("api/Languages")]
         [HttpGet]
@@ -41,21 +41,21 @@ namespace Candidates_Project.Controllers
         [Authorize(Roles = "admin")]
         public void Delete(int id)
         {
-            _service.Remove(id);
+            _service.RemoveAsync(id);
         }
         [Route("api/Languages")]
         [HttpPut]
         [Authorize(Roles = "admin")]
         public void Update(LanguageDTO language)
         {
-            _service.Update(language);
+            _service.UpdateAsync(language);
         }
         [Route("api/Languages")]
         [HttpPost]
         [Authorize(Roles = "admin")]
         public void Create(LanguageShortDTO language)
         {
-            _service.Create(language);
+            _service.CreateAsync(language);
         }
     }
 }

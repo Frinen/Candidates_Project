@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Candidates.Library;
 using Candidates.Models.DTO;
 using AutoMapper;
+using System.Threading.Tasks;
 
 namespace Candidates.Services
 {
@@ -19,31 +20,31 @@ namespace Candidates.Services
         {
             _context = context;
         }
-        public void Create( CandidateSchoolDTO candidateSchoolDTO)
+        public async void CreateAsync( CandidateSchoolDTO candidateSchoolDTO)
         {
-            _context.Database.EnsureCreated();
+            await _context.Database.EnsureCreatedAsync();
             var candidateschool = Mapper.Map<CandidateSchoolDTO, CandidateSchool>(candidateSchoolDTO);
-            _context.CandidateSchools.Add(candidateschool);
-            _context.SaveChanges();
+            await _context.CandidateSchools.AddAsync(candidateschool);
+            await _context.SaveChangesAsync();
         }
-        public void Update(CandidateSchoolDTO candidateSchoolDTO)
+        public async void UpdateAsync(CandidateSchoolDTO candidateSchoolDTO)
         {
             var candidateSchool = Mapper.Map<CandidateSchoolDTO, CandidateSchool>(candidateSchoolDTO);
             _context.CandidateSchools.Update(candidateSchool);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
-        public void Remove(int highSchoolID, int candidateID)
+        public async void RemoveAsync(int highSchoolID, int candidateID)
         {
-            var candidateSchool = _context.CandidateSchools.Find(highSchoolID, candidateID);
+            var candidateSchool = await _context.CandidateSchools.FindAsync(highSchoolID, candidateID);
             if (candidateSchool != null)
             {
                 _context.CandidateSchools.Remove(candidateSchool);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
         }
-        public CandidateSchoolDTO Get( int highSchoolID, int candidateID)
+        public async Task<CandidateSchoolDTO> GetAsync( int highSchoolID, int candidateID)
         {
-            var candidateSchool = _context.CandidateSchools.Find(highSchoolID,candidateID);
+            var candidateSchool = await _context.CandidateSchools.FindAsync(highSchoolID,candidateID);
             var candidateSchoolDTO = Mapper.Map<CandidateSchool, CandidateSchoolDTO>(candidateSchool);
             return candidateSchoolDTO;
         }

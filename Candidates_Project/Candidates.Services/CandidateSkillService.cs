@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text;
 using AutoMapper;
+using System.Threading.Tasks;
 
 namespace Candidates.Services
 {
@@ -19,31 +20,31 @@ namespace Candidates.Services
         {
             _context = context;
         }
-        public void Create(CandidateSkillDTO candidateSkillDTO)
+        public async void CreateAsync(CandidateSkillDTO candidateSkillDTO)
         {
-            _context.Database.EnsureCreated();
+            await _context.Database.EnsureCreatedAsync();
             var candidateskill = Mapper.Map<CandidateSkillDTO, CandidateSkill>(candidateSkillDTO);
-            _context.CandidateSkills.Add(candidateskill);
-            _context.SaveChanges();
+            await _context.CandidateSkills.AddAsync(candidateskill);
+            await _context.SaveChangesAsync();
         }
-        public void Update(CandidateSkillDTO candidateSkillDTO)
+        public async void UpdateAsync(CandidateSkillDTO candidateSkillDTO)
         {
             var candidateskill = Mapper.Map<CandidateSkillDTO, CandidateSkill>(candidateSkillDTO);
             _context.CandidateSkills.Update(candidateskill);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
-        public void Remove(int skillID, int candidateID)
+        public async void RemoveAsync(int skillID, int candidateID)
         {
-            var candidateSkill = _context.CandidateSkills.Find(skillID, candidateID);
+            var candidateSkill = await _context.CandidateSkills.FindAsync(skillID, candidateID);
             if (candidateSkill != null)
             {
                 _context.CandidateSkills.Remove(candidateSkill);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
         }
-        public CandidateSkillDTO Get( int skillID, int candidateID)
+        public async Task<CandidateSkillDTO> GetAsync( int skillID, int candidateID)
         {
-            var candidateSkill = _context.CandidateSkills.Find(skillID, candidateID);
+            var candidateSkill = await _context.CandidateSkills.FindAsync(skillID, candidateID);
             var candidateSkillDTO = Mapper.Map<CandidateSkill, CandidateSkillDTO>(candidateSkill);
             return candidateSkillDTO;
         }

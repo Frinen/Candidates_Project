@@ -9,6 +9,7 @@ using Candidates.Library;
 using Candidates.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using System.Threading.Tasks;
 
 namespace Candidates.Services
 {
@@ -20,31 +21,31 @@ namespace Candidates.Services
         {
             _context = context;
         }
-        public void Create( CandidateLanguageDTO candidateLanguageDTO)
+        public async void CreateAsync( CandidateLanguageDTO candidateLanguageDTO)
         {
-            _context.Database.EnsureCreated();
+            await _context.Database.EnsureCreatedAsync();
             var candidateLanguage = Mapper.Map<CandidateLanguageDTO, CandidateLanguage> (candidateLanguageDTO);
-            _context.CandidateLanguages.Add(candidateLanguage);
-            _context.SaveChanges();
+            await _context.CandidateLanguages.AddAsync(candidateLanguage);
+            await _context.SaveChangesAsync();
         }
-        public void Update( CandidateLanguageDTO candidateLanguageDTO)
+        public async void UpdateAsync( CandidateLanguageDTO candidateLanguageDTO)
         {
             var сandidateLanguage = Mapper.Map<CandidateLanguageDTO, CandidateLanguage>(candidateLanguageDTO);
             _context.CandidateLanguages.Update(сandidateLanguage);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
-        public void Remove( int languageID, int candidateID)
+        public async void RemoveAsync( int languageID, int candidateID)
         {
-            var candidateLanguage = _context.CandidateLanguages.Find(languageID, candidateID);
+            var candidateLanguage = await _context.CandidateLanguages.FindAsync(languageID, candidateID);
             if (candidateLanguage != null)
             {
                 _context.CandidateLanguages.Remove(candidateLanguage);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
         }
-        public CandidateLanguageDTO Get( int languageID, int candidateID)
+        public async Task<CandidateLanguageDTO> GetAsync( int languageID, int candidateID)
         {
-            var candidateLanguage = _context.CandidateLanguages.Find(languageID, candidateID);
+            var candidateLanguage = await _context.CandidateLanguages.FindAsync(languageID, candidateID);
             var candidateLanguageDTO = Mapper.Map<CandidateLanguage, CandidateLanguageDTO>(candidateLanguage);
             return candidateLanguageDTO;
         }

@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text;
 using AutoMapper;
+using System.Threading.Tasks;
 
 namespace Candidates.Services
 {
@@ -20,31 +21,33 @@ namespace Candidates.Services
         {
             _context = context;
         }
-        public void Create(SkillShortDTO skillDTO)
+        public async void CreateAsync(SkillShortDTO skillDTO)
         {
-            _context.Database.EnsureCreated();
-            var skill = Mapper.Map<SkillShortDTO, Skill>(skillDTO);
-            _context.Skills.Add(skill);
-            _context.SaveChanges();
-        }
-        public void Update(SkillDTO skillDTO)
-        {
-            var skill = Mapper.Map<SkillDTO, Skill>(skillDTO);
-            _context.Skills.Update(skill);
-            _context.SaveChanges();
-        }
-        public void Remove(int id)
-        {
-            var skill = _context.Skills.Find(id);
-            if (skill != null)
-            { 
-                _context.Skills.Remove(skill);
+            if (await _context.Database.EnsureCreatedAsync())
+            {
+                var skill = Mapper.Map<SkillShortDTO, Skill>(skillDTO);
+                _context.Skills.Add(skill);
                 _context.SaveChanges();
             }
         }
-        public SkillDTO Get(int id)
+        public async void UpdateAsync(SkillDTO skillDTO)
         {
-            var skill = _context.Skills.Find(id);
+            var skill = Mapper.Map<SkillDTO, Skill>(skillDTO);
+            _context.Skills.Update(skill);
+            await _context.SaveChangesAsync();
+        }
+        public async void RemoveAsync(int id)
+        {
+            var skill = await _context.Skills.FindAsync(id);
+            if (skill != null)
+            { 
+                _context.Skills.Remove(skill);
+                await _context.SaveChangesAsync();
+            }
+        }
+        public async Task<SkillDTO> GetAsync(int id)
+        {
+            var skill = await _context.Skills.FindAsync(id);
             var skillDTO = Mapper.Map<Skill, SkillDTO>(skill);
             return skillDTO;
         }

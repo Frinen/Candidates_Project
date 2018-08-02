@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text;
 using AutoMapper;
+using System.Threading.Tasks;
 
 namespace Candidates.Services
 {
@@ -19,31 +20,31 @@ namespace Candidates.Services
         {
            _context = context;
         }
-        public void Create(HighSchoolShortDTO highSchoolDTO)
+        public async void CreateAsync(HighSchoolShortDTO highSchoolDTO)
         {
             _context.Database.EnsureCreated();
             var highSchool = Mapper.Map<HighSchoolShortDTO, HighSchool>(highSchoolDTO);
-            _context.HighSchools.Add(highSchool);
-            _context.SaveChanges();
+            await _context.HighSchools.AddAsync(highSchool);
+            await _context.SaveChangesAsync();
         }
-        public void Update( HighSchoolDTO highSchoolDTO)
+        public async void UpdateAsync( HighSchoolDTO highSchoolDTO)
         {
             var highSchool = Mapper.Map<HighSchoolDTO, HighSchool>(highSchoolDTO);
             _context.HighSchools.Update(highSchool);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
-        public void Remove(int id)
+        public async void RemoveAsync(int id)
         {
-            var highschool = _context.HighSchools.Find(id);
+            var highschool = await _context.HighSchools.FindAsync(id);
             if (highschool != null)
             { 
                 _context.HighSchools.Remove(highschool);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
         }
-        public HighSchoolDTO Get(int id)
+        public async Task<HighSchoolDTO> GetAsync(int id)
         {
-            var highschool = _context.HighSchools.Find(id);
+            var highschool = await _context.HighSchools.FindAsync(id);
             var highschoolDTO = Mapper.Map<HighSchool,HighSchoolDTO>(highschool);
             return highschoolDTO;
         }

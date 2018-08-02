@@ -5,15 +5,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Candidates.Services.Interfaces
 {
     public interface IOptionsService
     {
-        void Create(OptionsDTO optionsDTO);
-        void Update(OptionsDTO optionsDTO);
-        void Remove(int candidateID);
-        OptionsDTO Get(int candidateID);
+        void CreateAsync(OptionsDTO optionsDTO);
+        void UpdateAsync(OptionsDTO optionsDTO);
+        void RemoveAsync(int candidateID);
+        Task<OptionsDTO> GetAsync(int candidateID);
         PageResponse<OptionsDTO> Get(QuerySettings settings);
     }
 }

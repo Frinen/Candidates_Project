@@ -26,9 +26,9 @@ namespace Candidates_Project.Controllers
         // GET: Default/Details/5
         [Route("api/CandidatesSchools/highSchoolID&candidateID")]
         [HttpGet]
-        public CandidateSchoolDTO Get(int highSchoolID, int candidateID)
+        public Task<CandidateSchoolDTO> Get(int highSchoolID, int candidateID)
         {
-            return _service.Get(highSchoolID, candidateID);
+            return _service.GetAsync(highSchoolID, candidateID);
         }
         [Route("api/CandidatesSchools")]
         [HttpGet]
@@ -41,21 +41,21 @@ namespace Candidates_Project.Controllers
         [Authorize(Roles = "hr")]
         public void Delete(int highSchoolID, int candidateID)
         {
-            _service.Remove(highSchoolID, candidateID);
+            _service.RemoveAsync(highSchoolID, candidateID);
         }
         [Route("api/CandidatesSchools")]
         [HttpPut]
         [Authorize(Roles = "hr")]
         public void Update(CandidateSchoolDTO candidateSchool)
         {
-            _service.Update(candidateSchool);
+            _service.UpdateAsync(candidateSchool);
         }
         [Route("api/CandidatesSchools")]
         [HttpPost]
         [Authorize(Roles = "hr")]
         public void Create(CandidateSchoolDTO candidateSchool)
         {
-            _service.Create(candidateSchool);
+            _service.CreateAsync(candidateSchool);
         }
     }
 }

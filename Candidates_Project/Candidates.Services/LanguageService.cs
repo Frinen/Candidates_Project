@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text;
 using AutoMapper;
+using System.Threading.Tasks;
 
 namespace Candidates.Services
 {
@@ -19,31 +20,31 @@ namespace Candidates.Services
         {
             _context = context;
         }
-        public void Create(LanguageShortDTO languageDTO)
+        public async void CreateAsync(LanguageShortDTO languageDTO)
         {
-            _context.Database.EnsureCreated();
+            await _context.Database.EnsureCreatedAsync();
             var language = Mapper.Map<LanguageShortDTO, Language>(languageDTO);
-            _context.Languages.Add(language);
+            await _context.Languages.AddAsync(language);
             _context.SaveChanges();
         }
-        public void Update(LanguageDTO languageDTO)
+        public async void UpdateAsync(LanguageDTO languageDTO)
         {
             var language = Mapper.Map<LanguageDTO, Language>(languageDTO);
             _context.Languages.Update(language);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
-        public void Remove( int id)
+        public async void RemoveAsync(int id)
         {
-            var language = _context.Languages.Find(id);
+            var language = await _context.Languages.FindAsync(id);
             if (language != null)
             {
                 _context.Languages.Remove(language);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
         }
-        public LanguageDTO Get( int id)
+        public async Task<LanguageDTO> GetAsync( int id)
         {
-            var language = _context.Languages.Find(id);
+            var language = await _context.Languages.FindAsync(id);
             var languageDTO = Mapper.Map<Language, LanguageDTO>(language);
             return languageDTO;
         }

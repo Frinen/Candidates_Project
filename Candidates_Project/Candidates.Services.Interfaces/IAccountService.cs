@@ -5,15 +5,16 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Candidates.Services.Interfaces
 {
     public interface IAccountService
     {
-        void Create(AccountDTO accountDTO);
-        void Update(AccountDTO accountDTO);
-        void Remove(string login);
-        AccountDTO Get(string login);
+        void CreateAsync(AccountDTO accountDTO);
+        void UpdateAsync(AccountDTO accountDTO);
+        void RemoveAsync(string login);
+        Task<AccountDTO> GetAsync(string login);
         PageResponse<AccountShortDTO> Get(QuerySettings settings);
         string RequestToken(AccountDTO person);
     }

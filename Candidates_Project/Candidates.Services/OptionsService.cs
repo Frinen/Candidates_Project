@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text;
 using AutoMapper;
+using System.Threading.Tasks;
 
 namespace Candidates.Services
 {
@@ -19,31 +20,33 @@ namespace Candidates.Services
         {
             _context = context;
         }
-        public void Create(OptionsDTO optionsDTO)
+        public async void CreateAsync(OptionsDTO optionsDTO)
         {
-            _context.Database.EnsureCreated();
-            var options = Mapper.Map<OptionsDTO, Options>(optionsDTO);
-            _context.Options.Add(options);
-            _context.SaveChanges();
+            if (await _context.Database.EnsureCreatedAsync())
+            {
+                var options = Mapper.Map<OptionsDTO, Options>(optionsDTO);
+                await _context.Options.AddAsync(options);
+                await _context.SaveChangesAsync();
+            }
         }
-        public void Update(OptionsDTO optionsDTO) 
+        public async void UpdateAsync(OptionsDTO optionsDTO) 
         {
             var options = Mapper.Map<OptionsDTO, Options>(optionsDTO);
             _context.Options.Update(options);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
-        public void Remove( int candidateID)
+        public async void RemoveAsync( int candidateID)
         {
-            var options = _context.Options.Find(candidateID);
+            var options = await _context.Options.FindAsync(candidateID);
             if (options != null)
             {
                 _context.Options.Remove(options);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
         }
-        public OptionsDTO Get( int candidateID)
+        public async Task<OptionsDTO> GetAsync( int candidateID)
         {
-            var options = _context.Options.Find(candidateID);
+            var options = await _context.Options.FindAsync(candidateID);
             var optionsDTO = Mapper.Map<Options, OptionsDTO>(options);
             return optionsDTO;
         }

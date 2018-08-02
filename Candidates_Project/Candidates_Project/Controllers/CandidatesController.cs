@@ -24,9 +24,9 @@ namespace Candidates_Project.Controllers
         }
         [Route("api/Candidates/id")]
         [HttpGet]
-        public CandidateDetailsDTO Get(int id)
+        public Task<CandidateDetailsDTO> Get(int id)
         {
-            return _service.Get(id);
+            return _service.GetAsync(id);
         }
         [Route("api/Candidates/")]
         [HttpGet]
@@ -39,26 +39,21 @@ namespace Candidates_Project.Controllers
         [HttpDelete]
         public void Delete(int id)
         {
-            _service.Remove(id);
+            _service.RemoveAsync(id);
         }
         [Route("api/Candidates/")]
         [HttpPut]
         [Authorize(Roles = "hr")]
         public void Update(CandidateDetailsDTO candidate)
         {
-            _service.Update(candidate);
+            _service.UpdateAsync(candidate);
         }
         [Route("api/Candidates/")]
         [HttpPost]
         [Authorize(Roles = "hr")]
         public void Create(CandidateDTO candidate)
         {
-            _service.Create(candidate);
-
-            
+            _service.CreateAsync(candidate);
         }
-
-
-
     }
 }

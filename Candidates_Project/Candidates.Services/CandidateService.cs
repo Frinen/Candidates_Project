@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Candidates.Library;
 using AutoMapper;
 using Candidates.Models.DTO;
+using System.Threading.Tasks;
 
 namespace Candidates.Services
 {
@@ -20,32 +21,32 @@ namespace Candidates.Services
             _context = context;
            
         }
-        public void Create(CandidateDTO candidateDTO)
+        public async void CreateAsync(CandidateDTO candidateDTO)
         {
-            _context.Database.EnsureCreated();
+            await _context.Database.EnsureCreatedAsync();
             var candidate = Mapper.Map<CandidateDTO, Candidate>(candidateDTO);
-            _context.Candidates.Add(candidate);
-            _context.SaveChanges();
+            await _context.Candidates.AddAsync(candidate);
+            await _context.SaveChangesAsync();
         }
-        public void Update(CandidateDetailsDTO candidateDTO)
+        public async void UpdateAsync(CandidateDetailsDTO candidateDTO)
         {
             var candidate = Mapper.Map<CandidateDetailsDTO, Candidate>(candidateDTO);
             _context.Candidates.Update(candidate);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             
         }
-        public void Remove( int id)
+        public async void RemoveAsync( int id)
         {
-            var candidate = _context.Candidates.Find(id);
+            var candidate = await _context.Candidates.FindAsync(id);
             if (candidate != null)
             {
                 _context.Candidates.Remove(candidate);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
         }
-        public CandidateDetailsDTO Get( int id)
+        public async Task<CandidateDetailsDTO> GetAsync( int id)
         {
-            var candidate = _context.Candidates.Find(id);
+            var candidate = await _context.Candidates.FindAsync(id);
             var candidateDTO = Mapper.Map<Candidate, CandidateDetailsDTO>(candidate);
             return candidateDTO;
         }

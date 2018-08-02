@@ -5,15 +5,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Candidates.Services.Interfaces
 {
     public interface ILanguageService
     {
-        void Create(LanguageShortDTO languageDTO);
-        void Update(LanguageDTO languageDTO);
-        void Remove(int id);
-        LanguageDTO Get(int id);
+        void CreateAsync(LanguageShortDTO languageDTO);
+        void UpdateAsync(LanguageDTO languageDTO);
+        void RemoveAsync(int id);
+        Task<LanguageDTO> GetAsync(int id);
         PageResponse<LanguageDTO> Get(QuerySettings settings);
     }
 }

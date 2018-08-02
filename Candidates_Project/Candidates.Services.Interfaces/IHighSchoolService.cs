@@ -5,15 +5,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Candidates.Services.Interfaces
 {
     public interface IHighSchoolService
     {
-        void Create(HighSchoolShortDTO highSchoolDTO);
-        void Update(HighSchoolDTO highSchoolDTO);
-        void Remove(int id);
-        HighSchoolDTO Get(int id);
+        void CreateAsync(HighSchoolShortDTO highSchoolDTO);
+        void UpdateAsync(HighSchoolDTO highSchoolDTO);
+        void RemoveAsync(int id);
+        Task<HighSchoolDTO> GetAsync(int id);
         PageResponse<HighSchoolDTO> Get(QuerySettings settings);
     }
 }

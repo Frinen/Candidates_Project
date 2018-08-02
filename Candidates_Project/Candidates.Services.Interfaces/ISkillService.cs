@@ -5,15 +5,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Candidates.Services.Interfaces
 {
     public interface ISkillService
     {
-        void Create(SkillShortDTO skillDTO);
-        void Update(SkillDTO skillDTO);
-        void Remove(int id);
-        SkillDTO Get(int id);
+        void CreateAsync(SkillShortDTO skillDTO);
+        void UpdateAsync(SkillDTO skillDTO);
+        void RemoveAsync(int id);
+        Task<SkillDTO> GetAsync(int id);
         PageResponse<SkillDTO> Get(QuerySettings settings);
     }
 }

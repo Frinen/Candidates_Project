@@ -33,9 +33,9 @@ namespace Candidates_Project.Controllers
         [Route("api/AccountController/id")]
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public AccountDTO Get(string login)
+        public Task<AccountDTO> Get(string login)
         {
-            return _service.Get(login);
+            return _service.GetAsync(login);
         }
         [Route("api/AccountController/")]
         [HttpGet]
@@ -48,21 +48,21 @@ namespace Candidates_Project.Controllers
         [HttpDelete]
         public void Delete(string login)
         {
-            _service.Remove(login);
+            _service.RemoveAsync(login);
         }
         [Route("api/AccountController/")]
         [HttpPut]
-        [Authorize(Roles = "hadmin")]
+        [Authorize(Roles = "admin")]
         public void Update(AccountDTO candidate)
         {
-            _service.Update(candidate);
+            _service.UpdateAsync(candidate);
         }
         [Route("api/AccountController/")]
         [HttpPost]
         [Authorize(Roles = "admin")]
         public void Create(AccountDTO candidate)
         {
-            _service.Create(candidate);
+            _service.CreateAsync(candidate);
         }
 
     }

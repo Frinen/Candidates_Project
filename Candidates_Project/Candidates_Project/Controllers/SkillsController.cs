@@ -26,9 +26,9 @@ namespace Candidates_Project.Controllers
         // GET: Default/Details/5
         [Route("api/Skills/id")]
         [HttpGet]
-        public SkillDTO Get(int id)
+        public Task<SkillDTO> Get(int id)
         {
-            return _service.Get(id);
+            return _service.GetAsync(id);
         }
         [Route("api/Skills")]
         [HttpGet]
@@ -41,22 +41,21 @@ namespace Candidates_Project.Controllers
         [Authorize(Roles = "admin")]
         public void Delete(int id)
         {
-            _service.Remove(id);
+            _service.RemoveAsync(id);
         }
         [Route("api/Skills")]
         [HttpPut]
         [Authorize(Roles = "admin")]
         public void Change(SkillDTO skill)
         {
-            _service.Update(skill);
+            _service.UpdateAsync(skill);
         }
         [Route("api/Skills")]
         [HttpPost]
         [Authorize(Roles = "admin")]
         public void Create(SkillShortDTO skill)
         {
-            _service.Create(skill);
-            
+            _service.CreateAsync(skill);
         }
     }
 }

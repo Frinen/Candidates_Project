@@ -26,9 +26,9 @@ namespace Candidates_Project.Controllers
         // GET: Default/Details/5
         [Route("api/CandidatesSkills/skillID&candidateID")]
         [HttpGet]
-        public CandidateSkillDTO Get(int skillID, int candidateID)
+        public Task<CandidateSkillDTO> GetAsync(int skillID, int candidateID)
         {
-            return _service.Get(skillID, candidateID);
+            return _service.GetAsync(skillID, candidateID);
         }
         [Route("api/CandidatesSkill")]
         [HttpGet]
@@ -41,21 +41,21 @@ namespace Candidates_Project.Controllers
         [HttpDelete]
         public void Delete(int skillID, int candidateID)
         {
-            _service.Remove(skillID, candidateID);
+            _service.RemoveAsync(skillID, candidateID);
         }
         [Route("api/CandidatesSkills")]
         [HttpPut]
         [Authorize(Roles = "hr")]
         public void Update(CandidateSkillDTO candidateSkill)
         {
-            _service.Update(candidateSkill);
+            _service.UpdateAsync(candidateSkill);
         }
         [Route("api/CandidatesSkills")]
         [HttpPost]
         [Authorize(Roles = "hr")]
         public void Create(CandidateSkillDTO candidateSkill)
         {
-            _service.Create(candidateSkill);
+            _service.CreateAsync(candidateSkill);
         }
     }
 }

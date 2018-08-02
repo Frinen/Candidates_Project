@@ -12,6 +12,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Candidates.Services
 {
@@ -22,31 +23,31 @@ namespace Candidates.Services
         {
             _context = context;
         }
-        public void Create(AccountDTO accountDTO)
+        public async void CreateAsync(AccountDTO accountDTO)
         {
-            _context.Database.EnsureCreated();
+            await _context.Database.EnsureCreatedAsync();
             var account = Mapper.Map<AccountDTO, Account>(accountDTO);
-            _context.Accounts.Add(account);
-            _context.SaveChanges();
+            await _context.Accounts.AddAsync(account);
+            await _context.SaveChangesAsync();
         }
-        public void Update(AccountDTO accountDTO)
+        public async void UpdateAsync(AccountDTO accountDTO)
         {
             var account = Mapper.Map<AccountDTO, Account>(accountDTO);
             _context.Accounts.Update(account);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
-        public void Remove(string login)
+        public async void RemoveAsync(string login)
         {
-            var account = _context.Accounts.Find(login);
+            var account = await _context.Accounts.FindAsync(login);
             if (account != null)
             {
                 _context.Accounts.Remove(account);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
         }
-        public AccountDTO Get(string login)
+        public async Task<AccountDTO> GetAsync(string login)
         {
-            var account = _context.Accounts.Find(login);
+            var  account = await _context.Accounts.FindAsync(login);
             var accountDTO = Mapper.Map<Account, AccountDTO>(account);
             return accountDTO;
         }

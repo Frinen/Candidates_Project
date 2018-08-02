@@ -26,9 +26,9 @@ namespace Candidates_Project.Controllers
         // GET: Default/Details/5
         [Route("api/Options/id")]
         [HttpGet]
-        public OptionsDTO Get(int id)
+        public Task<OptionsDTO> Get(int id)
         {
-            return _service.Get(id);
+            return _service.GetAsync(id);
         }
         [Route("api/Options")]
         [HttpGet]
@@ -41,21 +41,21 @@ namespace Candidates_Project.Controllers
         [Authorize(Roles = "admin")]
         public void Delete(int id)
         {
-            _service.Remove(id);
+            _service.RemoveAsync(id);
         }
         [Route("api/Options")]
         [HttpPut]
         [Authorize(Roles = "admin")]
         public void Update(OptionsDTO options)
         {
-            _service.Update(options);
+            _service.UpdateAsync(options);
         }
         [Route("api/Options")]
         [HttpPost]
         [Authorize(Roles = "admin")]
         public void Create(OptionsDTO options)
         {
-            _service.Create(options);
+            _service.CreateAsync(options);
         }
     }
 }
