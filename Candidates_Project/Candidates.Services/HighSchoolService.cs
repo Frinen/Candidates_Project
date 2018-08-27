@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using AutoMapper;
 using System.Threading.Tasks;
-
+//jjk//
 namespace Candidates.Services
 {
     public class HighSchoolService : IHighSchoolService
